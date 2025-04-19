@@ -9,10 +9,10 @@ class FrontendController extends Controller
 {
     public function index()
     {
-        // Logic to fetch and display products
-        return view('Ecommerce.Mainindex');
+        $products = Product::get();
+        return view('Ecommerce.Mainindex',compact('products'));
     }
-    
+
      public function show($id)
     {
         $product = Product::findOrFail($id);
