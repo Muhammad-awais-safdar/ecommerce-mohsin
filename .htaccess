@@ -1,16 +1,10 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # Redirect HTTP to HTTPS
+    # Redirect to HTTPS
     RewriteCond %{HTTPS} !=on
     RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-    <IfModule mod_negotiation.c>
-        Options -MultiViews -Indexes
-    </IfModule>
-
-    # Laravel Routing: send requests to index.php
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^ index.php [L]
+    # Redirect to public folder
+    RewriteRule ^(.*)$ public/$1 [L]
 </IfModule>
