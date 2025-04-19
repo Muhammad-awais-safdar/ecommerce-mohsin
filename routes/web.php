@@ -44,7 +44,7 @@ Route::get('/order/{orderId}', [OrderItemController::class, 'show'])->name('orde
 
 
 
-Route::get('/run-migrate', function ($token) {
+Route::get('/run-migrate', function () {
 
     // Run migrate
     Artisan::call('migrate', ['--force' => true]);
@@ -53,7 +53,7 @@ Route::get('/run-migrate', function ($token) {
         'message' => 'Migration and seeding executed successfully.'
     ]);
 });
-Route::get('/run-seed', function ($token) {
+Route::get('/run-seed', function () {
     // Run seed
     Artisan::call('db:seed', ['--force' => true]);
 
