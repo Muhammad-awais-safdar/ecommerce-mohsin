@@ -4,14 +4,16 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\CartItemController;
+use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\OrderItemController;
 
 
 
 
-Route::get('/', [ProductController::class, 'index'])->name('home');
-Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
+Route::get('/', [FrontendController::class, 'index'])->name('home');
+Route::get('/product/{id}', [FrontendController::class, 'show'])->name('product.show');
 
 // Admin routes
 Route::get('/admin/products', [ProductController::class, 'admin'])->name('admin.products');
@@ -38,3 +40,25 @@ Route::post('/checkout', [OrderController::class, 'process'])->name('checkout.pr
 
 // OrderItem Routes (Optional, for viewing)
 Route::get('/order/{orderId}', [OrderItemController::class, 'show'])->name('order.show');
+
+
+
+
+Route::get('/run-migrate', function ($token) {
+
+    // Run migrate
+    Artisan::call('migrate', ['--force' => true]);
+    return response()->json([
+        'status' => 'success',
+        'message' => 'Migration and seeding executed successfully.'
+    ]);
+});
+Route::get('/run-seed', function ($token) {
+    // Run seed
+    Artisan::call('db:seed', ['--force' => true]);
+
+    return response()->json([
+        'status' => 'success',
+        'message' => 'Migration and seeding executed successfully.'
+    ]);
+});
