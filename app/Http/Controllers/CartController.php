@@ -8,39 +8,102 @@ use App\Models\Product;
 class CartController extends Controller
 {
 
-public function index() {
-    $products = Product::all();
-    return view('welcome', compact('products'));
-}
+    public function addToCart($id)
+    {
+        $product = Product::findOrFail($id);
 
-public function addToCart($id) {
-    $product = Product::findOrFail($id);
-    $cart = session()->get('cart', []);
+        $cart = session()->get('cart', []);
 
-    if (isset($cart[$id])) {
-        $cart[$id]['quantity']++;
-    } else {
-        $cart[$id] = [
-            "name" => $product->name,
-            "quantity" => 1,
-            "price" => $product->price,
-        ];
+        if (isset($cart[$id])) {
+            $cart[$id]['quantity']++;
+        } else {
+            $cart[$id] = [
+                'name' => $product->name,
+                'price' => $product->price,
+                'quantity' => 1,
+                'image' => $product->image ?? 'default.jpg', // Fallback image
+            ];
+        }
+
+        session()->put('cart', $cart);
+
+        $count = array_sum(array_map(function ($item) {
+            return $item['quantity'] ?? 0;
+        }, $cart));
+
+        $subtotal = 0;
+        $html = '';
+
+        foreach ($cart as $item) {
+            $qty = $item['quantity'] ?? 0;
+            $price = $item['price'] ?? 0;
+            $subtotal += $price * $qty;
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => "{$product->name} added to cart!",
+            'cart_count' => $count,
+            'subtotal' => '$' . number_format($subtotal, 2),
+        ]);
     }
 
-    session()->put('cart', $cart);
-    return redirect('/cart');
-}
 
-public function showCart() {
-    $cart = session('cart', []);
-    return view('cart', compact('cart'));
-}
 
-public function removeFromCart($id) {
-    $cart = session()->get('cart', []);
-    unset($cart[$id]);
-    session()->put('cart', $cart);
-    return back();
-}
+
+    public function showCart()
+    {
+        $cart = session('cart', []);
+        $subtotal = 0;
+
+        foreach ($cart as $item) {
+            $subtotal += $item['price'] * $item['quantity'];
+        }
+
+        return view('Ecommerce.pages.shoppingcart', compact('cart', 'subtotal'));
+    }
+
+    public function removeFromCart($id)
+    {
+        $cart = session()->get('cart', []);
+
+        if (isset($cart[$id])) {
+            unset($cart[$id]);
+            session()->put('cart', $cart);
+            $count = array_sum(array_map(function ($item) {
+                return $item['quantity'] ?? 0;
+            }, $cart));
+            return response()->json(['success' => true, 'cart_count' => $count, 'message' => 'Item removed from cart']);
+        }
+
+        return response()->json(['success' => false, 'message' => 'Item not found in cart'], 404);
+    }
+
+    public function updateItem(Request $request, $id)
+    {
+        $quantity = (int) $request->quantity;
+
+        if (session()->has('cart')) {
+            $cart = session()->get('cart');
+            if (isset($cart[$id])) {
+                $cart[$id]['quantity'] = $quantity;
+                session()->put('cart', $cart);
+
+                $itemTotal = $cart[$id]['price'] * $cart[$id]['quantity'];
+                $subtotal = collect($cart)->sum(function ($item) {
+                    return $item['price'] * $item['quantity'];
+                });
+
+                return response()->json([
+                    'success' => true,
+                    'item_total' => number_format($itemTotal, 2),
+                    'subtotal' => number_format($subtotal, 2)
+                ]);
+            }
+        }
+
+        return response()->json(['success' => false]);
+    }
+
 
 }

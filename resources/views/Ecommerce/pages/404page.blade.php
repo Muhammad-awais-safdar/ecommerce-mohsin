@@ -7,7 +7,7 @@
                 <div class="site-main">
                     <section class="error-404 not-found">
                         <div class="images">
-                            <img src="{{ asset(" assets/images/404.png") }}" alt="img">
+                            <img src="{{ asset("assets/images/404.png") }}" alt="img">
                         </div>
                         <div class="text-404">
                             <h1 class="page-title">

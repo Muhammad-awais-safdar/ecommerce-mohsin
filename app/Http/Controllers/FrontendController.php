@@ -10,10 +10,15 @@ class FrontendController extends Controller
     public function index()
     {
         $products = Product::get();
-        return view('Ecommerce.Mainindex',compact('products'));
+        return view('Ecommerce.Mainindex', compact('products'));
+    }
+    public function shop()
+    {
+        $products = Product::get();
+        return view('Ecommerce.pages.shop', compact('products'));
     }
 
-     public function show($id)
+    public function show($id)
     {
         $product = Product::findOrFail($id);
         return view('frontend.show', compact('product'));

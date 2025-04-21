@@ -44,7 +44,7 @@
                 <div class="row">
                     <div class="col-lg-3 col-sm-4 col-md-3 col-xs-7 col-ts-12 header-element">
                         <div class="logo">
-                            <a href="{{route('home')}}">
+                            <a href="{{ route('home') }}">
                                 <img src="assets/images/logo.png" alt="img">
                             </a>
                         </div>
@@ -53,18 +53,22 @@
                         <div class="header-nav-container rows-space-20">
                             <div class="container">
                                 <div class="header-nav-wapper main-menu-wapper">
-                        
+
                                     <div class="header-nav">
                                         <div class="container-wapper">
-                                            <ul class="stelina-clone-mobile-menu stelina-nav main-menu " id="menu-main-menu">
+                                            <ul class="stelina-clone-mobile-menu stelina-nav main-menu "
+                                                id="menu-main-menu">
                                                 <li class="menu-item ">
-                                                    <a href="{{route('home')}}" class="stelina-menu-item-title" title="Home">Home</a>
+                                                    <a href="{{ route('home') }}" class="stelina-menu-item-title"
+                                                        title="Home">Home</a>
                                                 </li>
                                                 <li class="menu-item ">
-                                                    <a href="gridproducts.html" class="stelina-menu-item-title" title="Shop">Shop</a>
+                                                    <a href="{{ route('shop') }}" class="stelina-menu-item-title"
+                                                        title="Shop">Shop</a>
                                                 </li>
                                                 <li class="menu-item">
-                                                    <a href="about.html" class="stelina-menu-item-title" title="About">About</a>
+                                                    <a href="about.html" class="stelina-menu-item-title"
+                                                        title="About">About</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -76,125 +80,14 @@
                     <div class="col-lg-2 col-sm-12 col-md-3 col-xs-12 col-ts-12">
                         <div class="header-control">
                             <div class="block-minicart stelina-mini-cart block-header stelina-dropdown">
-                                <a href="javascript:void(0);" class="shopcart-icon" data-stelina="stelina-dropdown">
+                                <a href="{{ route('showCart') }}" class="shopcart-icon" data-stelina="stelina-dropdown">
                                     Cart
-                                    <span class="count">
-                                        0
-                                    </span>
+                                    <span class="count"
+                                        id="cart-count">{{ session('cart') ? array_sum(array_column(session('cart'), 'quantity')) : 0 }}</span>
                                 </a>
-                                <div class="shopcart-description stelina-submenu">
-                                    <div class="content-wrap">
-                                        <h3 class="title">Shopping Cart</h3>
-                                        <ul class="minicart-items">
-                                            <li class="product-cart mini_cart_item">
-                                                <a href="#" class="product-media">
-                                                    <img src="assets/images/item-minicart-1.jpg" alt="img">
-                                                </a>
-                                                <div class="product-details">
-                                                    <h5 class="product-name">
-                                                        <a href="#">Bibliotheque</a>
-                                                    </h5>
-                                                    <div class="variations">
-                                                        <span class="attribute_color">
-                                                            <a href="#">Black</a>
-                                                        </span>
-                                                        ,
-                                                        <span class="attribute_size">
-                                                            <a href="#">300ml</a>
-                                                        </span>
-                                                    </div>
-                                                    <span class="product-price">
-                                                        <span class="price">
-                                                            <span>$45</span>
-                                                        </span>
-                                                    </span>
-                                                    <span class="product-quantity">
-                                                        (x1)
-                                                    </span>
-                                                    <div class="product-remove">
-                                                        <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                                                    </div>
-                                                </div>
-                                            </li>
 
-                                        </ul>
-                                        <div class="subtotal">
-                                            <span class="total-title">Subtotal: </span>
-                                            <span class="total-price">
-                                                <span class="Price-amount">
-                                                    $135
-                                                </span>
-                                            </span>
-                                        </div>
-                                        <div class="actions">
-                                            <a class="button button-viewcart" href="shoppingcart.html">
-                                                <span>View Bag</span>
-                                            </a>
-                                            <a href="checkout.html" class="button button-checkout">
-                                                <span>Checkout</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
-                            <div class="block-account block-header stelina-dropdown">
-                                <a href="javascript:void(0);" data-stelina="stelina-dropdown">
-                                    <span class="flaticon-user"></span>
-                                </a>
-                                <div class="header-account stelina-submenu">
-                                    <div class="header-user-form-tabs">
-                                        <ul class="tab-link">
-                                            <li class="active">
-                                                <a data-toggle="tab" aria-expanded="true"
-                                                    href="#header-tab-login">Login</a>
-                                            </li>
-                                            <li>
-                                                <a data-toggle="tab" aria-expanded="true"
-                                                    href="#header-tab-rigister">Register</a>
-                                            </li>
-                                        </ul>
-                                        <div class="tab-container">
-                                            <div id="header-tab-login" class="tab-panel active">
-                                                <form method="post" class="login form-login">
-                                                    <p class="form-row form-row-wide">
-                                                        <input type="email" placeholder="Email" class="input-text">
-                                                    </p>
-                                                    <p class="form-row form-row-wide">
-                                                        <input type="password" class="input-text"
-                                                            placeholder="Password">
-                                                    </p>
-                                                    <p class="form-row">
-                                                        <label class="form-checkbox">
-                                                            <input type="checkbox" class="input-checkbox">
-                                                            <span>
-                                                                Remember me
-                                                            </span>
-                                                        </label>
-                                                        <input type="submit" class="button" value="Login">
-                                                    </p>
-                                                    <p class="lost_password">
-                                                        <a href="#">Lost your password?</a>
-                                                    </p>
-                                                </form>
-                                            </div>
-                                            <div id="header-tab-rigister" class="tab-panel">
-                                                <form method="post" class="register form-register">
-                                                    <p class="form-row form-row-wide">
-                                                        <input type="email" placeholder="Email" class="input-text">
-                                                    </p>
-                                                    <p class="form-row form-row-wide">
-                                                        <input type="password" class="input-text"
-                                                            placeholder="Password">
-                                                    </p>
-                                                    <p class="form-row">
-                                                        <input type="submit" class="button" value="Register">
-                                                    </p>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        
                             <a class="menu-bar mobile-navigation menu-toggle" href="#">
                                 <span></span>
                                 <span></span>
@@ -205,7 +98,7 @@
                 </div>
             </div>
         </div>
-      
+
     </header>
     <div class="header-device-mobile">
         <div class="wapper">
@@ -344,7 +237,7 @@
     <div class="footer-device-mobile">
         <div class="wapper">
             <div class="footer-device-mobile-item device-home">
-                <a href="{{route('home')}}">
+                <a href="{{ route('home') }}">
                     <span class="icon">
                         <i class="fa fa-home" aria-hidden="true"></i>
                     </span>
@@ -385,6 +278,7 @@
     </a>
     <script src="assets/js/jquery-1.12.4.min.js"></script>
     <script src="assets/js/jquery.plugin-countdown.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="assets/js/jquery-countdown.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/owl.carousel.min.js"></script>
@@ -402,6 +296,7 @@
     <script src="assets/js/owl.thumbs.min.js"></script>
     <script src="assets/js/jquery.scrollbar.min.js"></script>
     <script src="assets/js/frontend-plugin.js"></script>
+    @stack('scripts')
 </body>
 
 <!-- Mirrored from dreamingtheme.kiendaotac.com/html/stelina/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 18 Apr 2025 19:44:11 GMT -->
