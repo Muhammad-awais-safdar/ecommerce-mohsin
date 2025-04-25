@@ -1,4 +1,4 @@
-@extends('ecommerce.layouts.app')
+@extends('Ecommerce.layouts.app')
 @section('content')
     <div class="main-content main-content-checkout">
         <div class="container">
@@ -77,22 +77,22 @@
                                 <ul class="list-product-order">
                                     @php $subtotal = 0; @endphp
                                     @foreach ($cart as $id => $item)
-                                        @php
-                                            $itemTotal = $item['price'] * $item['quantity'];
-                                            $subtotal += $itemTotal;
-                                        @endphp
-                                        <li class="product-item-order">
-                                            <div class="product-thumb">
-                                                <img src="{{ asset('storage/' . ($item['image'] ?? 'default.jpg')) }}"
-                                                    alt="img">
-                                            </div>
-                                            <div class="product-order-inner">
-                                                <h5 class="product-name">{{ $item['name'] }}</h5>
-                                                <div class="price">
-                                                    ${{ $item['price'] }} x {{ $item['quantity'] }}
-                                                </div>
-                                            </div>
-                                        </li>
+                                                                    @php
+                                                                        $itemTotal = $item['price'] * $item['quantity'];
+                                                                        $subtotal += $itemTotal;
+                                                                    @endphp
+                                                                    <li class="product-item-order">
+                                                                        <div class="product-thumb">
+                                                                            <img src="{{ asset('storage/' . ($item['image'] ?? 'default.jpg')) }}"
+                                                                                alt="img">
+                                                                        </div>
+                                                                        <div class="product-order-inner">
+                                                                            <h5 class="product-name">{{ $item['name'] }}</h5>
+                                                                            <div class="price">
+                                                                                ${{ $item['price'] }} x {{ $item['quantity'] }}
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
                                     @endforeach
                                 </ul>
                                 <div class="order-total">

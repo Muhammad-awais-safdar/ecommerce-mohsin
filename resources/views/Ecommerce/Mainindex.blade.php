@@ -1,6 +1,5 @@
 @extends('Ecommerce.layouts.app')
 @section('content')
-<div>
     <div class="fullwidth-template">
         <div class="home-slider-banner">
             <div class="container">
@@ -522,7 +521,7 @@
                 </div>
             </div>
         </div>
-        <div class="stelina-tabs default rows-space-40">
+        <div class="stelina-tabs  default rows-space-40">
             <div class="container">
                 <div class="tab-head">
                     <ul class="tab-link">
@@ -541,7 +540,7 @@
                     <div id="bestseller" class="tab-panel active">
                         <div class="stelina-product">
                             <ul class="row list-products auto-clear equal-container product-grid">
-                                <li class="product-item col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1">
+                                <li class="product-item  col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1">
                                     <div class="product-inner equal-element">
                                         <div class="product-top">
                                             <div class="flash">
@@ -764,7 +763,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class="product-item col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1">
+                                <li class="product-item  col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1">
                                     <div class="product-inner equal-element">
                                         <div class="product-top">
                                             <div class="flash">
@@ -931,7 +930,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class="product-item col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1">
+                                <li class="product-item  col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1">
                                     <div class="product-inner equal-element">
                                         <div class="product-top">
                                             <div class="flash">
@@ -992,7 +991,7 @@
                     <div id="new_arrivals" class="tab-panel">
                         <div class="stelina-product">
                             <ul class="row list-products auto-clear equal-container product-grid">
-                                <li class="product-item col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1">
+                                <li class="product-item  col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1">
                                     <div class="product-inner equal-element">
                                         <div class="product-top">
                                             <div class="flash">
@@ -1215,7 +1214,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class="product-item col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1">
+                                <li class="product-item  col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1">
                                     <div class="product-inner equal-element">
                                         <div class="product-top">
                                             <div class="flash">
@@ -1382,7 +1381,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class="product-item col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1">
+                                <li class="product-item  col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1">
                                     <div class="product-inner equal-element">
                                         <div class="product-top">
                                             <div class="flash">
@@ -1443,7 +1442,7 @@
                     <div id="top-rated" class="tab-panel">
                         <div class="stelina-product">
                             <ul class="row list-products auto-clear equal-container product-grid">
-                                <li class="product-item col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1">
+                                <li class="product-item  col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1">
                                     <div class="product-inner equal-element">
                                         <div class="product-top">
                                             <div class="flash">
@@ -1666,7 +1665,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class="product-item col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1">
+                                <li class="product-item  col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1">
                                     <div class="product-inner equal-element">
                                         <div class="product-top">
                                             <div class="flash">
@@ -1833,7 +1832,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class="product-item col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1">
+                                <li class="product-item  col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1">
                                     <div class="product-inner equal-element">
                                         <div class="product-top">
                                             <div class="flash">
@@ -1898,7 +1897,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 col-sm-4">
-                        <div class="stelina-iconbox default">
+                        <div class="stelina-iconbox  default">
                             <div class="iconbox-inner">
                                 <div class="icon-item">
                                     <span class="icon flaticon-rocket-ship"></span>
@@ -1915,7 +1914,7 @@
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-4">
-                        <div class="stelina-iconbox default">
+                        <div class="stelina-iconbox  default">
                             <div class="iconbox-inner">
                                 <div class="icon-item">
                                     <span class="icon flaticon-return"></span>
@@ -1932,7 +1931,7 @@
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-4">
-                        <div class="stelina-iconbox default">
+                        <div class="stelina-iconbox  default">
                             <div class="iconbox-inner">
                                 <div class="icon-item">
                                     <span class="icon flaticon-padlock"></span>
@@ -2086,11 +2085,9 @@
                             <div class="post-thumb">
                                 <div class="video-stelina-blog">
                                     <figure>
-                                        <img src="assets/images/slider-blog-thumb-3.jpg" alt="img" width="370"
-                                            height="280">
-                                    </figure>
-                                    <a class="quick-install" href="#" data-videosite="vimeo"
-                                        data-videoid="134060140"></a>
+                                        <img src="assets/images/slider-blog-thumb-3.jpg" alt="img" width="370" <a
+                                            class="quick-install" href="#" data-videosite="vimeo"
+                                            data-videoid="134060140"></a>
                                 </div>
                                 <div class="category-blog">
                                     <ul class="list-category">
@@ -2214,6 +2211,5 @@
             </div>
         </div>
     </div>
-</div>
 
 @endsection

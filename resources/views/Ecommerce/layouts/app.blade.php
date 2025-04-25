@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/favicon.png')}}" />
     <link
         href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;display=swap"
         rel="stylesheet">
@@ -87,7 +87,7 @@
                                 </a>
 
                             </div>
-                        
+
                             <a class="menu-bar mobile-navigation menu-toggle" href="#">
                                 <span></span>
                                 <span></span>
@@ -276,29 +276,26 @@
     <a href="#" class="backtotop">
         <i class="fa fa-angle-double-up"></i>
     </a>
-    <script src="assets/js/jquery-1.12.4.min.js"></script>
-    <script src="assets/js/jquery.plugin-countdown.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="assets/js/jquery-countdown.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/owl.carousel.min.js"></script>
-    <script src="assets/js/magnific-popup.min.js"></script>
-    <script src="assets/js/isotope.min.js"></script>
-    <script src="assets/js/jquery.scrollbar.min.js"></script>
-    <script src="assets/js/jquery-ui.min.js"></script>
-    <script src="assets/js/mobile-menu.js"></script>
-    <script src="assets/js/chosen.min.js"></script>
-    <script src="assets/js/slick.js"></script>
-    <script src="assets/js/jquery.elevateZoom.min.js"></script>
-    <script src="assets/js/jquery.actual.min.js"></script>
-    <script src="assets/js/fancybox/source/jquery.fancybox.js"></script>
-    <script src="assets/js/lightbox.min.js"></script>
-    <script src="assets/js/owl.thumbs.min.js"></script>
-    <script src="assets/js/jquery.scrollbar.min.js"></script>
-    <script src="assets/js/frontend-plugin.js"></script>
+   <script src="assets/js/jquery-1.12.4.min.js"></script>
+<script src="assets/js/jquery.plugin-countdown.min.js"></script>
+<script src="assets/js/jquery-countdown.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/owl.carousel.min.js"></script>
+<script src="assets/js/magnific-popup.min.js"></script>
+<script src="assets/js/isotope.min.js"></script>
+<script src="assets/js/jquery.scrollbar.min.js"></script>
+<script src="assets/js/jquery-ui.min.js"></script>
+<script src="assets/js/mobile-menu.js"></script>
+<script src="assets/js/chosen.min.js"></script>
+<script src="assets/js/slick.js"></script>
+<script src="assets/js/jquery.elevateZoom.min.js"></script>
+<script src="assets/js/jquery.actual.min.js"></script>
+<script src="assets/js/fancybox/source/jquery.fancybox.js"></script>
+<script src="assets/js/lightbox.min.js"></script>
+<script src="assets/js/owl.thumbs.min.js"></script>
+<script src="assets/js/jquery.scrollbar.min.js"></script>
+<script src="assets/js/frontend-plugin.js"></script>
     @stack('scripts')
 </body>
-
-<!-- Mirrored from dreamingtheme.kiendaotac.com/html/stelina/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 18 Apr 2025 19:44:11 GMT -->
 
 </html>
