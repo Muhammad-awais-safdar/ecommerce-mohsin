@@ -2,11 +2,14 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\RefundRequestController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
-use Livewire\Mechanisms\FrontendAssets\FrontendAssets;
+
+
 
 
 
@@ -62,6 +65,8 @@ Route::get('/run-seed', function () {
 
 
 
+Route::get('/refund-request', [RefundRequestController::class, 'create'])->name('refund.request.form');
+Route::post('/refund-request', [RefundRequestController::class, 'store'])->name('refund.request.store');
 
 
 
@@ -69,3 +74,6 @@ Route::get('/run-seed', function () {
 Route::fallback(function () {
     return view('Ecommerce.pages.404page');
 });
+
+
+Route::get('/{slug}', [PageController::class, 'show'])->name('pages.show');

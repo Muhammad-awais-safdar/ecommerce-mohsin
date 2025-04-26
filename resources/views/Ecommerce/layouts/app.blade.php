@@ -10,21 +10,22 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="assets/css/animate.min.css">
-    <link rel="stylesheet" href="assets/css/jquery-ui.css">
-    <link rel="stylesheet" href="assets/css/slick.css">
-    <link rel="stylesheet" href="assets/css/chosen.min.css">
-    <link rel="stylesheet" href="assets/css/pe-icon-7-stroke.css">
-    <link rel="stylesheet" href="assets/css/magnific-popup.min.css">
-    <link rel="stylesheet" href="assets/css/lightbox.min.css">
-    <link rel="stylesheet" href="assets/js/fancybox/source/jquery.fancybox.css">
-    <link rel="stylesheet" href="assets/css/jquery.scrollbar.min.css">
-    <link rel="stylesheet" href="assets/css/mobile-menu.css">
-    <link rel="stylesheet" href="assets/fonts/flaticon/flaticon.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/animate.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/chosen.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/pe-icon-7-stroke.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/lightbox.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/js/fancybox/source/jquery.fancybox.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/jquery.scrollbar.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/mobile-menu.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/fonts/flaticon/flaticon.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    @stack('styles')
 </head>
 
 <body class="home">
@@ -186,20 +187,11 @@
                         <div class="stelina-custommenu default">
                             <h2 class="widgettitle">Information</h2>
                             <ul class="menu">
+                                @foreach(App\Models\Page::all() as $page)
+                                    <li><a href="{{ url($page->slug) }}">{{ $page->name }}</a></li>
+                                @endforeach
                                 <li class="menu-item">
-                                    <a href="#">FAQs</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#">Track Order</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#">Delivery</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#">Contact Us</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#">Return</a>
+                                    <a href="{{ route('refund.request.form') }}">Apply Refund</a>
                                 </li>
                             </ul>
                         </div>
@@ -228,7 +220,9 @@
                                 </ul>
                             </div>
                             <div class="coppyright">
-                                Copyright © 2020
+                                Copyright © @php
+                                    echo date('Y');
+                                @endphp
                                 <a href="#">Stelina</a>
                                 . All rights reserved
                             </div>

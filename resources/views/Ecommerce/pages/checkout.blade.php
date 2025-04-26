@@ -41,7 +41,15 @@
                                     <label class="text">Last name</label>
                                     <input type="text" class="input-text" name="last_name" required>
                                 </p>
+                                <p class="form-row form-row-first">
+                                    <label class="text">Email</label>
+                                    <input type="email" class="input-text" name="customer_email" required>
+                                </p>
 
+                                <p class="form-row form-row-last">
+                                    <label class="text">Phone number</label>
+                                    <input type="text" class="input-text" name="customer_phone" required>
+                                </p>
                                 <p class="form-row form-row-first">
                                     <label class="text">Country</label>
                                     <input type="text" class="input-text" name="country" required>
@@ -58,73 +66,55 @@
                                     <label class="text">Zip code</label>
                                     <input type="text" class="input-text" name="zip" required>
                                 </p>
-                                <p class="form-row form-row-first">
+
+
+                                <p class="form-row">
+
                                     <label class="text">Address</label>
                                     <input type="text" class="input-text" name="address" required>
-                                </p>
-
-                                <p class="form-row form-row-last">
-                                    <label class="text">Phone number</label>
-                                    <input type="text" class="input-text" name="customer_phone" required>
                                 </p>
                             </div>
                         </div>
 
                         {{-- Order Summary --}}
-                        <div class="row-col-2 row-col">
-                            <div class="your-order">
-                                <h3 class="title-form">Your Order</h3>
-                                <ul class="list-product-order">
-                                    @php $subtotal = 0; @endphp
-                                    @foreach ($cart as $id => $item)
-                                                                    @php
-                                                                        $itemTotal = $item['price'] * $item['quantity'];
-                                                                        $subtotal += $itemTotal;
-                                                                    @endphp
-                                                                    <li class="product-item-order">
-                                                                        <div class="product-thumb">
-                                                                            <img src="{{ asset('storage/' . ($item['image'] ?? 'default.jpg')) }}"
-                                                                                alt="img">
-                                                                        </div>
-                                                                        <div class="product-order-inner">
-                                                                            <h5 class="product-name">{{ $item['name'] }}</h5>
-                                                                            <div class="price">
-                                                                                ${{ $item['price'] }} x {{ $item['quantity'] }}
-                                                                            </div>
-                                                                        </div>
-                                                                    </li>
-                                    @endforeach
-                                </ul>
-                                <div class="order-total">
-                                    <span class="title">Total Price:</span>
-                                    <span class="total-price">${{ $subtotal }}</span>
+                        @if (isset($cart) && count($cart) > 0)
+                            <div class="row-col-2 row-col">
+                                <div class="your-order">
+                                    <h3 class="title-form">Your Order</h3>
+                                    <ul class="list-product-order">
+                                        @php $subtotal = 0; @endphp
+                                        @foreach ($cart as $id => $item)
+                                            @php
+                                                $itemTotal = $item['price'] * $item['quantity'];
+                                                $subtotal += $itemTotal;
+                                            @endphp
+                                            <li class="product-item-order">
+                                                <div class="product-thumb">
+                                                    <img src="{{ asset('storage/' . ($item['image'] ?? 'default.jpg')) }}"
+                                                        alt="Product Image">
+                                                </div>
+                                                <div class="product-order-inner">
+                                                    <h5 class="product-name">{{ $item['name'] ?? 'Unknown Product' }}</h5>
+                                                    <div class="price">
+                                                        ${{ number_format($item['price'], 2) }} x {{ $item['quantity'] }}
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+
+                                    <div class="order-total">
+                                        <span class="title">Total Price:</span>
+                                        <span class="total-price">${{ number_format($subtotal, 2) }}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="form-row">
-                            <button type="submit" class="button button-payment">Place Order</button>
-                        </div>
+                            <div class="form-row">
+                                <button type="submit" class="button button-payment">Place Order</button>
+                            </div>
+                        @endif
                     </div>
-                </form>
-
-
-                <div class="end-checkout-wrapp">
-                    <div class="end-checkout checkout-form">
-                        <div class="icon">
-                        </div>
-                        <h3 class="title-checkend">
-                            Congratulation! Your order has been processed.
-                        </h3>
-                        <div class="sub-title">
-                            Aenean dui mi, tempus non volutpat eget, molestie a orci.
-                            Nullam eget sem et eros laoreet rutrum.
-                            Quisque sem ante, feugiat quis lorem in.
-                        </div>
-                        <a href="#" class="button btn-return">Return to Store</a>
-                    </div>
-                </div>
             </div>
         </div>
-    </div>
-@endsection
+    @endsection

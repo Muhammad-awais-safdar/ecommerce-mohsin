@@ -10,16 +10,15 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('refund_requests', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('order_id')->constrained()->onDelete('cascade');
             $table->string('customer_name');
-            $table->string('customer_phone');
-            $table->text('shipping_address');
-            $table->decimal('total_amount', 10, 2);
-            $table->string('status')->default('pending'); // pending, paid
+            $table->string('customer_email');
+            $table->text('reason');
+            $table->enum('status', ['pending', 'approved', 'denied'])->default('pending');
             $table->timestamps();
         });
-
     }
 
     /**
@@ -27,6 +26,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('refund_requests');
     }
 };

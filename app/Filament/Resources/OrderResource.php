@@ -25,6 +25,7 @@ class OrderResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
+        
             ->schema([
                 TextInput::make('customer_name')->disabled(),
                 TextInput::make('customer_phone')->disabled(),
@@ -41,10 +42,11 @@ class OrderResource extends Resource
                 TextColumn::make('id')->sortable(),
                 TextColumn::make('customer_name'),
                 TextColumn::make('customer_phone'),
+                TextColumn::make('customer_email'),
                 TextColumn::make('total_amount'),
                 TextColumn::make('status'),
-                TextColumn::make('created_at')->dateTime(),
-            ])
+                TextColumn::make('created_at')->since()->sortable(),
+            ])->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])

@@ -29,6 +29,7 @@ class CheckoutController extends Controller
         $request->validate([
             'first_name' => 'required|string|max:100',
             'last_name' => 'required|string|max:100',
+            'customer_email' => 'required|email|max:100',
             'customer_phone' => 'required|string|max:20',
             'address' => 'required|string',
             'country' => 'required|string',
@@ -53,6 +54,7 @@ class CheckoutController extends Controller
 
         try {
             $order = Order::create([
+                'customer_email' => $request->customer_email,
                 'customer_name' => $request->first_name . ' ' . $request->last_name,
                 'customer_phone' => $request->customer_phone,
                 'shipping_address' => $request->address . ', ' . $request->city . ', ' . $request->state . ', ' . $request->country . ' - ' . $request->zip,
@@ -72,6 +74,7 @@ class CheckoutController extends Controller
             DB::commit();
 
             // Clear cart
+            // dd($order);
             session()->forget('cart');
 
             return redirect()->route('checkout.payment', ['order_id' => $order->id])->with('success', 'Order placed successfully!');
@@ -94,6 +97,7 @@ class CheckoutController extends Controller
         try {
             $session = Session::create([
                 'payment_method_types' => ['card'],
+                'customer_email' => $order->customer_email,
                 'line_items' => [
                     [
                         'price_data' => [
@@ -107,10 +111,13 @@ class CheckoutController extends Controller
                     ]
                 ],
                 'mode' => 'payment',
-                'success_url' => route('payment.success'),
-                'cancel_url' => route('payment.failure'),
+
+                'success_url' => route('payment.success', ['order_id' => $order->id]),
+                'cancel_url' => route('payment.failure', ['order_id' => $order->id]),
+
                 'metadata' => [
                     'order_id' => $order->id,
+                    'customer_email' => $order->customer_email,
                 ],
             ]);
 
