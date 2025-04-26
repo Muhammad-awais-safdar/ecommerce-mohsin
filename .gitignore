@@ -1,1 +1,42 @@
 
+# Laravel & PHP
+/vendor
+/node_modules
+/public/storage
+/storage/*.key
+.env
+.env.*
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+
+# Laravel IDE Helper
+_ide_helper.php
+.phpstorm.meta.php
+
+# Laravel Telescope
+storage/telescope
+
+# Laravel Horizon
+horizon.log
+
+# Cache & logs
+/storage/framework/*
+!/storage/framework/.gitignore
+/storage/logs/*
+!/storage/logs/.gitignore
+
+# Vite
+/public/hot
+/public/mix-manifest.json
+/public/build
+
+# Ignored by default
+.DS_Store
+Thumbs.db
+
+# OS-specific
+.idea
+*.swp
