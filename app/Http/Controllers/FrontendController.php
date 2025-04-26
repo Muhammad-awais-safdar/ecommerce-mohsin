@@ -14,7 +14,7 @@ class FrontendController extends Controller
     }
     public function shop()
     {
-        $products = Product::get();
+        $products = Product::paginate(12);
         return view('Ecommerce.pages.shop', compact('products'));
     }
 
