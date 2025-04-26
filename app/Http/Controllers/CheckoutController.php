@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Stripe\Stripe;
+use Stripe\Checkout\Session;
+// use App\Models\Order;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Support\Facades\Http;
@@ -80,30 +82,42 @@ class CheckoutController extends Controller
         }
     }
 
-public function payment(Request $request)
-{
-     $orderId = $request->query('order_id');
 
-    $order = Order::findOrFail($orderId);
 
-    $accessToken = 'your_revolut_access_token'; // Replace with your token
+    public function payment(Request $request)
+    {
+        $orderId = $request->query('order_id');
+        $order = Order::findOrFail($orderId);
 
-    $response = Http::withToken($accessToken)->post('https://merchant.revolut.com/api/1.0/orders', [
-        'amount' => $order->total_amount * 100, // Amount in cents
-        'currency' => 'USD',
-        'merchant_order_ext_ref' => 'ORDER_' . $order->id,
-        'capture_mode' => 'AUTOMATIC',
-        'description' => 'Payment for Order #' . $order->id,
-        'customer_email' => 'test@example.com', // Replace if you have email field
-        'success_url' => url('/payment/success'),
-        'failure_url' => url('/payment/failure'),
-    ]);
+        Stripe::setApiKey(config('services.stripe.secret'));
 
-    if ($response->successful()) {
-        return redirect($response['checkout_url']);
-    } else {
-        return back()->with('error', 'Failed to initialize payment: ' . json_encode($response->json()));
+        try {
+            $session = Session::create([
+                'payment_method_types' => ['card'],
+                'line_items' => [
+                    [
+                        'price_data' => [
+                            'currency' => 'usd',
+                            'product_data' => [
+                                'name' => 'Order #' . $order->id,
+                            ],
+                            'unit_amount' => $order->total_amount * 100, // in cents
+                        ],
+                        'quantity' => 1,
+                    ]
+                ],
+                'mode' => 'payment',
+                'success_url' => route('payment.success'),
+                'cancel_url' => route('payment.failure'),
+                'metadata' => [
+                    'order_id' => $order->id,
+                ],
+            ]);
+
+            return redirect($session->url);
+        } catch (\Exception $e) {
+            return back()->with('error', 'Stripe Error: ' . $e->getMessage());
+        }
     }
-}
 
 }

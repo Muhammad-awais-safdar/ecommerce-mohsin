@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\FrontendController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -31,8 +32,9 @@ Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.s
 // Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
 Route::get('/checkout/payment', [CheckoutController::class, 'payment'])->name('checkout.payment');
 
-Route::get('/payment/success', fn() => '🎉 Payment successful!');
-Route::get('/payment/failure', fn() => '❌ Payment failed.');
+
+Route::get('/payment/success', [PaymentController::class, 'success'])->name('payment.success');
+Route::get('/payment/failure', [PaymentController::class, 'failure'])->name('payment.failure');
 
 
 

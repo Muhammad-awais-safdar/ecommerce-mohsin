@@ -35,8 +35,8 @@ return [
         ],
     ],
 
-    'revolut' => [
-        'api_key' => env('REVOLUT_API_KEY'),
-        'api_url' => env('REVOLUT_API_URL'),
-    ],
+    'stripe' => [
+    'secret' => env('STRIPE_SECRET_KEY'),
+],
+
 ];
