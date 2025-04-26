@@ -67,8 +67,12 @@
                                                         title="Shop">Shop</a>
                                                 </li>
                                                 <li class="menu-item">
-                                                    <a href="about.html" class="stelina-menu-item-title"
+                                                    <a href="{{ route('about') }}" class="stelina-menu-item-title"
                                                         title="About">About</a>
+                                                </li>
+                                                <li class="menu-item">
+                                                    <a href="{{ route('contact') }}" class="stelina-menu-item-title"
+                                                        title="contact Us">Contact</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -79,7 +83,7 @@
                     </div>
                     <div class="col-lg-2 col-sm-12 col-md-3 col-xs-12 col-ts-12">
                         <div class="header-control">
-                            <div class="block-minicart stelina-mini-cart block-header stelina-dropdown">
+                            <div class="block-minicart block-header">
                                 <a href="{{ route('showCart') }}" class="shopcart-icon" data-stelina="stelina-dropdown">
                                     Cart
                                     <span class="count"
@@ -276,25 +280,25 @@
     <a href="#" class="backtotop">
         <i class="fa fa-angle-double-up"></i>
     </a>
-   <script src="assets/js/jquery-1.12.4.min.js"></script>
-<script src="assets/js/jquery.plugin-countdown.min.js"></script>
-<script src="assets/js/jquery-countdown.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/js/owl.carousel.min.js"></script>
-<script src="assets/js/magnific-popup.min.js"></script>
-<script src="assets/js/isotope.min.js"></script>
-<script src="assets/js/jquery.scrollbar.min.js"></script>
-<script src="assets/js/jquery-ui.min.js"></script>
-<script src="assets/js/mobile-menu.js"></script>
-<script src="assets/js/chosen.min.js"></script>
-<script src="assets/js/slick.js"></script>
-<script src="assets/js/jquery.elevateZoom.min.js"></script>
-<script src="assets/js/jquery.actual.min.js"></script>
-<script src="assets/js/fancybox/source/jquery.fancybox.js"></script>
-<script src="assets/js/lightbox.min.js"></script>
-<script src="assets/js/owl.thumbs.min.js"></script>
-<script src="assets/js/jquery.scrollbar.min.js"></script>
-<script src="assets/js/frontend-plugin.js"></script>
+    <script src="assets/js/jquery-1.12.4.min.js"></script>
+    <script src="assets/js/jquery.plugin-countdown.min.js"></script>
+    <script src="assets/js/jquery-countdown.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <script src="assets/js/magnific-popup.min.js"></script>
+    <script src="assets/js/isotope.min.js"></script>
+    <script src="assets/js/jquery.scrollbar.min.js"></script>
+    <script src="assets/js/jquery-ui.min.js"></script>
+    <script src="assets/js/mobile-menu.js"></script>
+    <script src="assets/js/chosen.min.js"></script>
+    <script src="assets/js/slick.js"></script>
+    <script src="assets/js/jquery.elevateZoom.min.js"></script>
+    <script src="assets/js/jquery.actual.min.js"></script>
+    <script src="assets/js/fancybox/source/jquery.fancybox.js"></script>
+    <script src="assets/js/lightbox.min.js"></script>
+    <script src="assets/js/owl.thumbs.min.js"></script>
+    <script src="assets/js/jquery.scrollbar.min.js"></script>
+    <script src="assets/js/frontend-plugin.js"></script>
     @stack('scripts')
 </body>
 
