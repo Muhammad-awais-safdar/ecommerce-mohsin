@@ -638,8 +638,10 @@ namespace App\Models {
      *
      * @property string $content
      * @property string $name
+     * @property string $slug
      * @property int $id
      * @method static \Illuminate\Database\Eloquent\Builder<Page>|Page whereId($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Page>|Page whereSlug($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Page>|Page whereName($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Page>|Page whereContent($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Page>|Page newModelQuery()
