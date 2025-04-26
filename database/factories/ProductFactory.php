@@ -25,7 +25,7 @@ class ProductFactory extends Factory
             'name' => 'Perfume - ' . $this->faker->word(), // Example: Perfume - Rose
             'description' => $this->faker->paragraph(), // Random description
             'price' => $this->faker->randomFloat(2, 10, 200), // Random price between 10 and 200
-            'image' => $this->faker->imageUrl(640, 480, 'fashion', true), // Random image URL
+            'image' => 'https://placehold.co/600x400', // Random image URL
             'created_at' => now(),
             'updated_at' => now(),
         ];
