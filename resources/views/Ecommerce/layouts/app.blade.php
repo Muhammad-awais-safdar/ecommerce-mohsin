@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/animate.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/chosen.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/pe-icon-7-stroke.css') }}">
@@ -22,9 +24,15 @@
     <link rel="stylesheet" href="{{ asset('assets/css/lightbox.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/js/fancybox/source/jquery.fancybox.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/jquery.scrollbar.min.css') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <link rel="stylesheet" href="{{ asset('assets/css/mobile-menu.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/fonts/flaticon/flaticon.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <!-- SweetAlert2 CSS & JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     @stack('styles')
 </head>
 
@@ -42,11 +50,11 @@
         </div>
         <div class="container">
             <div class="main-header">
-                <div class="row">
+                <div class="row d-flex align-items-center justify-content-center">
                     <div class="col-lg-3 col-sm-4 col-md-3 col-xs-7 col-ts-12 header-element">
                         <div class="logo">
                             <a href="{{ route('home') }}">
-                                <img src="assets/images/logo.png" alt="img">
+                                <img src="{{ asset('assets/images/logo.png') }}" alt="img">
                             </a>
                         </div>
                     </div>
@@ -246,57 +254,49 @@
                     Home
                 </a>
             </div>
-            <div class="footer-device-mobile-item device-home device-wishlist">
-                <a href="#">
-                    <span class="icon">
-                        <i class="fa fa-heart" aria-hidden="true"></i>
-                    </span>
-                    Wishlist
-                </a>
-            </div>
+
             <div class="footer-device-mobile-item device-home device-cart">
-                <a href="#">
+
+                <a href="{{ route('showCart') }}">
                     <span class="icon">
                         <i class="fa fa-shopping-basket" aria-hidden="true"></i>
-                        <span class="count-icon">
-                            0
-                        </span>
+                        <span class="count-icon"
+                            id="cart-count">{{ session('cart') ? array_sum(array_column(session('cart'), 'quantity')) : 0 }}</span>
                     </span>
                     <span class="text">Cart</span>
                 </a>
             </div>
-            <div class="footer-device-mobile-item device-home device-user">
-                <a href="login.html">
-                    <span class="icon">
-                        <i class="fa fa-user" aria-hidden="true"></i>
-                    </span>
-                    Account
-                </a>
-            </div>
+
         </div>
     </div>
     <a href="#" class="backtotop">
         <i class="fa fa-angle-double-up"></i>
     </a>
-    <script src="assets/js/jquery-1.12.4.min.js"></script>
-    <script src="assets/js/jquery.plugin-countdown.min.js"></script>
-    <script src="assets/js/jquery-countdown.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/owl.carousel.min.js"></script>
-    <script src="assets/js/magnific-popup.min.js"></script>
-    <script src="assets/js/isotope.min.js"></script>
-    <script src="assets/js/jquery.scrollbar.min.js"></script>
-    <script src="assets/js/jquery-ui.min.js"></script>
-    <script src="assets/js/mobile-menu.js"></script>
-    <script src="assets/js/chosen.min.js"></script>
-    <script src="assets/js/slick.js"></script>
-    <script src="assets/js/jquery.elevateZoom.min.js"></script>
-    <script src="assets/js/jquery.actual.min.js"></script>
-    <script src="assets/js/fancybox/source/jquery.fancybox.js"></script>
-    <script src="assets/js/lightbox.min.js"></script>
-    <script src="assets/js/owl.thumbs.min.js"></script>
-    <script src="assets/js/jquery.scrollbar.min.js"></script>
-    <script src="assets/js/frontend-plugin.js"></script>
+    <script src="{{ asset('assets/js/jquery-1.12.4.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.plugin-countdown.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery-countdown.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('assets/js/magnific-popup.min.js') }}"></script>
+    <script src="{{ asset('assets/js/isotope.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.scrollbar.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('assets/js/mobile-menu.js') }}"></script>
+    <script src="{{ asset('assets/js/chosen.min.js') }}"></script>
+    <script src="{{ asset('assets/js/slick.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.elevateZoom.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.actual.min.js') }}"></script>
+    <script src="{{ asset('assets/js/fancybox/source/jquery.fancybox.js') }}"></script>
+    <script src="{{ asset('assets/js/lightbox.min.js') }}"></script>
+    <script src="{{ asset('assets/js/owl.thumbs.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.scrollbar.min.js') }}"></script>
+    <script src="{{ asset('assets/js/frontend-plugin.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
+    </script>
     @stack('scripts')
 </body>
 

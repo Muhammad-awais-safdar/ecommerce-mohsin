@@ -8,13 +8,11 @@
                     <div class="breadcrumb-trail breadcrumbs">
                         <ul class="trail-items breadcrumb">
                             <li class="trail-item trail-begin">
-                                <a href="index-2.html">Home</a>
+                                <a href="{{ route('home') }}">Home</a>
                             </li>
-                            <li class="trail-item">
-                                <a href="#">Accents</a>
-                            </li>
+
                             <li class="trail-item trail-end active">
-                                Glorious Eau
+                                {{ $product->name }}
                             </li>
                         </ul>
                     </div>
@@ -26,41 +24,18 @@
                         <div class="details-product">
                             <div class="details-thumd">
                                 <div class="image-preview-container image-thick-box image_preview_container">
-                                    <img id="img_zoom" data-zoom-image="assets/images/details-item-1.jpg"
-                                        src="assets/images/details-item-1.jpg" alt="img">
-                                    <a href="#" class="btn-zoom open_qv"><i class="fa fa-search"
-                                            aria-hidden="true"></i></a>
+                                    <img id="img_zoom" data-zoom-image="{{ asset($product->image) }}"
+                                        src="{{ asset('storage/' . $product->image) }}" alt="img">
+                                    <a href="{{ asset('storage/' . $product->image) }}" class="btn-zoom open_qv"><i
+                                            class="fa fa-search" aria-hidden="true"></i></a>
                                 </div>
-                                <div class="product-preview image-small product_preview">
-                                    <div id="thumbnails" class="thumbnails_carousel owl-carousel" data-nav="true"
-                                        data-autoplay="false" data-dots="false" data-loop="false" data-margin="10"
-                                        data-responsive='{"0":{"items":3},"480":{"items":3},"600":{"items":3},"1000":{"items":3}}'>
-                                        <a href="#" data-image="assets/images/details-item-1.jpg"
-                                            data-zoom-image="assets/images/details-item-1.jpg" class="active">
-                                            <img src="assets/images/details-item-1.jpg"
-                                                data-large-image="assets/images/details-item-1.jpg" alt="img">
-                                        </a>
-                                        <a href="#" data-image="assets/images/details-item-2.jpg"
-                                            data-zoom-image="assets/images/details-item-2.jpg">
-                                            <img src="assets/images/details-item-2.jpg"
-                                                data-large-image="assets/images/details-item-2.jpg" alt="img">
-                                        </a>
-                                        <a href="#" data-image="assets/images/details-item-3.jpg"
-                                            data-zoom-image="assets/images/details-item-3.jpg">
-                                            <img src="assets/images/details-item-3.jpg"
-                                                data-large-image="assets/images/details-item-3.jpg" alt="img">
-                                        </a>
-                                        <a href="#" data-image="assets/images/details-item-4.jpg"
-                                            data-zoom-image="assets/images/details-item-4.jpg">
-                                            <img src="assets/images/details-item-4.jpg"
-                                                data-large-image="assets/images/details-item-4.jpg" alt="img">
-                                        </a>
-                                    </div>
-                                </div>
+                                {{-- <div class="product-preview image-small product_preview">
+                                    <img src="{{ asset($product->image) }}" alt="img">
+                                </div> --}}
                             </div>
                             <div class="details-infor">
                                 <h1 class="product-title">
-                                    Glorious Eau
+                                    {{ $product->name }}
                                 </h1>
                                 <div class="stars-rating">
                                     <div class="star-rating">
@@ -75,53 +50,12 @@
                                     <a href="#">in Stock</a>
                                 </div>
                                 <div class="price">
-                                    <span>$45</span>
+                                    <span>${{ $product->price }}</span>
                                 </div>
-                                <div class="product-details-description">
-                                    <ul>
-                                        <li>Vestibulum tortor quam</li>
-                                        <li>Imported</li>
-                                        <li>Art.No. 06-7680</li>
-                                    </ul>
-                                </div>
-                                <div class="variations">
-                                    <div class="attribute attribute_color">
-                                        <div class="color-text text-attribute">
-                                            Color:
-                                        </div>
-                                        <div class="list-color list-item">
-                                            <a href="#" class="color1"></a>
-                                            <a href="#" class="color2"></a>
-                                            <a href="#" class="color3 active"></a>
-                                            <a href="#" class="color4"></a>
-                                        </div>
-                                    </div>
-                                    <div class="attribute attribute_size">
-                                        <div class="size-text text-attribute">
-                                            Size:
-                                        </div>
-                                        <div class="list-size list-item">
-                                            <a href="#" class="">xs</a>
-                                            <a href="#" class="">s</a>
-                                            <a href="#" class="active">m</a>
-                                            <a href="#" class="">l</a>
-                                            <a href="#" class="">xl</a>
-                                            <a href="#" class="">xxl</a>
-                                        </div>
-                                    </div>
-                                </div>
+
+
                                 <div class="group-button">
-                                    <div class="yith-wcwl-add-to-wishlist">
-                                        <div class="yith-wcwl-add-button">
-                                            <a href="#">Add to Wishlist</a>
-                                        </div>
-                                    </div>
-                                    <div class="size-chart-wrapp">
-                                        <div class="btn-size-chart">
-                                            <a id="size_chart" href="assets/images/size-chart.jpg" class="fancybox">View
-                                                Size Chart</a>
-                                        </div>
-                                    </div>
+
                                     <div class="quantity-add-to-cart">
                                         <div class="quantity">
                                             <div class="control">
@@ -131,7 +65,8 @@
                                                 <a href="#" class="btn-number qtyplus quantity-plus">+</a>
                                             </div>
                                         </div>
-                                        <button class="single_add_to_cart_button button">Add to cart</button>
+                                        <button class="single_add_to_cart_button button"
+                                            onclick="addToCart({{ $product->id }})">Add to cart</button>
                                     </div>
                                 </div>
                             </div>
@@ -142,131 +77,112 @@
                                     <a data-toggle="tab" aria-expanded="true" href="#product-descriptions">Descriptions
                                     </a>
                                 </li>
-                                <li class="">
-                                    <a data-toggle="tab" aria-expanded="true" href="#information">Information </a>
-                                </li>
+
                                 <li class="">
                                     <a data-toggle="tab" aria-expanded="true" href="#reviews">Reviews</a>
                                 </li>
                             </ul>
                             <div class="tab-container">
                                 <div id="product-descriptions" class="tab-panel active">
-                                    <p>
-                                        Quisque quis ipsum venenatis, fermentum ante volutpat, ornare enim.
-                                        Phasellus molestie risus non aliquet cursus.
-                                        Integer
-                                        vestibulum mi lorem, id hendrerit ante lobortis non.
-                                        Nunc ante ante, lobortis non pretium non, vulputate vel nisi.
-                                        Maecenas dolor elit, fringilla nec turpis ac, auctor vulputate nulla. Phasellus sed
-                                        laoreet velit.
-                                    </p>
-                                    <p>
-                                        Proin fringilla urna vel mattis euismod.
-                                        Etiam sodales, massa non tincidunt iaculis, mauris libero scelerisque justo, ut
-                                        rutrum lectus urna sit amet quam.
-                                        Nulla maximus vestibulum mi vitae accumsan.
-                                    </p>
+                                    {!! $product->description !!}
                                 </div>
-                                <div id="information" class="tab-panel">
-                                    <table class="table table-bordered">
-                                        <tr>
-                                            <td>Size</td>
-                                            <td> XS / S / M / L</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Color</td>
-                                            <td>White/ Black/ Teal/ Brown</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Properties</td>
-                                            <td>Colorful Dress</td>
-                                        </tr>
-                                    </table>
-                                </div>
+
                                 <div id="reviews" class="tab-panel">
                                     <div class="reviews-tab">
                                         <div class="comments">
                                             <h2 class="reviews-title">
                                                 1 review for
-                                                <span>Glorious Eau</span>
+                                                <span>{{ $product->name }}/span>
                                             </h2>
                                             <ol class="commentlist">
-                                                <li class="conment">
-                                                    <div class="conment-container">
-                                                        <a href="#" class="avatar">
-                                                            <img src="assets/images/avartar.png" alt="img">
-                                                        </a>
-                                                        <div class="comment-text">
-                                                            <div class="stars-rating">
-                                                                <div class="star-rating">
-                                                                    <span class="star-5"></span>
+                                                @forelse($product->reviews as $review)
+                                                    <li class="conment">
+                                                        <div class="conment-container">
+                                                            <a href="#" class="avatar">
+                                                                <img src="{{ asset('assets/images/avartar.png') }}"
+                                                                    alt="Avatar">
+                                                            </a>
+                                                            <div class="comment-text">
+                                                                <div class="stars-rating">
+                                                                    <div class="star-rating">
+                                                                        {{-- star-{rating} gives you the proper filled stars via your CSS --}}
+                                                                        <span class="star-{{ $review->rating }}"></span>
+                                                                    </div>
+                                                                    <div class="count-star">
+                                                                        ({{ $review->rating }})
+                                                                    </div>
                                                                 </div>
-                                                                <div class="count-star">
-                                                                    (1)
+                                                                <p class="meta">
+                                                                    <strong
+                                                                        class="author">{{ $review->user_name }}</strong>
+                                                                    <span>-</span>
+                                                                    <span
+                                                                        class="time">{{ $review->created_at->format('F j, Y') }}</span>
+                                                                </p>
+                                                                <div class="description">
+                                                                    <p>{{ $review->comment }}</p>
                                                                 </div>
-                                                            </div>
-                                                            <p class="meta">
-                                                                <strong class="author">Cobus Bester</strong>
-                                                                <span>-</span>
-                                                                <span class="time">June 7, 2013</span>
-                                                            </p>
-                                                            <div class="description">
-                                                                <p>Simple and effective design. One of my favorites.</p>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </li>
+                                                    </li>
+                                                @empty
+                                                    <li class="conment">
+                                                        <div class="conment-container">
+                                                            <div class="comment-text">
+                                                                <p>No reviews yet for this product.</p>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                @endforelse
                                             </ol>
+
                                         </div>
                                         <div class="review_form_wrapper">
                                             <div class="review_form">
                                                 <div class="comment-respond">
-                                                    <span class="comment-reply-title">Add a review </span>
-                                                    <form class="comment-form-review">
+                                                    <span class="comment-reply-title">Add a review</span>
+                                                    <form id="reviewForm">
+                                                        @csrf
+                                                        <input type="hidden" name="product_id"
+                                                            value="{{ $product->id }}">
+                                                        <input type="hidden" name="rating" id="rating" value="0">
+
                                                         <p class="comment-notes">
                                                             <span class="email-notes">Your email address will not be
                                                                 published.</span>
-                                                            Required fields are marked
-                                                            <span class="required">*</span>
+                                                            Required fields are marked <span class="required">*</span>
                                                         </p>
+
                                                         <div class="comment-form-rating">
                                                             <label>Your rating</label>
                                                             <p class="stars">
                                                                 <span>
-                                                                    <a class="star-1" href="#"></a>
-                                                                    <a class="star-2" href="#"></a>
-                                                                    <a class="star-3" href="#"></a>
-                                                                    <a class="star-4" href="#"></a>
-                                                                    <a class="star-5" href="#"></a>
+                                                                    @for ($i = 1; $i <= 5; $i++)
+                                                                        <a href="#" class="star"
+                                                                            data-value="{{ $i }}">★</a>
+                                                                    @endfor
                                                                 </span>
                                                             </p>
                                                         </div>
+
                                                         <p class="comment-form-comment">
-                                                            <label>
-                                                                Your review
-                                                                <span class="required">*</span>
-                                                            </label>
-                                                            <textarea title="review" id="comment" name="comment" cols="45" rows="8"></textarea>
+                                                            <label>Your review <span class="required">*</span></label>
+                                                            <textarea name="comment" id="comment" cols="45" rows="8" required></textarea>
                                                         </p>
+
                                                         <p class="comment-form-author">
-                                                            <label>
-                                                                Name
-                                                                <span class="">*</span>
-                                                            </label>
-                                                            <input title="author" id="author" name="author"
-                                                                type="text" value="">
+                                                            <label>Name <span class="required">*</span></label>
+                                                            <input name="author" id="author" type="text" required>
                                                         </p>
+
                                                         <p class="comment-form-email">
-                                                            <label>
-                                                                Email
-                                                                <span class="">*</span>
-                                                            </label>
-                                                            <input title="email" id="email" name="email"
-                                                                type="email" value="">
+                                                            <label>Email <span class="required">*</span></label>
+                                                            <input name="email" id="email" type="email" required>
                                                         </p>
+
                                                         <p class="form-submit">
-                                                            <input name="submit" type="submit" id="submit"
-                                                                class="submit" value="Submit">
+                                                            <input type="submit" id="submit" class="submit"
+                                                                value="Submit">
                                                         </p>
                                                     </form>
                                                 </div>
@@ -280,228 +196,83 @@
                         <div class="related products product-grid">
                             <h2 class="product-grid-title">You may also like</h2>
                             <div class="owl-products owl-slick equal-container nav-center"
-                                data-slick ='{"autoplay":false, "autoplaySpeed":1000, "arrows":true, "dots":false, "infinite":true, "speed":800, "rows":1}'
-                                data-responsive='[{"breakpoint":"2000","settings":{"slidesToShow":3}},{"breakpoint":"1200","settings":{"slidesToShow":2}},{"breakpoint":"992","settings":{"slidesToShow":2}},{"breakpoint":"480","settings":{"slidesToShow":1}}]'>
-                                <div class="product-item style-1">
-                                    <div class="product-inner equal-element">
-                                        <div class="product-top">
-                                            <div class="flash">
-                                                <span class="onnew">
-                                                    <span class="text">
-                                                        new
+                                data-slick='{"autoplay":true, "autoplaySpeed":1000, "arrows":false, "dots":false, "infinite":true, "speed":800, "rows":1}'
+                                data-responsive='[{"breakpoint":"2000","settings":{"slidesToShow":4}},{"breakpoint":"1200","settings":{"slidesToShow":3}},{"breakpoint":"992","settings":{"slidesToShow":2}},{"breakpoint":"480","settings":{"slidesToShow":1}}]'>
+                                @foreach ($allproducts as $item)
+                                    <div class="product-item style-5">
+                                        <div class="product-inner equal-element">
+                                            <div class="product-top">
+                                                <div class="flash">
+                                                    <span class="onnew">
+                                                        <span class="text">
+                                                            new
+                                                        </span>
                                                     </span>
-                                                </span>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="product-thumb">
-                                            <div class="thumb-inner">
-                                                <a href="#">
-                                                    <img src="assets/images/product-item-1.jpg" alt="img">
-                                                </a>
-                                                <div class="thumb-group">
-                                                    <div class="yith-wcwl-add-to-wishlist">
-                                                        <div class="yith-wcwl-add-button">
-                                                            <a href="#">Add to Wishlist</a>
+                                            <div class="product-thumb">
+                                                <div class="thumb-inner">
+                                                    <a href="#">
+                                                        <img src="{{ asset(path: 'storage/' . $item->image) }}"
+                                                            alt="img">
+                                                    </a>
+                                                    <div class="thumb-group">
+
+                                                        {{-- <a href="#" class="button quick-wiew-button">Quick View</a> --}}
+                                                        <div class="loop-form-add-to-cart">
+                                                            <button class="single_add_to_cart_button button"
+                                                                onclick="addToCart({{ $item->id }})">Add to cart
+                                                            </button>
                                                         </div>
                                                     </div>
-                                                    <a href="#" class="button quick-wiew-button">Quick View</a>
-                                                    <div class="loop-form-add-to-cart">
-                                                        <button class="single_add_to_cart_button button">Add to cart
-                                                        </button>
-                                                    </div>
+                                                </div>
+                                                <div class="product-count-down">
+                                                    <div class="stelina-countdown" data-y="2021" data-m="10"
+                                                        data-w="4" data-d="10" data-h="20" data-i="20"
+                                                        data-s="60"></div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <h5 class="product-name product_title">
-                                                <a href="#">Aluminum Plant</a>
-                                            </h5>
-                                            <div class="group-info">
-                                                <div class="stars-rating">
-                                                    <div class="star-rating">
-                                                        <span class="star-3"></span>
+                                            <div class="product-info">
+                                                <h5 class="product-name product_title">
+                                                    <a
+                                                        href="{{ route('product.show', $item->id) }}">{{ $item->name }}</a>
+                                                </h5>
+                                                <div class="group-info">
+                                                    @php
+                                                        // Make sure $product->reviews is loaded
+                                                        $count = $item->reviews->count();
+                                                        $avg = $count
+                                                            ? round($item->reviews->avg('rating')) // round to nearest integer
+                                                            : 0;
+                                                    @endphp
+
+                                                    <div class="stars-rating">
+                                                        <div class="star-rating">
+                                                            {{-- “star-{{ $avg }}” will show N filled stars via your CSS --}}
+                                                            <span class="star-{{ $avg }}"></span>
+                                                        </div>
+                                                        <div class="count-star">
+                                                            ({{ $count }})
+                                                        </div>
                                                     </div>
-                                                    <div class="count-star">
-                                                        (3)
+                                                    <div class="price">
+                                                        <del>
+                                                            @php
+                                                                $price = $item->price;
+                                                                $price = number_format($price, 2);
+                                                                $unorderedprice = $price + rand(10, 100);
+                                                            @endphp
+                                                            ${{ $unorderedprice }}
+                                                        </del>
+                                                        <ins>
+                                                            ${{ $price }}
+                                                        </ins>
                                                     </div>
-                                                </div>
-                                                <div class="price">
-                                                    <del>
-                                                        $65
-                                                    </del>
-                                                    <ins>
-                                                        $45
-                                                    </ins>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="product-item style-1">
-                                    <div class="product-inner equal-element">
-                                        <div class="product-top">
-                                            <div class="flash">
-                                                <span class="onnew">
-                                                    <span class="text">
-                                                        new
-                                                    </span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="product-thumb">
-                                            <div class="thumb-inner">
-                                                <a href="#">
-                                                    <img src="assets/images/product-item-2.jpg" alt="img">
-                                                </a>
-                                                <div class="thumb-group">
-                                                    <div class="yith-wcwl-add-to-wishlist">
-                                                        <div class="yith-wcwl-add-button">
-                                                            <a href="#">Add to Wishlist</a>
-                                                        </div>
-                                                    </div>
-                                                    <a href="#" class="button quick-wiew-button">Quick View</a>
-                                                    <div class="loop-form-add-to-cart">
-                                                        <button class="single_add_to_cart_button button">Add to cart
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <h5 class="product-name product_title">
-                                                <a href="#">Glorious Eau</a>
-                                            </h5>
-                                            <div class="group-info">
-                                                <div class="stars-rating">
-                                                    <div class="star-rating">
-                                                        <span class="star-3"></span>
-                                                    </div>
-                                                    <div class="count-star">
-                                                        (3)
-                                                    </div>
-                                                </div>
-                                                <div class="price">
-                                                    <del>
-                                                        $65
-                                                    </del>
-                                                    <ins>
-                                                        $45
-                                                    </ins>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-item style-1">
-                                    <div class="product-inner equal-element">
-                                        <div class="product-top">
-                                            <div class="flash">
-                                                <span class="onnew">
-                                                    <span class="text">
-                                                        new
-                                                    </span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="product-thumb">
-                                            <div class="thumb-inner">
-                                                <a href="#">
-                                                    <img src="assets/images/product-item-3.jpg" alt="img">
-                                                </a>
-                                                <div class="thumb-group">
-                                                    <div class="yith-wcwl-add-to-wishlist">
-                                                        <div class="yith-wcwl-add-button">
-                                                            <a href="#">Add to Wishlist</a>
-                                                        </div>
-                                                    </div>
-                                                    <a href="#" class="button quick-wiew-button">Quick View</a>
-                                                    <div class="loop-form-add-to-cart">
-                                                        <button class="single_add_to_cart_button button">Add to cart
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <h5 class="product-name product_title">
-                                                <a href="#">Cuerpo Eau</a>
-                                            </h5>
-                                            <div class="group-info">
-                                                <div class="stars-rating">
-                                                    <div class="star-rating">
-                                                        <span class="star-3"></span>
-                                                    </div>
-                                                    <div class="count-star">
-                                                        (3)
-                                                    </div>
-                                                </div>
-                                                <div class="price">
-                                                    <del>
-                                                        $65
-                                                    </del>
-                                                    <ins>
-                                                        $45
-                                                    </ins>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-item style-1">
-                                    <div class="product-inner equal-element">
-                                        <div class="product-top">
-                                            <div class="flash">
-                                                <span class="onnew">
-                                                    <span class="text">
-                                                        new
-                                                    </span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="product-thumb">
-                                            <div class="thumb-inner">
-                                                <a href="#">
-                                                    <img src="assets/images/product-item-4.jpg" alt="img">
-                                                </a>
-                                                <div class="thumb-group">
-                                                    <div class="yith-wcwl-add-to-wishlist">
-                                                        <div class="yith-wcwl-add-button">
-                                                            <a href="#">Add to Wishlist</a>
-                                                        </div>
-                                                    </div>
-                                                    <a href="#" class="button quick-wiew-button">Quick View</a>
-                                                    <div class="loop-form-add-to-cart">
-                                                        <button class="single_add_to_cart_button button">Add to cart
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <h5 class="product-name product_title">
-                                                <a href="#">The Alchemist</a>
-                                            </h5>
-                                            <div class="group-info">
-                                                <div class="stars-rating">
-                                                    <div class="star-rating">
-                                                        <span class="star-3"></span>
-                                                    </div>
-                                                    <div class="count-star">
-                                                        (3)
-                                                    </div>
-                                                </div>
-                                                <div class="price">
-                                                    <del>
-                                                        $65
-                                                    </del>
-                                                    <ins>
-                                                        $45
-                                                    </ins>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -510,3 +281,84 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(function() {
+            // STAR CLICK HANDLER
+            $('.star').on('click', function(e) {
+                e.preventDefault();
+                const val = $(this).data('value');
+                $('#rating').val(val);
+                // highlight stars up to selected
+                $('.star').each(function() {
+                    $(this).toggleClass('selected', $(this).data('value') <= val);
+                });
+            });
+
+            // FORM SUBMIT VIA AJAX
+            $('#reviewForm').submit(function(e) {
+                e.preventDefault();
+                let data = $(this).serialize();
+
+                $.ajax({
+                    url: "{{ route('reviews.store') }}",
+                    method: 'POST',
+                    data: data,
+                    success: function(res) {
+                        // reset form
+                        $('#reviewForm')[0].reset();
+                        $('.star').removeClass('selected');
+
+                        // prepend the new comment to the list
+                        let r = res.review;
+                        let html = `
+<li class="conment">
+  <div class="conment-container">
+    <a href="#" class="avatar">
+      <img src="{{ asset('assets/images/avartar.png') }}" alt="Avatar">
+    </a>
+    <div class="comment-text">
+      <div class="stars-rating">
+        <div class="star-rating">
+          <span class="star-${r.rating}"></span>
+        </div>
+        <div class="count-star">(${r.rating})</div>
+      </div>
+      <p class="meta">
+        <strong class="author">${r.user_name}</strong>
+        <span>-</span>
+        <span class="time">${r.created_at}</span>
+      </p>
+      <div class="description">
+        <p>${r.comment}</p>
+      </div>
+    </div>
+  </div>
+</li>`;
+                        $('#commentList').prepend(html);
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Thank you!',
+                            text: res.message
+                        });
+                    },
+                    error: function(xhr) {
+                        let errs = xhr.responseJSON.errors;
+                        let msg = [];
+                        $.each(errs, (k, v) => msg.push(v[0]));
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            html: msg.join('<br>')
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+@endpush

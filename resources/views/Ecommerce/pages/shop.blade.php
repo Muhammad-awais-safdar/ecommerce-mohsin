@@ -39,8 +39,8 @@
                                         </div>
                                         <div class="product-thumb">
                                             <div class="thumb-inner">
-                                                <a href="#">
-                                                    <img src="{{ asset($product->image) }}" alt="img">
+                                                <a href="{{ route('product.show', $product->id) }}">
+                                                    <img src="{{ asset('storage/' . $product->image) }}" alt="img">
                                                 </a>
                                                 <div class="thumb-group">
 
@@ -54,15 +54,24 @@
                                         </div>
                                         <div class=" product-info">
                                             <h5 class="product-name product_title">
-                                                <a href="#">{{ $product->name }}</a>
+                                                <a href="{{ route('product.show', $product->id) }}">{{ $product->name }}</a>
                                             </h5>
                                             <div class="group-info">
+                                                @php
+                                                    // Make sure $product->reviews is loaded
+                                                    $count = $product->reviews->count();
+                                                    $avg = $count
+                                                        ? round($product->reviews->avg('rating')) // round to nearest integer
+                                                        : 0;
+                                                @endphp
+
                                                 <div class="stars-rating">
                                                     <div class="star-rating">
-                                                        <span class="star-3"></span>
+                                                        {{-- “star-{{ $avg }}” will show N filled stars via your CSS --}}
+                                                        <span class="star-{{ $avg }}"></span>
                                                     </div>
                                                     <div class="count-star">
-                                                        (3)
+                                                        ({{ $count }})
                                                     </div>
                                                 </div>
                                                 <div class="price">
@@ -95,37 +104,3 @@
         </div>
     </div>
 @endsection
-
-@push('scripts')
-    <script>
-        function addToCart(productId) {
-            $.ajax({
-                url: '/add-to-cart/' + productId,
-                type: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function(response) {
-                    if (response.status === 'success') {
-                        // ✅ Update cart count
-                        $('#cart-count').text(response.cart_count);
-
-                        // ✅ Flash message
-                        $('.flash-message').html(`
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                ${response.message}
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        `);
-
-                        setTimeout(() => {
-                            $('.flash-message .alert').alert('close');
-                        }, 3000);
-                    }
-                }
-            });
-        }
-    </script>
-@endpush

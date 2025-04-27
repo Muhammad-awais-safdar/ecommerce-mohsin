@@ -7,7 +7,7 @@
                     <div class="breadcrumb-trail breadcrumbs">
                         <ul class="trail-items breadcrumb">
                             <li class="trail-item trail-begin">
-                                <a href="index-2.html">Home</a>
+                                <a href="{{ route('home') }}">Home</a>
                             </li>
                             <li class="trail-item trail-end active">
                                 Checkout

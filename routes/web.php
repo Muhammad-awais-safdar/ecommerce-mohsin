@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PaymentController;
@@ -18,12 +19,13 @@ use Illuminate\Support\Facades\Route;
 
 
 
+
 Route::get('/', [FrontendController::class, 'index'])->name('home');
 Route::get('/shop', [FrontendController::class, 'shop'])->name('shop');
 Route::get('/product/{id}', [FrontendController::class, 'show'])->name('product.show');
 Route::get('/about', [FrontendController::class, 'about'])->name('about');
 Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
-
+Route::post('/reviews', [FrontendController::class, 'reviews'])->name('reviews.store');
 
 // Route::get('/', [CartController::class, 'index']);
 Route::post('/add-to-cart/{id}', [CartController::class, 'addToCart'])->name('addtocart');
@@ -77,3 +79,4 @@ Route::fallback(function () {
 
 
 Route::get('/{slug}', [PageController::class, 'show'])->name('pages.show');
+Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');

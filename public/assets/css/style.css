@@ -1728,7 +1728,7 @@ table tr:last-child th {
 
 /*header-style-1*/
 .header .main-header {
-	padding: 50px 0;
+	padding: 15px 0;
 }
 
 .social-header,
@@ -3251,6 +3251,7 @@ blockquote .author .desc {
 .stelina-iconbox-wrapp.default {
 	background: #ab8e66;
 	padding: 50px 0;
+	margin:100px 0;
 }
 
 .stelina-iconbox-wrapp.layout2 .stelina-iconbox.default .iconbox-inner .content .title {
@@ -3743,7 +3744,7 @@ blockquote .author .desc {
 
 /*header mobile*/
 .header-device-mobile {
-	padding: 25px 0;
+	/* padding: 25px 0; */
 	display: none;
 	position: relative;
 }
@@ -12773,7 +12774,7 @@ iframe {
 	}
 
 	.logo img {
-		max-width: 140px;
+		max-width: 100px;
 	}
 
 	.slick-dots {

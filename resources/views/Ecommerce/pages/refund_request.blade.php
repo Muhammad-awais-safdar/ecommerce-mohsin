@@ -8,7 +8,7 @@
                     <div class="breadcrumb-trail breadcrumbs">
                         <ul class="trail-items breadcrumb">
                             <li class="trail-item trail-begin">
-                                <a href="index-2.html">Home</a>
+                                <a href="{{ route('home') }}">Home</a>
                             </li>
                             <li class="trail-item trail-end active">
                                 Checkout
@@ -58,8 +58,7 @@
 
                                 <p class="form-row">
                                     <label class="text">Reason for Refund</label>
-                                    <textarea name="reason" id="reason" class="input-text" placeholder="Reason for refund"
-                                        required></textarea>
+                                    <textarea name="reason" id="reason" class="input-text" placeholder="Reason for refund" required></textarea>
                                     <span class="error" id="reason_error"></span>
                                 </p>
 
@@ -74,11 +73,11 @@
         </div>
     </div>
 
-    {{-- @push('scripts')
+    @push('scripts')
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
-            $(document).ready(function () {
-                $('#refundForm').on('submit', function (e) {
+            $(document).ready(function() {
+                $('#refundForm').on('submit', function(e) {
                     e.preventDefault();
 
                     // Clear previous error messages
@@ -90,7 +89,7 @@
                         url: $(this).attr('action'),
                         type: 'POST',
                         data: formData,
-                        success: function (response) {
+                        success: function(response) {
                             if (response.success) {
                                 alert('Refund request submitted successfully!');
                                 window.location.href = '/';
@@ -99,10 +98,10 @@
                                 // alert(response);
                             }
                         },
-                        error: function (xhr) {
+                        error: function(xhr) {
                             // Display backend validation errors
                             var errors = xhr.responseJSON.errors;
-                            $.each(errors, function (key, value) {
+                            $.each(errors, function(key, value) {
                                 // Display error below the corresponding field
                                 $('#' + key + '_error').text(value).css('color', 'red');
                             });
@@ -111,5 +110,5 @@
                 });
             });
         </script>
-    @endpush --}}
+    @endpush
 @endsection
