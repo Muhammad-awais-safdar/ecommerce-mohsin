@@ -59,7 +59,7 @@ class PageResource extends Resource
             ->columns([
                 TextColumn::make('name')
                     ->searchable()
-                   
+
                     ->openUrlInNewTab(),
                 TextColumn::make('created_at')
                     ->label('Created At')
@@ -70,13 +70,18 @@ class PageResource extends Resource
                 //
             ])
             ->actions([
-               Tables\Actions\EditAction::make(),
-               Tables\Actions\DeleteAction::make(),
-               Action::make('View')
-                    ->url(fn(Page $record) => route('pages.show', $record->slug)) // Assuming you have a route for viewing pages
-                    ->openUrlInNewTab()
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
+                Action::make('view')
+                    ->label('View Page')
                     ->icon('heroicon-o-eye')
-                    ->label('View Page'),
+                    ->modalHeading('Page Details')
+                    ->modalSubheading(fn(Page $record) => $record->name)
+                    ->modalButton('Close')
+                    ->modalWidth('4xl') // 4xl = Big Modal
+                    ->modalContent(fn(Page $record) => view('pages.view-modal', ['record' => $record]))
+
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
