@@ -56,32 +56,27 @@ class PageResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->schema([
-                 // Input for Page Name at the top
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255)
-                    ->label('Page Name') // Label for the name input field
-                    ->placeholder('Enter the page name here')
-                    ->helperText('This will be the title of your page'),
-
-                // Large Rich Editor for Content at the bottom
-                RichEditor::make('content')
-                    ->required()
-                    ->label('Page Content') // Label for the editor
-                    ->placeholder('Write the content of your page here...')
-                    ->columnSpan('full') // Make the editor span the full width
-                    ->disableToolbarButtons(['attachFiles', 'codeBlock',]) // Disable certain buttons
-                    ->maxLength(65535)
-                    ->helperText('Use the editor to add content to your page'),
+            ->columns([
+                TextColumn::make('name')
+                    ->searchable()
+                   
+                    ->openUrlInNewTab(),
+                TextColumn::make('created_at')
+                    ->label('Created At')
+                    ->dateTime()
+                    ->sortable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Action::make('edit')
-                    ->url(fn(Page $record) => route('filament.resources.pages.edit', $record))
-                    ->label('Edit'),
+               Tables\Actions\EditAction::make(),
+               Tables\Actions\DeleteAction::make(),
+               Action::make('View')
+                    ->url(fn(Page $record) => route('pages.show', $record->slug)) // Assuming you have a route for viewing pages
+                    ->openUrlInNewTab()
+                    ->icon('heroicon-o-eye')
+                    ->label('View Page'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

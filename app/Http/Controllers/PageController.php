@@ -11,7 +11,7 @@ class PageController extends Controller
     public function show($slug)
     {
 
-        Page::where('slug', $slug)->firstOrFail();
+        $page =Page::where('slug', $slug)->firstOrFail();
 
         return view('Ecommerce.pages.policies', compact('page'));
     }

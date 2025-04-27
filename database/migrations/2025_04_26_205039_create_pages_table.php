@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->string('slug')->unique();
             $table->string('name');  // Page name like 'Privacy Policy', 'Refund Policy', etc.
             $table->text('content'); // Page content (HTML)
+            $table->timestamps();
         });
     }
 

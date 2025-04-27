@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/favicon.png')}}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/favicon.png') }}" />
     <link
         href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;display=swap"
         rel="stylesheet">
@@ -85,7 +85,8 @@
                     <div class="col-lg-2 col-sm-12 col-md-3 col-xs-12 col-ts-12">
                         <div class="header-control">
                             <div class="block-minicart block-header">
-                                <a href="{{ route('showCart') }}" class="shopcart-icon" data-stelina="stelina-dropdown">
+                                <a href="{{ route('showCart') }}" class="shopcart-icon"
+                                    data-stelina="stelina-dropdown">
                                     Cart
                                     <span class="count"
                                         id="cart-count">{{ session('cart') ? array_sum(array_column(session('cart'), 'quantity')) : 0 }}</span>
@@ -187,9 +188,12 @@
                         <div class="stelina-custommenu default">
                             <h2 class="widgettitle">Information</h2>
                             <ul class="menu">
-                                @foreach(App\Models\Page::all() as $page)
-                                    <li><a href="{{ url($page->slug) }}">{{ $page->name }}</a></li>
+                                @foreach (App\Models\Page::all() as $page)
+                                    <li class="menu-item">
+                                        <a href="{{ url($page->slug) }}">{{ ucwords(strtolower($page->name)) }}</a>
+                                    </li>
                                 @endforeach
+
                                 <li class="menu-item">
                                     <a href="{{ route('refund.request.form') }}">Apply Refund</a>
                                 </li>
