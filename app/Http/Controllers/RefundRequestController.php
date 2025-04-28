@@ -27,6 +27,14 @@ class RefundRequestController extends Controller
             'reason' => 'required|string|min:10',
         ]);
 
+        $checkRefund = RefundRequest::where('order_id', $req->order_id)->first();
+
+        if ($checkRefund) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No repeat of refund request allowed for this order.',
+            ], 422);
+        }
         try {
             $order = Order::findOrFail($req->order_id);
 

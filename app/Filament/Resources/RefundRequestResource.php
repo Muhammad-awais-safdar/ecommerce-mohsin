@@ -64,19 +64,19 @@ class RefundRequestResource extends Resource
                 TextColumn::make('customer_name')->sortable(),
                 TextColumn::make('customer_email'),
                 BadgeColumn::make('status')
-    ->formatStateUsing(function (string $state): string {
-        return match ($state) {
-            'pending' => 'Pending',
-            'approved' => 'Approved',
-            'denied' => 'Denied',
-            default => ucfirst($state),
-        };
-    })
-    ->colors([
-        'warning' => 'pending',
-        'success' => 'approved',
-        'danger' => 'denied',
-    ]),
+                    ->formatStateUsing(function (string $state): string {
+                        return match ($state) {
+                            'pending' => 'Pending',
+                            'approved' => 'Approved',
+                            'denied' => 'Denied',
+                            default => ucfirst($state),
+                        };
+                    })
+                    ->colors([
+                        'warning' => 'pending',
+                        'success' => 'approved',
+                        'danger' => 'denied',
+                    ]),
                 TextColumn::make('created_at')->dateTime(),
             ])
             ->filters([
@@ -89,6 +89,19 @@ class RefundRequestResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('view')
+                    ->label('View')
+                    ->icon('heroicon-o-eye')
+                    ->modalHeading('Refund Request Details')
+                    ->modalSubheading('Complete details of the refund and order')
+                    ->modalContent(function (RefundRequest $record) {
+                        return view('filament.resources.refund-request-resource.view-modal', [
+                            'record' => $record,
+                            'orderItems' => $record->order->orderItems,
+                        ]);
+                    })
+                    ->modalSubmitAction(false) // no submit button
+                    ->modalCancelActionLabel('Close'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

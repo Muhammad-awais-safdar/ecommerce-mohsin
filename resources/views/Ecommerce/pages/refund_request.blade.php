@@ -29,8 +29,8 @@
             </h3>
             <div class="checkout-wrapp">
                 <div class="shipping-address-form checkout-form">
-                    <form method="POST" action="{{ route('refund.request.store') }}" id="refundForm">
-                        {{-- @csrf --}}
+                    <form id="refundForm">
+                        @csrf <!-- ✅ Important -->
                         <div class="row-col-1 row-col">
                             <div class="refund-request">
                                 <h3 class="title-form">Refund Request</h3>
@@ -68,54 +68,83 @@
                             </div>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>
     </div>
+@endsection
+@push('scripts')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
-    @push('scripts')
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script>
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': document
-                        .querySelector('meta[name="csrf-token"]')
-                        .getAttribute('content')
-                }
-            });
-            $(document).ready(function() {
-                $('#refundForm').on('submit', function(e) {
-                    e.preventDefault();
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
-                    // Clear previous error messages
-                    $('.error').text('');
+        $(document).ready(function() {
+            $('#refundForm').on('submit', function(e) {
+                e.preventDefault();
 
-                    var formData = $(this).serialize();
+                // Clear previous error messages
+                $('.error').text('');
 
-                    $.ajax({
-                        url: $(this).attr('action'),
-                        type: 'POST',
-                        data: formData,
-                        success: function(response) {
-                            if (response.success) {
-                                alert('Refund request submitted successfully!');
-                                window.location.href = '/';
-                            } else {
-                                alert('Failed to submit refund request. Please try again.');
-                                console.log(response)
-                            }
-                        },
-                        error: function(xhr) {
-                            // Display backend validation errors
-                            var errors = xhr.responseJSON.errors;
-                            $.each(errors, function(key, value) {
-                                // Display error below the corresponding field
-                                $('#' + key + '_error').text(value).css('color', 'red');
+                var formData = {
+                    order_id: $('#order_id').val(),
+                    customer_email: $('#customer_email').val(),
+                    customer_phone: $('#customer_phone').val(),
+                    reason: $('#reason').val(),
+                };
+
+                $.ajax({
+                    url: '{{ route('refund.request.store') }}', // ✅ your route here
+                    type: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success!',
+                                text: response.message,
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = '/';
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Failed!',
+                                text: response.message,
+                                confirmButtonColor: '#d33',
+                                confirmButtonText: 'Try Again'
                             });
                         }
-                    });
+                    },
+                    error: function(xhr) {
+                        var errors = xhr.responseJSON.errors;
+                        if (errors) {
+                            $.each(errors, function(key, value) {
+                                $('#' + key + '_error').text(value).css('color', 'red');
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error!',
+                                text: xhr.responseJSON?.message ||
+                                    'Something went wrong. Please try again.',
+                                confirmButtonColor: '#d33',
+                                confirmButtonText: 'Close'
+                            });
+                        }
+                    }
                 });
             });
-        </script>
-    @endpush
-@endsection
+        });
+    </script>
+@endpush
