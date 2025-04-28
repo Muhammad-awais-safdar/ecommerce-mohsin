@@ -19,31 +19,54 @@ class RefundRequestController extends Controller
     }
     public function store(Request $req)
     {
+        // Validate input
         $req->validate([
-            'order_id' => 'required|exists:orders,id',  // Order ID must exist in the orders table
-            'customer_email' => 'required|email',  // Valid email format
-            // 'customer_phone' => 'required|regex:/^(\+44|0)7\d{9}$/',  // Phone must be numeric and 10 digits
-            'customer_phone' => 'required',  // Phone must be numeric and 10 digits
+            'order_id' => 'required|exists:orders,id',
+            'customer_email' => 'required|email',
+            'customer_phone' => 'required',
             'reason' => 'required|string|min:10',
         ]);
-        $order = Order::findOrFail($req->order_id);
-        // verify email/phone match:
-        if ($order->customer_email !== $req->customer_email || $order->customer_phone !== $req->customer_phone) {
-            return back()->with('error', 'Order details do not match.');
+
+        try {
+            $order = Order::findOrFail($req->order_id);
+
+            // Verify email/phone match
+            if ($order->customer_email !== $req->customer_email || $order->customer_phone !== $req->customer_phone) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Order details do not match.',
+                ], 422);
+            }
+
+            // Create refund request
+            RefundRequest::create([
+                'order_id' => $order->id,
+                'customer_name' => $order->customer_name,
+                'customer_email' => $req->customer_email,
+                'customer_phone' => $req->customer_phone,
+                'reason' => $req->reason,
+            ]);
+
+            // Notify admin
+            Mail::to(env('ADMIN_EMAIL'))->send(new RefundRequestMail($order, 'pending'));
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Refund request submitted successfully!',
+            ]);
+
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Order not found.',
+            ], 404);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong. Please try again.',
+            ], 500);
         }
-        RefundRequest::create([
-            'order_id' => $order->id,
-            'customer_name' => $order->customer_name,
-            'customer_email' => $req->customer_email,
-            'customer_phone' => $req->customer_phone,
-            'reason' => $req->reason,
-        ]);
-        // notify admin
-        Mail::to(env('ADMIN_EMAIL'))->send(new RefundRequestMail($order, 'pending'));
-        return response()->json([
-            'success' => true,
-            'message' => 'Refund request submitted successfully!'
-        ]);
     }
+
 
 }

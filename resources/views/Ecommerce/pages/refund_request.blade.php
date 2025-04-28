@@ -30,7 +30,7 @@
             <div class="checkout-wrapp">
                 <div class="shipping-address-form checkout-form">
                     <form method="POST" action="{{ route('refund.request.store') }}" id="refundForm">
-                        @csrf
+                        {{-- @csrf --}}
                         <div class="row-col-1 row-col">
                             <div class="refund-request">
                                 <h3 class="title-form">Refund Request</h3>
@@ -76,6 +76,13 @@
     @push('scripts')
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': document
+                        .querySelector('meta[name="csrf-token"]')
+                        .getAttribute('content')
+                }
+            });
             $(document).ready(function() {
                 $('#refundForm').on('submit', function(e) {
                     e.preventDefault();
@@ -95,7 +102,7 @@
                                 window.location.href = '/';
                             } else {
                                 alert('Failed to submit refund request. Please try again.');
-                                // alert(response);
+                                console.log(response)
                             }
                         },
                         error: function(xhr) {
