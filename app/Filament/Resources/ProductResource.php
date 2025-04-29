@@ -38,27 +38,28 @@ class ProductResource extends Resource
             TextInput::make('name')->required(),
             Textarea::make('description'),
             TextInput::make('price')->required()->numeric(),
-            FileUpload::make('image')->image()->directory('products'),
+            FileUpload::make('image')->image()->directory('products')->imageEditor() // optional, if you want manual cropping
+                ->imagePreviewHeight('200') // optional UI tweak,
         ]);
     }
 
     public static function table(Table $table): Table
     {
-          return $table
-        ->columns([
-            TextColumn::make('name')->label('Name'),
-            ImageColumn::make('image')->label('Image'),
-            TextColumn::make('price')->label('Price'),
-        ])->defaultSort('created_at', 'desc')
-        ->actions([
-            EditAction::make(),
-            DeleteAction::make(),
-        ])
-        ->bulkActions([
-            BulkActionGroup::make([
-                DeleteBulkAction::make(),
-            ]),
-        ]);
+        return $table
+            ->columns([
+                TextColumn::make('name')->label('Name'),
+                ImageColumn::make('image')->label('Image'),
+                TextColumn::make('price')->label('Price'),
+            ])->defaultSort('created_at', 'desc')
+            ->actions([
+                EditAction::make(),
+                DeleteAction::make(),
+            ])
+            ->bulkActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                ]),
+            ]);
 
     }
 
