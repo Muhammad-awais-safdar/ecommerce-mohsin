@@ -49,7 +49,7 @@ class ProductResource extends Resource
             TextColumn::make('name')->label('Name'),
             ImageColumn::make('image')->label('Image'),
             TextColumn::make('price')->label('Price'),
-        ])
+        ])->defaultSort('created_at', 'desc')
         ->actions([
             EditAction::make(),
             DeleteAction::make(),

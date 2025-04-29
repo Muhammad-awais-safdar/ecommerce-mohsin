@@ -144,11 +144,11 @@
             <div class="order-details">
                 <h3>Refund Request Details:</h3>
                 <p><span>Order ID:</span> #{{ $order->id }}</p>
-                <p><span>Total Paid:</span> ${{ $order->total }}</p>
+                <p><span>total_amount Paid:</span> ${{ $order->total_amount }}</p>
                 <p><span>Items:</span></p>
                 <ul class="order-items">
                     @foreach ($order->orderItems as $item)
-                        <li>{{ $item->name }} ({{ $item->quantity }}x) = ${{ $item->price * $item->quantity }}</li>
+                        <li>{{ $item->product->name }} ({{ $item->quantity }}x) = ${{ $item->price * $item->quantity }}</li>
                     @endforeach
                 </ul>
             </div>
@@ -170,7 +170,7 @@
         </div>
 
         <div class="email-footer">
-            <a href="{{ route('home') }}">Visit Our Shop</a>
+            <a href="{{ route('home') }}" style="margin:20px">Visit Our Shop</a>
             <p>Need help? <a href="mailto:{{ env('ADMIN_EMAIL') }}">Contact us</a></p>
         </div>
 

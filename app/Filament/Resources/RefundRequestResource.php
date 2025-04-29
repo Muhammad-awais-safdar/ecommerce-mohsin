@@ -77,8 +77,8 @@ class RefundRequestResource extends Resource
                         'success' => 'approved',
                         'danger' => 'denied',
                     ]),
-                TextColumn::make('created_at')->dateTime(),
-            ])
+                TextColumn::make('created_at')->since(),
+            ])->defaultSort('created_at', 'desc')
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
                     ->options([
