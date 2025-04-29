@@ -124,7 +124,7 @@
                                 <div class="product-thumb">
                                     <div class="thumb-inner">
                                         <a href="#">
-                                            <img src="{{ asset($item->image) }}" alt="img">
+                                            <img src="{{ asset('storage/' . $item->image) }}" alt="img">
                                         </a>
                                         <div class="thumb-group">
 
@@ -327,11 +327,11 @@
                                 <li class="product-item col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1">
                                     <div class="product-inner equal-element">
                                         <div class="product-top">
-                                            
-                                                <div class="flash">
-                                                    <span class="onnew"><span class="text">new</span></span>
-                                                </div>
-                                           
+
+                                            <div class="flash">
+                                                <span class="onnew"><span class="text">new</span></span>
+                                            </div>
+
                                         </div>
 
                                         <div class="product-thumb">
@@ -372,7 +372,7 @@
                                                 </div>
 
                                                 {{-- Price --}}
-                                                 <div class="price">
+                                                <div class="price">
                                                     <del>
                                                         @php
                                                             $price = $product->price;

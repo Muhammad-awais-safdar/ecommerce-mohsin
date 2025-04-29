@@ -56,6 +56,7 @@ class RefundRequestController extends Controller
             ]);
 
             // Notify admin
+            Mail::to($req->customer_email)->send(new RefundRequestMail($order, 'pending'));
             Mail::to(env('ADMIN_EMAIL'))->send(new RefundRequestMail($order, 'pending'));
 
             return response()->json([
