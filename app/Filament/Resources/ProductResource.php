@@ -38,6 +38,12 @@ class ProductResource extends Resource
             TextInput::make('name')->required(),
             Textarea::make('description'),
             TextInput::make('price')->required()->numeric(),
+            TextInput::make('discount_percentage')
+                ->label('Discount (%)')
+                ->numeric()
+                ->minValue(0)
+                ->maxValue(100)
+                ->nullable(),
             FileUpload::make('image')->image()->directory('products')->imageEditor() // optional, if you want manual cropping
                 ->imagePreviewHeight('200') // optional UI tweak,
         ]);
@@ -48,6 +54,7 @@ class ProductResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')->label('Name'),
+                TextColumn::make('discount_percentage')->label('Discount'),
                 ImageColumn::make('image')->label('Image'),
                 TextColumn::make('price')->label('Price'),
             ])->defaultSort('created_at', 'desc')

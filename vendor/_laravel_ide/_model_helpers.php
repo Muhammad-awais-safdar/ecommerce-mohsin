@@ -1258,6 +1258,7 @@ namespace App\Models {
     /**
      * App\Models\Product
      *
+     * @property int|null $discount_percentage
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
      * @property string|null $image
@@ -1265,6 +1266,7 @@ namespace App\Models {
      * @property string|null $description
      * @property string $name
      * @property int $id
+     * @property-read mixed $discounted_price
      * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Review> $reviews
      * @property-read int|null $reviews_count
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereId($value)
@@ -1274,6 +1276,7 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereImage($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereUpdatedAt($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereDiscountPercentage($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product newModelQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product newQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product query()

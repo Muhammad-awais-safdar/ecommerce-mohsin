@@ -26,6 +26,7 @@ class ProductFactory extends Factory
             'description' => $this->faker->paragraph(), // Random description
             'price' => $this->faker->randomFloat(2, 10, 200), // Random price between 10 and 200
             'image' => 'https://placehold.co/600x400', // Random image URL
+            'discount_percentage' => $this->faker->randomFloat(2, 10, 90),
             'created_at' => now(),
             'updated_at' => now(),
         ];

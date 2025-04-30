@@ -1,10 +1,11 @@
 <?php
-
 use App\Http\Controllers\CartController;
+
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\PageController;
+use Illuminate\Support\Facades\File;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RefundRequestController;
 use Illuminate\Support\Facades\Artisan;
@@ -39,24 +40,23 @@ Route::get('/payment/failure', [PaymentController::class, 'failure'])->name('pay
 
 
 
-Route::get('/run-migrate', function () {
 
-    // Run migrate
+Route::get('/migrate-and-link', function () {
+    // Run database migrations
     Artisan::call('migrate', ['--force' => true]);
-    return response()->json([
-        'status' => 'success',
-        'message' => 'Migration executed successfully.'
-    ]);
-});
 
-Route::get('/run-seed', function () {
-    // Run seed
-    Artisan::call('db:seed', ['--force' => true]);
+    // Delete existing storage link
+    $storagePath = public_path('storage');
+    if (File::exists($storagePath) && File::isDirectory($storagePath)) {
+        File::deleteDirectory($storagePath);
+    } elseif (File::isFile($storagePath)) {
+        unlink($storagePath);
+    }
 
-    return response()->json([
-        'status' => 'success',
-        'message' => 'Migration and seeding executed successfully.'
-    ]);
+    // Re-create storage link
+    Artisan::call('storage:link');
+
+    return 'Migration completed and storage link recreated successfully.';
 });
 
 
