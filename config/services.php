@@ -38,5 +38,11 @@ return [
     'stripe' => [
     'secret' => env('STRIPE_SECRET_KEY'),
 ],
+'facebook' => [
+    'app_id' => env('FB_APP_ID'),
+    'app_secret' => env('FB_APP_SECRET'),
+    'access_token' => env('FB_ACCESS_TOKEN'),
+    'ad_account_id' => env('FB_AD_ACCOUNT_ID'),
+],
 
 ];
