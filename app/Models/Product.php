@@ -11,6 +11,7 @@ class Product extends Model
         'name',
         'description',
         'price',
+        'discount_percentage',
         'image',
     ];
     public function reviews()
@@ -18,10 +19,10 @@ class Product extends Model
         return $this->hasMany(Review::class);
     }
     public function getDiscountedPriceAttribute(): float
-{
-    if ($this->discount_percentage) {
-        return round($this->price - ($this->price * $this->discount_percentage / 100), 2);
+    {
+        if ($this->discount_percentage) {
+            return round($this->price - ($this->price * $this->discount_percentage / 100), 2);
+        }
+        return $this->price;
     }
-    return $this->price;
-}
 }

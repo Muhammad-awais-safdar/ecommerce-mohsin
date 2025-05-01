@@ -326,3 +326,27 @@ function addToCart(productId) {
         }
     });
 }
+
+
+
+    // Get the current time
+    const now = new Date();
+
+    // Set the end time to 24 hours from now
+    const endTime = new Date(now.getTime() + 27 * 60 * 60 * 1000); // 24 hours later
+
+    // Format the countdown parameters
+    const year = endTime.getFullYear();
+    const month = endTime.getMonth() + 1;  // Months are 0-based
+    const day = endTime.getDate();
+    const hour = endTime.getHours();
+    const minute = endTime.getMinutes();
+    const second = endTime.getSeconds();
+
+    // Initialize the countdown using the calculated time
+    document.getElementById("countdown").setAttribute("data-y", year);
+    document.getElementById("countdown").setAttribute("data-m", month);
+    document.getElementById("countdown").setAttribute("data-d", day);
+    document.getElementById("countdown").setAttribute("data-h", hour);
+    document.getElementById("countdown").setAttribute("data-i", minute);
+    document.getElementById("countdown").setAttribute("data-s", second);

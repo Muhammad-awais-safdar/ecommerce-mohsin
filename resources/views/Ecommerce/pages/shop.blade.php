@@ -75,17 +75,21 @@
                                                     </div>
                                                 </div>
                                                 <div class="price">
-                                                    <del>
-                                                        @php
-                                                            $price = $product->price;
-                                                            $price = number_format($price, 2);
-                                                            $unorderedprice = $price + rand(10, 100);
-                                                        @endphp
-                                                        ${{ $unorderedprice }}
-                                                    </del>
-                                                    <ins>
-                                                        ${{ $price }}
-                                                    </ins>
+                                                    @php
+                                                        $originalPrice = $product->price;
+                                                        $discount = $product->discount_percentage ?? 0;
+                                                        $finalPrice =
+                                                            $discount > 0
+                                                                ? $originalPrice - $originalPrice * ($discount / 100)
+                                                                : $originalPrice;
+                                                    @endphp
+
+                                                    @if ($discount > 0)
+                                                        <del>${{ number_format($originalPrice, 2) }}</del>
+                                                        <ins>${{ number_format($finalPrice, 2) }}</ins>
+                                                    @else
+                                                        <ins>${{ number_format($originalPrice, 2) }}</ins>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>

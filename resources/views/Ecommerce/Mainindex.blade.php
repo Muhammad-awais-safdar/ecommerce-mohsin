@@ -137,8 +137,7 @@
                                         </div>
                                     </div>
                                     <div class="product-count-down">
-                                        <div class="stelina-countdown" data-y="2021" data-m="10" data-w="4"
-                                            data-d="10" data-h="20" data-i="20" data-s="60"></div>
+                                        <div class="stelina-countdown" id="countdown"></div>
                                     </div>
                                 </div>
                                 <div class="product-info">
@@ -164,17 +163,21 @@
                                             </div>
                                         </div>
                                         <div class="price">
-                                            <del>
-                                                @php
-                                                    $price = $item->price;
-                                                    $price = number_format($price, 2);
-                                                    $unorderedprice = $price + rand(10, 100);
-                                                @endphp
-                                                ${{ $unorderedprice }}
-                                            </del>
-                                            <ins>
-                                                ${{ $price }}
-                                            </ins>
+                                            @php
+                                                $originalPrice = $item->price;
+                                                $discount = $item->discount_percentage ?? 0;
+                                                $finalPrice =
+                                                    $discount > 0
+                                                        ? $originalPrice - $originalPrice * ($discount / 100)
+                                                        : $originalPrice;
+                                            @endphp
+
+                                            @if ($discount > 0)
+                                                <del>${{ number_format($originalPrice, 2) }}</del>
+                                                <ins>${{ number_format($finalPrice, 2) }}</ins>
+                                            @else
+                                                <ins>${{ number_format($originalPrice, 2) }}</ins>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -324,66 +327,70 @@
                                         : 0;
                                 @endphp
 
-                                <li class="product-item col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1">
+                                  <li class="product-item  col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1">
                                     <div class="product-inner equal-element">
                                         <div class="product-top">
-
                                             <div class="flash">
-                                                <span class="onnew"><span class="text">new</span></span>
+                                                <span class="onnew">
+                                                    <span class="text">
+                                                        new
+                                                    </span>
+                                                </span>
                                             </div>
-
                                         </div>
-
                                         <div class="product-thumb">
                                             <div class="thumb-inner">
-                                                <a href="{{ route('product.show', $product) }}">
-                                                    <img src="{{ asset('storage/' . $product->image) }}"
-                                                        alt="{{ $product->name }}">
+                                                <a href="{{ route('product.show', $product->id) }}">
+                                                    <img src="{{ asset('storage/' . $product->image) }}" alt="img">
                                                 </a>
                                                 <div class="thumb-group">
-                                                    <a href="#" class="button quick-view-button">Quick View</a>
+
                                                     <div class="loop-form-add-to-cart">
-                                                        <button onclick="addToCart({{ $product->id }})"
-                                                            class="single_add_to_cart_button button">
-                                                            Add to cart
+                                                        <button class="single_add_to_cart_button button"
+                                                            onclick="addToCart({{ $product->id }})"">Add to cart
                                                         </button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div class="product-info">
+                                        <div class=" product-info">
                                             <h5 class="product-name product_title">
-                                                <a href="{{ route('product.show', $product) }}">
-                                                    {{ $product->name }}
-                                                </a>
+                                                <a href="{{ route('product.show', $product->id) }}">{{ $product->name }}</a>
                                             </h5>
+                                            <div class="group-info">
+                                                @php
+                                                    // Make sure $product->reviews is loaded
+                                                    $count = $product->reviews->count();
+                                                    $avg = $count
+                                                        ? round($product->reviews->avg('rating')) // round to nearest integer
+                                                        : 0;
+                                                @endphp
 
-                                            <div class="group-info d-flex align-items-center justify-content-between">
-                                                {{-- Star rating + count --}}
-                                                <div class="stars-rating d-flex align-items-center">
-                                                    <div class="star-rating position-relative">
-                                                        {{-- gray stars via ::before, gold via span --}}
-                                                        <span class="star-{{ $avgRating }}"></span>
+                                                <div class="stars-rating">
+                                                    <div class="star-rating">
+                                                        {{-- “star-{{ $avg }}” will show N filled stars via your CSS --}}
+                                                        <span class="star-{{ $avg }}"></span>
                                                     </div>
-                                                    <div class="count-star ml-2">
-                                                        ({{ $product->reviews_count }})
+                                                    <div class="count-star">
+                                                        ({{ $count }})
                                                     </div>
                                                 </div>
-
-                                                {{-- Price --}}
                                                 <div class="price">
-                                                    <del>
-                                                        @php
-                                                            $price = $product->price;
-                                                            $price = number_format($price, 2);
-                                                            $unorderedprice = $price + rand(10, 100);
-                                                        @endphp
-                                                        ${{ $unorderedprice }}
-                                                    </del>
-                                                    <ins>
-                                                        ${{ $price }}
-                                                    </ins>
+                                                    @php
+                                                        $originalPrice = $product->price;
+                                                        $discount = $product->discount_percentage ?? 0;
+                                                        $finalPrice =
+                                                            $discount > 0
+                                                                ? $originalPrice - $originalPrice * ($discount / 100)
+                                                                : $originalPrice;
+                                                    @endphp
+
+                                                    @if ($discount > 0)
+                                                        <del>${{ number_format($originalPrice, 2) }}</del>
+                                                        <ins>${{ number_format($finalPrice, 2) }}</ins>
+                                                    @else
+                                                        <ins>${{ number_format($originalPrice, 2) }}</ins>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
