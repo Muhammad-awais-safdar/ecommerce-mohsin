@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Order;
 use App\Models\Product;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Review;
@@ -18,11 +19,12 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            // UserSeeder::class,
+            UserSeeder::class,
             OrderSeeder::class,
             ProductSeeder::class,
         ]);
-
+        Order::factory()->count(50)->create();
+        
         Product::factory(30)->create();
         Review::factory()->count(200)->create();
     }

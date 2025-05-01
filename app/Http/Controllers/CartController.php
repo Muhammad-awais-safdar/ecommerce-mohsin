@@ -11,6 +11,13 @@ class CartController extends Controller
     public function addToCart($id)
     {
         $product = Product::findOrFail($id);
+        $discount = $product->discount_percentage ?? 0;
+
+        // Apply discount if any
+        $finalPrice = $product->price;
+        if ($discount > 0) {
+            $finalPrice = $product->price - ($product->price * ($discount / 100));
+        }
 
         $cart = session()->get('cart', []);
 
@@ -19,21 +26,19 @@ class CartController extends Controller
         } else {
             $cart[$id] = [
                 'name' => $product->name,
-                'price' => $product->price,
+                'price' => $finalPrice,
+                'original_price' => $product->price,
+                'discount' => $discount,
                 'quantity' => 1,
-                'image' => $product->image ?? 'default.jpg', // Fallback image
+                'image' => $product->image ?? 'default.jpg',
             ];
         }
 
         session()->put('cart', $cart);
 
-        $count = array_sum(array_map(function ($item) {
-            return $item['quantity'] ?? 0;
-        }, $cart));
+        $count = array_sum(array_map(fn($item) => $item['quantity'] ?? 0, $cart));
 
         $subtotal = 0;
-        $html = '';
-
         foreach ($cart as $item) {
             $qty = $item['quantity'] ?? 0;
             $price = $item['price'] ?? 0;

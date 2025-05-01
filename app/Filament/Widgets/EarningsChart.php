@@ -15,39 +15,43 @@ class EarningsChart extends ChartWidget
         return 'line';
     }
 
-    protected function getOptions(): ?array
-    {
-        return [
-            'scales' => [
-                'y' => [
-                    'min' => 20,
-                    'max' => 200,
-                    'ticks' => [
-                        'stepSize' => 20,
-                    ],
+  protected function getOptions(): ?array
+{
+    return [
+        'scales' => [
+            'y' => [
+                'beginAtZero' => true,
+                'ticks' => [
+                    'stepSize' => 500,
                 ],
             ],
-        ];
-    }
+        ],
+    ];
+}
 
-    protected function getData(): array
-    {
-        $earnings = Order::selectRaw('SUM(total_amount) as total, strftime("%b %Y", created_at) as month')
-            ->groupBy('month')
-            ->orderByRaw('MIN(created_at) ASC')
-            ->take(12)
-            ->get();
 
-        return [
-            'datasets' => [
-                [
-                    'label' => 'Earnings',
-                    'data' => $earnings->pluck('total')->toArray(),
-                    'backgroundColor' => 'rgba(54, 162, 235, 0.5)',
-                    'borderColor' => 'rgba(54, 162, 235, 1)',
-                ],
+  protected function getData(): array
+{
+    $earnings = Order::selectRaw('SUM(total_amount) as total, DATE(created_at) as date')
+        ->groupBy('date')
+        ->orderBy('date', 'ASC')
+        ->take(30) // last 30 days (you can increase/decrease this)
+        ->get();
+
+    return [
+        'datasets' => [
+            [
+                'label' => 'Daily Earnings',
+                'data' => $earnings->pluck('total')->toArray(),
+                'backgroundColor' => 'rgb(171 ,142 ,102 , 1)',
+                'borderColor' => 'rgb(171 ,142 ,102 , 0.5',
+                'fill' => true,
+                'tension' => 0.3, // smooth curve
             ],
-            'labels' => $earnings->pluck('month')->toArray(),
-        ];
-    }
+        ],
+        'labels' => $earnings->pluck('date')->toArray(),
+    ];
+}
+
+
 }

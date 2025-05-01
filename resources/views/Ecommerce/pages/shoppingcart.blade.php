@@ -5,7 +5,7 @@
             <div class="container">
                 <div class="breadcrumb-trail breadcrumbs">
                     <ul class="trail-items breadcrumb">
-                        <li class="trail-item trail-begin"><a href="#"><span>Home</span></a></li>
+                        <li class="trail-item trail-begin"><a href="{{ route('home') }}"><span>Home</span></a></li>
                         <li class="trail-item trail-end active"><span>Shopping Cart</span></li>
                     </ul>
                 </div>
@@ -31,45 +31,53 @@
                                         <tbody>
                                             @php $subtotal = 0; @endphp
                                             @foreach ($cart as $id => $item)
-                                                                                    @php
-                                                                                        $itemTotal = $item['price'] * $item['quantity'];
-                                                                                        $subtotal += $itemTotal;
-                                                                                    @endphp
-                                                                                    <tr class="cart_item" data-id="{{ $id }}">
-                                                                                        <td class="product-thumbnail">
-                                                                                            <a href="#">
-                                                                                                <img src="{{ asset('storage/' . ($item['image'] ?? 'default.jpg')) }}"
-                                                                                                    alt="img"
-                                                                                                    class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image">
-                                                                                            </a>
-                                                                                        </td>
-                                                                                        <td class="product-name" data-title="Product">
-                                                                                            <a href="#" class="title">{{ $item['name'] }}</a>
-                                                                                        </td>
-                                                                                        <td class="product-price" data-title="Price">
-                                                                                            ${{ number_format($item['price'], 2) }}
-                                                                                        </td>
-                                                                                        <td class="product-quantity" data-title="Quantity">
-                                                                                            <div class="quantity">
-                                                                                                <div class="control">
-                                                                                                    <a class="btn-number qtyminus" href="javascript:void(0);"
-                                                                                                        data-id="{{ $id }}">-</a>
-                                                                                                    <input type="text" data-step="1" data-min="1"
-                                                                                                        value="{{ $item['quantity'] }}" title="Qty"
-                                                                                                        class="input-qty qty" size="4" data-id="{{ $id }}">
-                                                                                                    <a href="javascript:void(0);" class="btn-number qtyplus"
-                                                                                                        data-id="{{ $id }}">+</a>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                        <td class="product-price item-total" data-id="{{ $id }}">
-                                                                                            ${{ number_format($itemTotal, 2) }}
-                                                                                        </td>
-                                                                                        <td class="product-remove">
-                                                                                            <a href="javascript:void(0);" class="remove remove-from-cart"
-                                                                                                data-id="{{ $id }}"></a>
-                                                                                        </td>
-                                                                                    </tr>
+                                                @php
+                                                    $itemTotal = $item['price'] * $item['quantity'];
+                                                    $subtotal += $itemTotal;
+                                                @endphp
+                                                <tr class="cart_item" data-id="{{ $id }}">
+                                                    <td class="product-thumbnail">
+                                                        <a href="#">
+                                                            <img src="{{ asset('storage/' . ($item['image'] ?? 'default.jpg')) }}"
+                                                                alt="img"
+                                                                class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image">
+                                                        </a>
+                                                    </td>
+                                                    <td class="product-name" data-title="Product">
+                                                        <a href="#" class="title">{{ $item['name'] }}</a>
+                                                    </td>
+                                                    <td class="product-price" data-title="Price">
+                                                        {{-- ${{ number_format($item['price'], 2) }} --}}
+
+                                                        @if ($item['discount'] > 0)
+                                                            <del>${{ number_format($item['original_price'], 2) }}</del>
+                                                            <span>${{ number_format($item['price'], 2) }}</span>
+                                                        @else
+                                                            <span>${{ number_format($item['price'], 2) }}</span>
+                                                        @endif
+                                                    </td>
+                                                    <td class="product-quantity" data-title="Quantity">
+                                                        <div class="quantity">
+                                                            <div class="control">
+                                                                <a class="btn-number qtyminus" href="javascript:void(0);"
+                                                                    data-id="{{ $id }}">-</a>
+                                                                <input type="text" data-step="1" data-min="1"
+                                                                    value="{{ $item['quantity'] }}" title="Qty"
+                                                                    class="input-qty qty" size="4"
+                                                                    data-id="{{ $id }}">
+                                                                <a href="javascript:void(0);" class="btn-number qtyplus"
+                                                                    data-id="{{ $id }}">+</a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="product-price item-total" data-id="{{ $id }}">
+                                                        ${{ number_format($itemTotal, 2) }}
+                                                    </td>
+                                                    <td class="product-remove">
+                                                        <a href="javascript:void(0);" class="remove remove-from-cart"
+                                                            data-id="{{ $id }}"></a>
+                                                    </td>
+                                                </tr>
                                             @endforeach
 
                                             <tr>
@@ -103,8 +111,8 @@
 {{-- deleteitem --}}
 @push('scripts')
     <script>
-        $(document).ready(function () {
-            $('.remove-from-cart').on('click', function (e) {
+        $(document).ready(function() {
+            $('.remove-from-cart').on('click', function(e) {
                 e.preventDefault();
                 var itemId = $(this).data('id'); // Get the item ID from the data attribute
 
@@ -115,7 +123,7 @@
                     data: {
                         _token: '{{ csrf_token() }}', // Include CSRF token
                     },
-                    success: function (response) {
+                    success: function(response) {
                         if (response.success) {
                             $('#cart-count').text(response.cart_count);
                             // Remove the item from the table
@@ -125,7 +133,7 @@
                             alert('Error removing item.');
                         }
                     },
-                    error: function () {
+                    error: function() {
                         alert('Error removing item.');
                     }
                 });
@@ -137,7 +145,7 @@
 {{-- updateitem --}}
 @push('scripts')
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             function updateCartAjax(id, quantity) {
                 $.ajax({
                     url: '/cart/update/' + id,
@@ -146,7 +154,7 @@
                         _token: '{{ csrf_token() }}',
                         quantity: quantity
                     },
-                    success: function (res) {
+                    success: function(res) {
                         if (res.success) {
                             // Update item total
                             $('.item-total[data-id="' + id + '"]').text(res.item_total);
@@ -156,14 +164,14 @@
                             alert('Could not update cart.');
                         }
                     },
-                    error: function () {
+                    error: function() {
                         alert('Error updating cart.');
                     }
                 });
             }
 
             // Unbind first to avoid multiple bindings
-            $(document).off('click', '.qtyplus').on('click', '.qtyplus', function (e) {
+            $(document).off('click', '.qtyplus').on('click', '.qtyplus', function(e) {
                 e.preventDefault();
                 let id = $(this).data('id');
                 let input = $('.qty[data-id="' + id + '"]');
@@ -175,7 +183,7 @@
                 }
             });
 
-            $(document).off('click', '.qtyminus').on('click', '.qtyminus', function (e) {
+            $(document).off('click', '.qtyminus').on('click', '.qtyminus', function(e) {
                 e.preventDefault();
                 let id = $(this).data('id');
                 let input = $('.qty[data-id="' + id + '"]');
