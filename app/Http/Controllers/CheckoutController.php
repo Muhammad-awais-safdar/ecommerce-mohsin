@@ -73,15 +73,15 @@ class CheckoutController extends Controller
 
             DB::commit();
 
-            // Clear cart
-            dd($order);
+            // // Clear cart
+            // dd($order);
             session()->forget('cart');
 
             return redirect()->route('checkout.payment', ['order_id' => $order->id])->with('success', 'Order placed successfully!');
 
         } catch (\Exception $e) {
             DB::rollBack();
-            dd($e);
+            // dd($e);
             return back()->with('error', 'Something went wrong: ' . $e->getMessage());
         }
     }
