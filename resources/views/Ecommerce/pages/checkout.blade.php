@@ -16,6 +16,7 @@
                     </div>
                 </div>
             </div>
+            
             <h3 class="custom_blog_title">
                 Checkout
                 @if (session('error'))

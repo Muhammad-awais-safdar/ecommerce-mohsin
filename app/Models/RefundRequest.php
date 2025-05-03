@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class RefundRequest extends Model
 {
-    protected $fillable = ['order_id', 'customer_name', 'customer_email', 'reason', 'status'];
+    protected $fillable = ['order_id', 'customer_name', "customer_phone", 'customer_email', 'reason', 'status'];
 
     public function order()
     {
         return $this->belongsTo(Order::class);
     }
-    
- protected static function booted()
+
+    protected static function booted()
     {
         static::updated(function ($refundRequest) {
             // Check if the status field was updated
