@@ -90,7 +90,7 @@
                                         <p>
 
                                             <button type="submit" class="form-control-submit button-submit"
-                                                disabled="false">
+                                                >
                                                 <span class="btn-text">SEND MESSAGE</span>
                                                 <span class="btn-spinner" style="display:none;">
                                                     <i class="fa fa-spinner fa-spin"></i> Sending...
@@ -165,55 +165,54 @@
 @endsection
 @push('scripts')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $('#contactForm').submit(function(e) {
-        e.preventDefault();
+    <script>
+        $('#contactForm').submit(function(e) {
+            e.preventDefault();
 
-        let form = $(this);
-        let submitBtn = form.find('.form-control-submit');
-        let btnText = submitBtn.find('.btn-text');
-        let btnSpinner = submitBtn.find('.btn-spinner');
+            let form = $(this);
+            let submitBtn = form.find('.form-control-submit');
+            let btnText = submitBtn.find('.btn-text');
+            let btnSpinner = submitBtn.find('.btn-spinner');
 
-        // Disable and show spinner
-        submitBtn.prop('disabled', true);
-        btnText.hide();
-        btnSpinner.show();
+            // Disable and show spinner
+            submitBtn.prop('disabled', true);
+            btnText.hide();
+            btnSpinner.show();
 
-        let formData = form.serialize();
+            let formData = form.serialize();
 
-        $.ajax({
-            type: 'POST',
-            url: "{{ route('contact.submit') }}",
-            data: formData,
-            success: function(response) {
-                form[0].reset();
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('contact.submit') }}",
+                data: formData,
+                success: function(response) {
+                    form[0].reset();
 
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Thank you!',
-                    text: response.message,
-                    confirmButtonText: 'OK'
-                });
-            },
-            error: function(xhr) {
-                let errors = xhr.responseJSON.errors;
-                let errorHtml = Object.values(errors).flat().join('<br>');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Thank you!',
+                        text: response.message,
+                        confirmButtonText: 'OK'
+                    });
+                },
+                error: function(xhr) {
+                    let errors = xhr.responseJSON.errors;
+                    let errorHtml = Object.values(errors).flat().join('<br>');
 
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    html: errorHtml,
-                    confirmButtonText: 'Fix it'
-                });
-            },
-            complete: function() {
-                // Reset button state
-                submitBtn.prop('disabled', false);
-                btnText.show();
-                btnSpinner.hide();
-            }
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        html: errorHtml,
+                        confirmButtonText: 'Fix it'
+                    });
+                },
+                complete: function() {
+                    // Reset button state
+                    submitBtn.prop('disabled', false);
+                    btnText.show();
+                    btnSpinner.hide();
+                }
+            });
         });
-    });
-</script>
-
+    </script>
 @endpush

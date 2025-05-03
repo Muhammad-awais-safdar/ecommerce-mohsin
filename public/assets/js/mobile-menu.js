@@ -349,4 +349,5 @@ function addToCart(productId) {
     document.getElementById("countdown").setAttribute("data-d", day);
     document.getElementById("countdown").setAttribute("data-h", hour);
     document.getElementById("countdown").setAttribute("data-i", minute);
-    document.getElementById("countdown").setAttribute("data-s", second);
+document.getElementById("countdown").setAttribute("data-s", second);
+// Contact Form 
