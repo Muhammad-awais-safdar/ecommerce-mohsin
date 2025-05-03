@@ -2,11 +2,18 @@
 <html lang="en">
 
 <head>
-    <title>Stelina - Home</title>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/favicon.png') }}" />
+    {{-- <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/favicon.png') }}" /> --}}
+    @php
+        $favicon = \App\Models\SiteSetting::first()?->favicon;
+    @endphp
+
+    @if ($favicon)
+        <link rel="icon" type="image/x-icon" href="{{ asset('storage/' . $favicon) }}">
+    @endif
     <link
         href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;display=swap"
         rel="stylesheet">
@@ -26,7 +33,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/jquery.scrollbar.min.css') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <link rel="stylesheet" href="{{ asset('assets/css/mobile-menu.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/fonts/flaticon/flaticon.css') }}">
@@ -34,6 +41,48 @@
     <!-- SweetAlert2 CSS & JS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @stack('seo')
+
+
+    @if ($seo)
+
+        <title>{{ $seo?->meta_title ?? 'Default Title' }}</title>
+        <meta name="description" content="{{ $seo?->meta_description }}">
+        <meta name="keywords" content="{{ $seo?->meta_keywords }}">
+
+        <!-- Open Graph -->
+        <meta property="og:title" content="{{ $seo?->og_title }}">
+        <!-- OG Image -->
+        @if ($seo?->og_image)
+            <meta property="og:image" content="{{ asset('storage/' . $seo->og_image) }}">
+        @endif
+
+
+        <!-- Canonical & Robots -->
+        <link rel="canonical" href="{{ $seo?->canonical_url ?? url()->current() }}">
+        <meta name="robots" content="{{ $seo?->robots ?? 'index, follow' }}">
+
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="{{ $seo?->twitter_title ?? $seo?->meta_title }}">
+
+        <!-- Twitter Image -->
+        @if ($seo?->twitter_image)
+            <meta name="twitter:image" content="{{ asset('storage/' . $seo->twitter_image) }}">
+        @endif
+    @endif
+
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "{{ $seo?->meta_title }}",
+    "description": "{{ $seo?->meta_description }}",
+    "url": "{{ url()->current() }}"
+}
+</script>
 
     @stack('styles')
 </head>

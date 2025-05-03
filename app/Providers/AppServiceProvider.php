@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Providers;
-
+use Illuminate\Support\Facades\View;
+use App\Services\SeoService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +20,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        View::composer('*', function ($view) {
+        $seo = app(SeoService::class)->getSeoData();
+        $view->with('seo', $seo);
+    });
     }
 }

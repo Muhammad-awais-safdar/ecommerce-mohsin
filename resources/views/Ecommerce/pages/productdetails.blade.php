@@ -1,5 +1,24 @@
 @extends('Ecommerce.layouts.app')
+@push('seo')
+    <title>{{ $product->name }}</title>
+    <meta name="description" content="  {!! $product->description !!}">
+    <link rel="canonical" href="{{ url()->current() }}" />
 
+    <!-- OpenGraph -->
+    <meta property="og:title" content="{{ $product->name }}">
+    <meta property="og:description" content="  {!! $product->description !!}">
+    @if ($product->image)
+        <meta property="og:image" content="{{ asset('storage/' . $product->image) }}">
+    @endif
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $product->name }}">
+    <meta name="twitter:description" content="  {!! $product->description !!}">
+    @if ($product->image)
+        <meta name="twitter:image" content="{{ asset('storage/' . $product->image) }}">
+    @endif
+@endpush
 @section('content')
     <div class="main-content main-content-details single no-sidebar">
         <div class="container">
@@ -159,7 +178,8 @@
                                                         @csrf
                                                         <input type="hidden" name="product_id"
                                                             value="{{ $product->id }}">
-                                                        <input type="hidden" name="rating" id="rating" value="0">
+                                                        <input type="hidden" name="rating" id="rating"
+                                                            value="0">
 
                                                         <p class="comment-notes">
                                                             <span class="email-notes">Your email address will not be

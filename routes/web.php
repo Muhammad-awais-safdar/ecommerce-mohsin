@@ -1,4 +1,5 @@
 <?php
+use App\Models\SiteSetting;
 use App\Http\Controllers\CartController;
 
 use App\Http\Controllers\CheckoutController;
@@ -39,7 +40,19 @@ Route::get('/payment/success', [PaymentController::class, 'success'])->name('pay
 Route::get('/payment/failure', [PaymentController::class, 'failure'])->name('payment.failure');
 
 
+Route::get('/refund-request', [RefundRequestController::class, 'create'])->name('refund.request.form');
+Route::post('/refund-request', [RefundRequestController::class, 'store'])->name('refund.request.store');
 
+
+
+
+Route::fallback(function () {
+    return view('Ecommerce.pages.404page');
+});
+
+
+Route::get('/{slug}', [PageController::class, 'show'])->name('pages.show');
+Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
 
 Route::get('/migrate-and-link', function () {
     // Run database migrations
@@ -62,16 +75,10 @@ Route::get('/migrate-and-link', function () {
 
 
 
-Route::get('/refund-request', [RefundRequestController::class, 'create'])->name('refund.request.form');
-Route::post('/refund-request', [RefundRequestController::class, 'store'])->name('refund.request.store');
 
+// routes/web.php
 
-
-
-Route::fallback(function () {
-    return view('Ecommerce.pages.404page');
+Route::get('/robots.txt', function () {
+    $robots = SiteSetting::first()?->robots_txt ?? "User-agent: *\nDisallow:";
+    return response($robots, 200)->header('Content-Type', 'text/plain');
 });
-
-
-Route::get('/{slug}', [PageController::class, 'show'])->name('pages.show');
-Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');

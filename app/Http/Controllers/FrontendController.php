@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Review;
+use App\Services\SeoService;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class FrontendController extends Controller
 {
@@ -15,7 +17,7 @@ class FrontendController extends Controller
             ->withAvg('reviews', 'rating')
             ->take(12)
             ->get();
-        return view('Ecommerce.Mainindex', compact('products','allproducts'));
+        return view('Ecommerce.Mainindex', compact('products', 'allproducts'));
     }
     public function shop()
     {
@@ -23,7 +25,7 @@ class FrontendController extends Controller
         return view('Ecommerce.pages.shop', compact('products'));
     }
 
-    public function show($id)
+    public function show($id, SeoService $seoService)
     {
         // 1. Fetch the current product (with its reviews if you need them)
         $product = Product::with('reviews')->findOrFail($id);
@@ -32,7 +34,8 @@ class FrontendController extends Controller
         $allproducts = Product::withCount('reviews')
             ->whereNotIn('id', [$product->id])  // pass an array here
             ->get();
-
+       
+        // dd($seo);
         // 3. Return your view (no dd())
         return view('Ecommerce.pages.productdetails', compact('product', 'allproducts'));
     }

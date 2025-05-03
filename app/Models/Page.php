@@ -7,10 +7,8 @@ use Illuminate\Support\Str;
 
 class Page extends Model
 {
-    protected $fillable = [
-        'name',
-        'content',
-    ];
+    protected $fillable = ['slug', 'name', 'content'];
+
     public function getRouteKeyName()
     {
         return 'slug';  // This assumes you have a slug field for SEO-friendly URLs
