@@ -41,14 +41,14 @@
                             <tr>
                                 <td style="padding:10px;border:1px solid #ddd;">{{ $item->product->name ?? 'Product' }}</td>
                                 <td style="padding:10px;border:1px solid #ddd;">{{ $item->quantity }}</td>
-                                <td style="padding:10px;border:1px solid #ddd;">${{ number_format($item->price, 2) }}</td>
+                                <td style="padding:10px;border:1px solid #ddd;">£{{ number_format($item->price, 2) }}</td>
                                 <td style="padding:10px;border:1px solid #ddd;">
-                                    ${{ number_format($item->price * $item->quantity, 2) }}</td>
+                                    £{{ number_format($item->price * $item->quantity, 2) }}</td>
                             </tr>
                         @endforeach
                         <tr style="background: #f9f9f9;">
                             <td colspan="3" style="padding:10px;text-align:right;font-weight:bold;">Grand Total:</td>
-                            <td style="padding:10px;font-weight:bold;">${{ number_format($order->total_amount, 2) }}
+                            <td style="padding:10px;font-weight:bold;">£{{ number_format($order->total_amount, 2) }}
                             </td>
                         </tr>
                     </tbody>

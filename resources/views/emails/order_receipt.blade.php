@@ -119,7 +119,7 @@
                 </tr>
                 <tr>
                     <th>Total Amount</th>
-                    <td><strong>${{ number_format($order->total_amount, 2) }}</strong></td>
+                    <td><strong>£{{ number_format($order->total_amount, 2) }}</strong></td>
                 </tr>
             </table>
         </div>
@@ -269,7 +269,7 @@
                 </tr>
                 <tr>
                     <th>Total Amount</th>
-                    <td><strong>${{ number_format($order->total_amount, 2) }}</strong></td>
+                    <td><strong>£{{ number_format($order->total_amount, 2) }}</strong></td>
                 </tr>
             </table>
         </div>
@@ -290,8 +290,8 @@
                         <tr>
                             <td>{{ $item->product->name }}</td>
                             <td>{{ $item->quantity }}</td>
-                            <td>${{ number_format($item->price, 2) }}</td>
-                            <td>${{ number_format($item->quantity * $item->price, 2) }}</td>
+                            <td>£{{ number_format($item->price, 2) }}</td>
+                            <td>£{{ number_format($item->quantity * $item->price, 2) }}</td>
                         </tr>
                     @endforeach
                 </tbody>

@@ -97,7 +97,7 @@
                                                 <div class="product-order-inner">
                                                     <h5 class="product-name">{{ $item['name'] ?? 'Unknown Product' }}</h5>
                                                     <div class="price">
-                                                        ${{ number_format($item['price'], 2) }} x {{ $item['quantity'] }}
+                                                        £{{ number_format($item['price'], 2) }} x {{ $item['quantity'] }}
                                                     </div>
                                                 </div>
                                             </li>
@@ -106,7 +106,7 @@
 
                                     <div class="order-total">
                                         <span class="title">Total Price:</span>
-                                        <span class="total-price">${{ number_format($subtotal, 2) }}</span>
+                                        <span class="total-price">£{{ number_format($subtotal, 2) }}</span>
                                     </div>
                                 </div>
                             </div>

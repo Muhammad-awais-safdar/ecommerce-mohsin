@@ -90,10 +90,17 @@
 <body class="home">
     <header class="header style7">
         <div class="top-bar">
-            <div class="container">
+            <div class="container" style="overflow-x:hidden">
                 <div class="top-bar-left">
                     <div class="header-message">
-                        Welcome to our online store!
+                       <div class="marquee-wrapper" id="marqueeWrapper">
+  <div class="marquee-content" id="marqueeContent">
+    Welcome to our online Store: Top Trends UK — Your destination for 100% original luxury
+    and branded fragrances. We guarantee authenticity, top-quality service, and an
+    exceptional shopping experience. Enjoy free UK delivery, easy returns, and 24/7 customer
+    support. Shop with confidence today!
+  </div>
+</div>
                     </div>
                 </div>
 
@@ -235,7 +242,8 @@
                             </div>
                             <div class="newsletter-form-wrap">
                                 <div class="list">
-                                    Sign up for our free video course and <br /> urban garden inspiration
+                                    Sign up for our free video series and discover exclusive fragrance tips &
+                                    inspiration – crafted for perfume lovers across the UK.
                                 </div>
                                 <input type="email" class="input-text email email-newsletter"
                                     placeholder="Your email letter">
@@ -286,7 +294,7 @@
                                 Copyright © @php
                                     echo date('Y');
                                 @endphp
-                                <a href="#">Stelina</a>
+                                <a href="{{ route('home') }}">Top Trends UK</a>
                                 . All rights reserved
                             </div>
                         </div>

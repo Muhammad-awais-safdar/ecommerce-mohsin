@@ -102,7 +102,7 @@ class CheckoutController extends Controller
                 'line_items' => [
                     [
                         'price_data' => [
-                            'currency' => 'usd',
+                            'currency' => 'gbp',
                             'product_data' => [
                                 'name' => 'Order #' . $order->id,
                             ],

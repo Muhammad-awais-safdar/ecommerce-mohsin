@@ -21,14 +21,14 @@
                         <li class="order-item">
                             <span class="product-name">{{ $item->product_name }}</span>
                             <span class="quantity">({{ $item->quantity }}x)</span>
-                            = <span class="item-total">${{ number_format($item->price * $item->quantity, 2) }}</span>
+                            = <span class="item-total">£{{ number_format($item->price * $item->quantity, 2) }}</span>
                         </li>
                     @endforeach
                 </ul>
 
                 <div class="order-total">
                     <span class="total-label">Total Paid:</span>
-                    <span class="total-price">${{ number_format($order->total_amount, 2) }}</span>
+                    <span class="total-price">£{{ number_format($order->total_amount, 2) }}</span>
                 </div>
 
                 <div class="order-status">

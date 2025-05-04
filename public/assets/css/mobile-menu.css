@@ -184,3 +184,24 @@
 .stelina-menu-panel .mega-menu .stelina-custommenu ul li{
     color: #555;
 }
+
+.marquee-wrapper {
+    width: 100%;
+    /* overflow: hidden; */
+    position: relative;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.marquee-content {
+    position: absolute;
+    white-space: nowrap;
+    will-change: transform;
+    /* font-weight: bold; */
+    padding-left: 100%;
+}
+
+.paused {
+    animation-play-state: paused !important;
+}

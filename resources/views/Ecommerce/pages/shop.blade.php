@@ -85,10 +85,10 @@
                                                     @endphp
 
                                                     @if ($discount > 0)
-                                                        <del>${{ number_format($originalPrice, 2) }}</del>
-                                                        <ins>${{ number_format($finalPrice, 2) }}</ins>
+                                                        <del>£{{ number_format($originalPrice, 2) }}</del>
+                                                        <ins>£{{ number_format($finalPrice, 2) }}</ins>
                                                     @else
-                                                        <ins>${{ number_format($originalPrice, 2) }}</ins>
+                                                        <ins>£{{ number_format($originalPrice, 2) }}</ins>
                                                     @endif
                                                 </div>
                                             </div>

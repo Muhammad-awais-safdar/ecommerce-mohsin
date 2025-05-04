@@ -13,15 +13,15 @@
                                     <div class="slider-inner equal-element">
                                         <div class="slider-infor">
                                             <h5 class="title-small">
-                                                Sale up to 40% off!
+                                                Sale up to 20% off! 
                                             </h5>
                                             <h3 class="title-big">
-                                                Spring Summer <br />Collection
+                                             TAKE A PERFUME <br> TOP TRENDS UK
                                             </h3>
                                             <div class="price">
-                                                New Price:
+                                                Now from just: 
                                                 <span class="number-price">
-                                                    $270.00
+                                                   £109.00
                                                 </span>
                                             </div>
                                             <a href="#" class="button btn-shop-the-look bgroud-style">Shop now</a>
@@ -173,10 +173,10 @@
                                             @endphp
 
                                             @if ($discount > 0)
-                                                <del>${{ number_format($originalPrice, 2) }}</del>
-                                                <ins>${{ number_format($finalPrice, 2) }}</ins>
+                                                <del>£{{ number_format($originalPrice, 2) }}</del>
+                                                <ins>£{{ number_format($finalPrice, 2) }}</ins>
                                             @else
-                                                <ins>${{ number_format($originalPrice, 2) }}</ins>
+                                                <ins>£{{ number_format($originalPrice, 2) }}</ins>
                                             @endif
                                         </div>
                                     </div>
@@ -327,7 +327,7 @@
                                         : 0;
                                 @endphp
 
-                                  <li class="product-item  col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1">
+                                <li class="product-item  col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1">
                                     <div class="product-inner equal-element">
                                         <div class="product-top">
                                             <div class="flash">
@@ -355,7 +355,8 @@
                                         </div>
                                         <div class=" product-info">
                                             <h5 class="product-name product_title">
-                                                <a href="{{ route('product.show', $product->id) }}">{{ $product->name }}</a>
+                                                <a
+                                                    href="{{ route('product.show', $product->id) }}">{{ $product->name }}</a>
                                             </h5>
                                             <div class="group-info">
                                                 @php
@@ -386,10 +387,10 @@
                                                     @endphp
 
                                                     @if ($discount > 0)
-                                                        <del>${{ number_format($originalPrice, 2) }}</del>
-                                                        <ins>${{ number_format($finalPrice, 2) }}</ins>
+                                                        <del>£{{ number_format($originalPrice, 2) }}</del>
+                                                        <ins>£{{ number_format($finalPrice, 2) }}</ins>
                                                     @else
-                                                        <ins>${{ number_format($originalPrice, 2) }}</ins>
+                                                        <ins>£{{ number_format($originalPrice, 2) }}</ins>
                                                     @endif
                                                 </div>
                                             </div>

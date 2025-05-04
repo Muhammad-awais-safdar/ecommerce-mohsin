@@ -33,7 +33,7 @@
                             <span class="product-name">{{ $item->product->name ?? 'N/A' }}</span>
                             <!-- Check if product exists -->
                             <span class="quantity">({{ $item->quantity }}x)</span>
-                            = <span class="item-total">${{ number_format($item->product->price ?? 0, 2) }}</span>
+                            = <span class="item-total">£{{ number_format($item->product->price ?? 0, 2) }}</span>
                             <!-- Check if price exists -->
                         </li>
                     @endforeach
@@ -41,7 +41,7 @@
 
                 <div class="order-total">
                     <span class="total-label">Total Paid:</span>
-                    <span class="total-price">${{ number_format($order->total_amount, 2) }}</span>
+                    <span class="total-price">£{{ number_format($order->total_amount, 2) }}</span>
                 </div>
 
                 <div class="order-status">

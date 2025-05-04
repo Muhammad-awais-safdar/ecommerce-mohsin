@@ -351,3 +351,29 @@ function addToCart(productId) {
     document.getElementById("countdown").setAttribute("data-i", minute);
 document.getElementById("countdown").setAttribute("data-s", second);
 // Contact Form 
+const content = document.getElementById('marqueeContent');
+  const wrapper = document.getElementById('marqueeWrapper');
+
+  let speed = 1; // pixels per frame
+  let pos = wrapper.offsetWidth;
+
+  function animate() {
+    pos -= speed;
+    if (pos < -content.offsetWidth) {
+      pos = wrapper.offsetWidth;
+    }
+    content.style.transform = `translateX(${pos}px)`;
+    if (!wrapper.classList.contains('paused')) {
+      requestAnimationFrame(animate);
+    }
+  }
+
+  // Start animation
+  animate();
+
+  // Pause on hover
+  wrapper.addEventListener('mouseenter', () => wrapper.classList.add('paused'));
+  wrapper.addEventListener('mouseleave', () => {
+    wrapper.classList.remove('paused');
+    animate(); // resume
+  });

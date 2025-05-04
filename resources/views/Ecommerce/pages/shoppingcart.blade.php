@@ -47,13 +47,13 @@
                                                         <a href="#" class="title">{{ $item['name'] }}</a>
                                                     </td>
                                                     <td class="product-price" data-title="Price">
-                                                        {{-- ${{ number_format($item['price'], 2) }} --}}
+                                                        {{-- £{{ number_format($item['price'], 2) }} --}}
 
                                                         @if ($item['discount'] > 0)
-                                                            <del>${{ number_format($item['original_price'], 2) }}</del>
-                                                            <span>${{ number_format($item['price'], 2) }}</span>
+                                                            <del>£{{ number_format($item['original_price'], 2) }}</del>
+                                                            <span>£{{ number_format($item['price'], 2) }}</span>
                                                         @else
-                                                            <span>${{ number_format($item['price'], 2) }}</span>
+                                                            <span>£{{ number_format($item['price'], 2) }}</span>
                                                         @endif
                                                     </td>
                                                     <td class="product-quantity" data-title="Quantity">
@@ -71,7 +71,7 @@
                                                         </div>
                                                     </td>
                                                     <td class="product-price item-total" data-id="{{ $id }}">
-                                                        ${{ number_format($itemTotal, 2) }}
+                                                        £{{ number_format($itemTotal, 2) }}
                                                     </td>
                                                     <td class="product-remove">
                                                         <a href="javascript:void(0);" class="remove remove-from-cart"
@@ -86,7 +86,7 @@
                                                     <div class="order-total">
                                                         <span class="title">Total Price:</span>
                                                         <span class="total-price"
-                                                            id="cart-subtotal">${{ number_format($subtotal, 2) }}</span>
+                                                            id="cart-subtotal">£{{ number_format($subtotal, 2) }}</span>
                                                     </div>
                                                 </td>
                                             </tr>
