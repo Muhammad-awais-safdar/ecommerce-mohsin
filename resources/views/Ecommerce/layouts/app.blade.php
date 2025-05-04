@@ -6,7 +6,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    {{-- <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/favicon.png') }}" /> --}}
+    @php
+        use App\Models\ThemeSetting;
+
+        $colors = ThemeSetting::pluck('value', 'key')->toArray();
+    @endphp
+
+    <style>
+        :root {
+            --color-background: {{ $colors['color_background'] ?? '#ffffff' }};
+            --color-text-primary: {{ $colors['color_text_primary'] ?? '#2C2C2C' }};
+            --color-text-secondary: {{ $colors['color_text_secondary'] ?? '#8C8C8C' }};
+            --color-accent-primary: {{ $colors['color_accent_primary'] ?? '#C7A200' }};
+            --color-accent-secondary: {{ $colors['color_accent_secondary'] ?? '#FFD700' }};
+            --color-border: {{ $colors['color_border'] ?? '#DDD6C5' }};
+        }
+    </style>
     @php
         $favicon = \App\Models\SiteSetting::first()?->favicon;
     @endphp
@@ -93,14 +108,14 @@
             <div class="container" style="overflow-x:hidden">
                 <div class="top-bar-left">
                     <div class="header-message">
-                       <div class="marquee-wrapper" id="marqueeWrapper">
-  <div class="marquee-content" id="marqueeContent">
-    Welcome to our online Store: Top Trends UK — Your destination for 100% original luxury
-    and branded fragrances. We guarantee authenticity, top-quality service, and an
-    exceptional shopping experience. Enjoy free UK delivery, easy returns, and 24/7 customer
-    support. Shop with confidence today!
-  </div>
-</div>
+                        <div class="marquee-wrapper" id="marqueeWrapper">
+                            <div class="marquee-content" id="marqueeContent">
+                                Welcome to our online Store: Top Trends UK — Your destination for 100% original luxury
+                                and branded fragrances. We guarantee authenticity, top-quality service, and an
+                                exceptional shopping experience. Enjoy free UK delivery, easy returns, and 24/7 customer
+                                support. Shop with confidence today!
+                            </div>
+                        </div>
                     </div>
                 </div>
 

@@ -23,9 +23,10 @@ class DatabaseSeeder extends Seeder
             OrderSeeder::class,
             ProductSeeder::class,
             SeoSeeder::class,
+            ThemeSettingSeeder::class,
         ]);
         Order::factory()->count(50)->create();
-        
+
         Product::factory(30)->create();
         Review::factory()->count(200)->create();
     }
