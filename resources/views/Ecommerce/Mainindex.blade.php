@@ -13,15 +13,15 @@
                                     <div class="slider-inner equal-element">
                                         <div class="slider-infor">
                                             <h5 class="title-small">
-                                                Sale up to 20% off! 
+                                                Sale up to 20% off!
                                             </h5>
                                             <h3 class="title-big">
-                                             TAKE A PERFUME <br> TOP TRENDS UK
+                                                TAKE A PERFUME <br> TOP TRENDS UK
                                             </h3>
                                             <div class="price">
-                                                Now from just: 
+                                                Now from just:
                                                 <span class="number-price">
-                                                   £109.00
+                                                    £109.00
                                                 </span>
                                             </div>
                                             <a href="#" class="button btn-shop-the-look bgroud-style">Shop now</a>
@@ -32,15 +32,15 @@
                                     <div class="slider-inner equal-element">
                                         <div class="slider-infor">
                                             <h5 class="title-small">
-                                                Take A perfume
+                                                TAKE A PERFUME <br> TOP TRENDS UK
                                             </h5>
                                             <h3 class="title-big">
-                                                Up to 25% Off <br />order now
+                                                Up to 20% Off <br />order now
                                             </h3>
                                             <div class="price">
                                                 Save Price:
                                                 <span class="number-price">
-                                                    $170.00
+                                                    &#163;99.00
                                                 </span>
                                             </div>
                                             <a href="#" class="button btn-shop-product">Shop now</a>
@@ -51,18 +51,18 @@
                                     <div class="slider-inner equal-element">
                                         <div class="slider-infor">
                                             <h5 class="title-small">
-                                                Stelina Best Collection
+                                                Top Trends Uk Best Collection
                                             </h5>
                                             <h3 class="title-big">
-                                                A range of <br />perfume
+                                                TAKE A PERFUME <br> TOP TRENDS UK
                                             </h3>
                                             <div class="price">
                                                 New Price:
                                                 <span class="number-price">
-                                                    $250.00
+                                                    $150.00
                                                 </span>
                                             </div>
-                                            <a href="#" class="button btn-chekout">Shop now</a>
+                                            <a href="{{ route('shop') }}" class="button btn-chekout">Shop now</a>
                                         </div>
                                     </div>
                                 </div>
@@ -76,9 +76,9 @@
                                     <div class="banner-content">
                                         <h3 class="title">Pick Your <br />Items</h3>
                                         <div class="description">
-                                            Adipiscing elit curabitur senectus sem
+                                            Experience elegance — crafted luxury from £105
                                         </div>
-                                        <a href="#" class="button btn-lets-do-it">Shop now</a>
+                                        <a href="{{ route('shop') }}" class="button btn-lets-do-it">Shop now</a>
                                     </div>
                                 </div>
                             </div>
@@ -89,9 +89,9 @@
                                     <div class="banner-content">
                                         <h3 class="title">Best Of<br />Products</h3>
                                         <div class="description">
-                                            Cras pulvinar loresum dolor conse
+                                            Finest luxury perfumes from £99
                                         </div>
-                                        <span class="price">$379.00</span>
+                                        <span class="price">now just £89!</span>
                                     </div>
                                 </div>
                             </div>
@@ -198,10 +198,11 @@
                                 </div>
                                 <div class="content">
                                     <h4 class="title">
-                                        EU Free Delivery
+                                        COMPLIMENTARY UK DELIVERY
                                     </h4>
                                     <div class="text">
-                                        Free Delivery on all order from EU <br />with price more than $90.00
+                                        We offer <strong>free delivery</strong> across the UK on every order.
+                                        Seamless service—because luxury should arrive effortlessly.
                                     </div>
                                 </div>
                             </div>
@@ -215,10 +216,11 @@
                                 </div>
                                 <div class="content">
                                     <h4 class="title">
-                                        Money Guarantee
+                                        7-DAY REFUND POLICY
                                     </h4>
                                     <div class="text">
-                                        30 Days money back guarantee <br />no question asked!
+                                        Changed your mind? <strong>Apply for a refund within 7 days</strong> of delivery.
+                                        Hassle-free and customer-first.
                                     </div>
                                 </div>
                             </div>
@@ -232,11 +234,11 @@
                                 </div>
                                 <div class="content">
                                     <h4 class="title">
-                                        Online Support 24/7
+                                        DEDICATED SUPPORT 24/7
                                     </h4>
                                     <div class="text">
-                                        We’re here to support to you. <br />Let’s shopping now!
-                                    </div>
+                                        Our expert team is available 24/7 to assist you.
+                                        Premium support—whenever you need it </div>
                                 </div>
                             </div>
                         </div>
@@ -252,12 +254,13 @@
                             <div class="item-banner style4">
                                 <div class="inner">
                                     <div class="banner-content">
-                                        <h4 class="stelina-subtitle">TOP STAFF PICK</h4>
-                                        <h3 class="title">Best Collection</h3>
+                                        <h4 class="stelina-subtitle">STAFF FAVORITE — TOP TRENDS UK</h4>
+                                        <h3 class="title">Curated Best Collection</h3>
                                         <div class="description">
-                                            Proin interdum magna primis id consequat
+                                            Discover our most loved luxury fragrances, hand-selected for you.
+                                            Crafted elegance in every bottle.
                                         </div>
-                                        <a href="#" class="button btn-shop-now">Shop now</a>
+                                        <a href="{{ route('shop') }}" class="button btn-shop-now">Shop now</a>
                                     </div>
                                 </div>
                             </div>
@@ -268,13 +271,10 @@
                             <div class="item-banner style5">
                                 <div class="inner">
                                     <div class="banner-content">
-                                        <h3 class="title">Maybe You’ve <br />Earned it</h3>
+                                        <h3 class="title">SALE — UP TO 20% OFF</h3>
                                         <span class="code">
-                                            Use code:
-                                            <span>
-                                                STELINA
-                                            </span>
-                                            Get 25% Off for all items!
+                                            Enjoy up to 20% off across our entire collection.
+                                            Because luxury should feel rewarding.
                                         </span>
                                         <a href="#" class="button btn-shop-now">Shop now</a>
                                     </div>
@@ -297,7 +297,7 @@
                                 </div>
                                 <div class="banner-price">
                                     Price from:
-                                    <span class="number-price">$45.00</span>
+                                    <span class="number-price">&#163;99.00</span>
                                 </div>
                                 <a href="#" class="button btn-shop-now">Shop now</a>
                             </div>
@@ -408,7 +408,5 @@
 
             </div>
         </div>
-
-
     </div>
 @endsection
