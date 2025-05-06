@@ -2837,6 +2837,16 @@ namespace App\Models {
     /**
      * App\Models\ThemeSetting
      *
+     * @property \Illuminate\Support\Carbon|null $updated_at
+     * @property \Illuminate\Support\Carbon|null $created_at
+     * @property string|null $value
+     * @property string $key
+     * @property int $id
+     * @method static \Illuminate\Database\Eloquent\Builder<ThemeSetting>|ThemeSetting whereId($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<ThemeSetting>|ThemeSetting whereKey($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<ThemeSetting>|ThemeSetting whereValue($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<ThemeSetting>|ThemeSetting whereCreatedAt($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<ThemeSetting>|ThemeSetting whereUpdatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<ThemeSetting>|ThemeSetting newModelQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<ThemeSetting>|ThemeSetting newQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<ThemeSetting>|ThemeSetting query()

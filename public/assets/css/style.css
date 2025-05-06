@@ -13652,3 +13652,35 @@ a:active,
 .product-item .product-inner img {
 	width: 100%;
 }
+
+.postcode-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.input-text {
+    padding-right: 40px; /* Extra padding on the right for the button */
+    width: 100%;
+}
+
+.arrow-btn {
+    position: absolute;
+    top: 70%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
+    color: #333;
+    padding: 0;
+}
+
+.arrow-btn i {
+    font-size: 18px;  /* Adjust the arrow size */
+}
+
+.arrow-btn:hover {
+    color: #007bff; /* Change color on hover */
+}

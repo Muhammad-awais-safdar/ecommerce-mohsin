@@ -31,11 +31,12 @@ class CheckoutController extends Controller
             'last_name' => 'required|string|max:100',
             'customer_email' => 'required|email|max:100',
             'customer_phone' => 'required|string|max:20',
-            'address' => 'required|string',
+            'address_line1' => 'required|string',
+            'address_line2' => 'string',
             'country' => 'required|string',
             'state' => 'required|string',
             'city' => 'required|string',
-            'zip' => 'required|string|max:10',
+            'postcode' => 'required|string|max:10',
         ]);
 
         $cart = session()->get('cart', []);
@@ -53,14 +54,21 @@ class CheckoutController extends Controller
         DB::beginTransaction();
 
         try {
+            $shippingAddress = $request->address_line1 . ', ' . $request->city . ', ' . $request->state . ', ' . $request->country . ' - ' . $request->postcode;
+
+            if (isset($request->address_line2)) {
+                $shippingAddress .= ', ' . $request->address_line2;
+            }
+
             $order = Order::create([
                 'customer_email' => $request->customer_email,
                 'customer_name' => $request->first_name . ' ' . $request->last_name,
                 'customer_phone' => $request->customer_phone,
-                'shipping_address' => $request->address . ', ' . $request->city . ', ' . $request->state . ', ' . $request->country . ' - ' . $request->zip,
+                'shipping_address' => $shippingAddress,
                 'total_amount' => $totalAmount,
                 'status' => 'pending',
             ]);
+
 
             foreach ($cart as $productId => $item) {
                 OrderItem::create([
