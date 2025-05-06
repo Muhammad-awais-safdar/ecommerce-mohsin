@@ -17,14 +17,14 @@
 
 	--color-border: #DDD6C5;
 } */
- :root {
+ /* :root {
  	--color-background: #ffffff;
  	--color-text-primary: #2C2C2C;
  	--color-text-secondary: #8C8C8C;
  	--color-accent-primary: #C7A200;
  	--color-accent-secondary: #FFD700;
  	--color-border: #DDD6C5;
- }
+ } */
 body {
 	font-family: 'Jost', sans-serif;
 	font-size: 16px;

@@ -72,8 +72,8 @@
 
 
                                     <p class="form-row form-row-last">
-                                        <label class="text">State</label>
-                                        <input type="text" class="input-text" name="state" id="state" required>
+                                        <label class="text">county</label>
+                                        <input type="text" class="input-text" name="county" id="county" required>
                                     </p>
 
                                     <p class="form-row form-row-first">

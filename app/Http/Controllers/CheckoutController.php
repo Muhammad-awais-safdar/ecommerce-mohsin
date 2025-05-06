@@ -34,7 +34,7 @@ class CheckoutController extends Controller
             'address_line1' => 'required|string',
             'address_line2' => 'string',
             'country' => 'required|string',
-            'state' => 'required|string',
+            'county' => 'required|string',
             'city' => 'required|string',
             'postcode' => 'required|string|max:10',
         ]);
@@ -54,7 +54,7 @@ class CheckoutController extends Controller
         DB::beginTransaction();
 
         try {
-            $shippingAddress = $request->address_line1 . ', ' . $request->city . ', ' . $request->state . ', ' . $request->country . ' - ' . $request->postcode;
+            $shippingAddress = $request->address_line1 . ', ' . $request->city . ', ' . $request->county . ', ' . $request->country . ' - ' . $request->postcode;
 
             if (isset($request->address_line2)) {
                 $shippingAddress .= ', ' . $request->address_line2;
