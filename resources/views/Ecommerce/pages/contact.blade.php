@@ -89,8 +89,7 @@
                                         </p>
                                         <p>
 
-                                            <button type="submit" class="form-control-submit button-submit"
-                                                >
+                                            <button type="submit" class="form-control-submit button-submit">
                                                 <span class="btn-text">SEND MESSAGE</span>
                                                 <span class="btn-spinner" style="display:none;">
                                                     <i class="fa fa-spinner fa-spin"></i> Sending...
@@ -116,7 +115,7 @@
 
                                                 </span>
                                                 <span class="text">
-                                                    Restfield White City London G12 Ariel Way - United Kingdom
+                                                    124 City Road, London EC1V 2NX
                                                 </span>
                                             </div>
                                             <div class="item phone">
@@ -124,7 +123,8 @@
 
                                                 </span>
                                                 <span class="text">
-                                                    (+800) 123 456 7890
+
+                                                    + 44 7577 305729
                                                 </span>
                                             </div>
                                             <div class="item email">
@@ -132,7 +132,8 @@
 
                                                 </span>
                                                 <span class="text">
-                                                    info@stelinaoutfit.co.uk
+
+                                                    contact@toptrendsuk.store
                                                 </span>
                                             </div>
                                         </div>
