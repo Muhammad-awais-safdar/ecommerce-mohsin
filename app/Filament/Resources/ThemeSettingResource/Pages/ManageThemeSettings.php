@@ -16,8 +16,8 @@ class ManageThemeSettings extends ManageRecords
     {
         return [
             Action::make('reset_colors')
-                ->label('Reset Colors')
-                ->color('danger')
+                ->label('Reset Theme')
+                ->color('Warning')
                 ->requiresConfirmation()
                 ->action(function () {
                     $defaultColors = [
