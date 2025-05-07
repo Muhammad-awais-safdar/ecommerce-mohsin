@@ -241,12 +241,16 @@
                             success: function(response) {
                                 Swal.close();
                                 const address = response.address;
-
                                 $('#address_line1').val(
-                                    `${address.road || ''} ${address.house_number || ''}`.trim());
+                                    `${response.display_name || ''}`.trim()
+                                );
+
                                 $('#city').val(address.city || address.town || address.village || '');
-                                $('#county').val(address.county || '');
+
+                                $('#county').val(address.county || address.state || '');
+
                                 $('#postcode').val(address.postcode || '');
+
                             },
                             error: function() {
                                 Swal.close();
@@ -258,35 +262,7 @@
                             }
                         });
                     },
-                    function(error) {
-                        Swal.close();
-
-                        if (error.code === 1) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Permission Denied',
-                                text: 'You denied access to your location. Please allow it in your browser settings.',
-                            });
-                        } else if (error.code === 2) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Location Unavailable',
-                                text: 'Unable to determine your location.',
-                            });
-                        } else if (error.code === 3) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Timeout',
-                                text: 'Location request timed out. Please try again.',
-                            });
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Location Error',
-                                text: 'An unknown error occurred.',
-                            });
-                        }
-                    }
+               
                 );
             });
         </script>
