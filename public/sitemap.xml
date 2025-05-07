@@ -25,6 +25,9 @@
     <loc>http://127.0.0.1:8000/payment.success</loc>
             </url>
     <url>
+    <loc>http://127.0.0.1:8000/product.show</loc>
+            </url>
+    <url>
     <loc>http://127.0.0.1:8000/refund.request.form</loc>
             </url>
     <url>

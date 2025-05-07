@@ -25,19 +25,16 @@
                         </div>
                 @endif
             </h3>
-            @if ($errors->any())
-                {!! implode('', $errors->all('<div>:message</div>')) !!}
-            @endif
+
             <div class="checkout-wrapp">
+                <button type="button" id="get-location" class="button">Use My Current Location</button>
 
                 <div class="shipping-address-form checkout-form">
                     <form action="{{ route('checkout.store') }}" method="POST">
                         @csrf
 
                         <div class="shipping-address-form checkout-form">
-                            {{-- <p class="form-row">
-                                <button type="button" id="use-location" class="button">Use My Location</button>
-                            </p> --}}
+
                             <div class="row-col-1 row-col">
                                 <div class="shipping-address">
                                     <h3 class="title-form">Shipping Address (UK)</h3>
@@ -153,83 +150,6 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
-            // Check if geolocation is available
-            // $('#use-location').on('click', function() {
-            //     if (navigator.geolocation) {
-            //         navigator.geolocation.getCurrentPosition(
-            //             function(position) {
-            //                 const latitude = position.coords.latitude;
-            //                 const longitude = position.coords.longitude;
-
-            //                 // Call reverse geocoding API to get address from latitude and longitude
-            //                 $.ajax({
-            //                     url: `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&addressdetails=1`,
-            //                     method: 'GET',
-            //                     success: function(response) {
-            //                         if (response && response.place_id) {
-            //                             console.log(response.place_id);
-            //                             const address = response.address;
-            //                             $('#address_line1').val(response.display_name);
-            //                             $('#city').val(address.city || address.town || '');
-
-            //                             $('#postcode').val(address.postcode || '');
-            //                         } else {
-            //                             // If no address found
-            //                             Swal.fire({
-            //                                 icon: 'warning',
-            //                                 title: 'Address Not Found',
-            //                                 text: 'Could not determine your address. Please check your location settings.',
-            //                             });
-            //                         }
-            //                     },
-            //                     error: function() {
-            //                         Swal.fire({
-            //                             icon: 'error',
-            //                             title: 'Error',
-            //                             text: 'Unable to fetch address details. Please try again later.',
-            //                         });
-            //                     }
-            //                 });
-            //             },
-            //             function(error) {
-            //                 console.error(error); // Log the full error object for debugging
-            //                 let errorMessage = 'Unable to fetch location.';
-
-            //                 // More detailed error handling
-            //                 switch (error.code) {
-            //                     case error.PERMISSION_DENIED:
-            //                         errorMessage =
-            //                             'You denied the request for Geolocation. Please allow location access in your browser settings.';
-            //                         break;
-            //                     case error.POSITION_UNAVAILABLE:
-            //                         errorMessage = 'Location information is unavailable. Please try again later.';
-            //                         break;
-            //                     case error.TIMEOUT:
-            //                         errorMessage =
-            //                             'The request to get user location timed out. Please try again later.';
-            //                         break;
-            //                     case error.UNKNOWN_ERROR:
-            //                         errorMessage = 'An unknown error occurred while fetching your location.';
-            //                         break;
-            //                 }
-
-            //                 // Display the error message with more details
-            //                 Swal.fire({
-            //                     icon: 'error',
-            //                     title: 'Geolocation Error',
-            //                     text: errorMessage,
-            //                 });
-            //             }
-            //         );
-            //     } else {
-            //         Swal.fire({
-            //             icon: 'error',
-            //             title: 'Geolocation Not Supported',
-            //             text: 'Your browser does not support geolocation.',
-            //         });
-            //     }
-            // });
-
             // Check postcode logic as you already have it
             $('#check-postcode').on('click', function() {
                 let postcode = $('#postcode').val().trim().toUpperCase();
@@ -284,6 +204,90 @@
                         });
                     }
                 });
+            });
+        </script>
+        <script>
+            $('#get-location').on('click', function() {
+                if (!navigator.geolocation) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Geolocation Not Supported',
+                        text: 'Your browser does not support location detection.',
+                    });
+                    return;
+                }
+
+                Swal.fire({
+                    title: 'Fetching your location...',
+                    allowOutsideClick: false,
+                    didOpen: () => Swal.showLoading(),
+                });
+
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        const lat = position.coords.latitude;
+                        const lon = position.coords.longitude;
+
+                        // Use OpenStreetMap Nominatim for reverse geocoding
+                        $.ajax({
+                            url: `https://nominatim.openstreetmap.org/reverse`,
+                            method: 'GET',
+                            data: {
+                                format: 'json',
+                                lat: lat,
+                                lon: lon,
+                                addressdetails: 1,
+                            },
+                            success: function(response) {
+                                Swal.close();
+                                const address = response.address;
+
+                                $('#address_line1').val(
+                                    `${address.road || ''} ${address.house_number || ''}`.trim());
+                                $('#city').val(address.city || address.town || address.village || '');
+                                $('#county').val(address.county || '');
+                                $('#postcode').val(address.postcode || '');
+                            },
+                            error: function() {
+                                Swal.close();
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Failed to Fetch Address',
+                                    text: 'Could not get address from your coordinates.',
+                                });
+                            }
+                        });
+                    },
+                    function(error) {
+                        Swal.close();
+
+                        if (error.code === 1) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Permission Denied',
+                                text: 'You denied access to your location. Please allow it in your browser settings.',
+                            });
+                        } else if (error.code === 2) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Location Unavailable',
+                                text: 'Unable to determine your location.',
+                            });
+                        } else if (error.code === 3) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Timeout',
+                                text: 'Location request timed out. Please try again.',
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Location Error',
+                                text: 'An unknown error occurred.',
+                            });
+                        }
+                    }
+                );
             });
         </script>
     @endpush
