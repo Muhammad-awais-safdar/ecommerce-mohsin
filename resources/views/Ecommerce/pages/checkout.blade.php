@@ -27,7 +27,7 @@
             </h3>
 
             <div class="checkout-wrapp">
-                <button type="button" id="get-location" class="button">Use My Current Location</button>
+                {{-- <button type="button" id="get-location" class="button">Use My Current Location</button> --}}
 
                 <div class="shipping-address-form checkout-form">
                     <form action="{{ route('checkout.store') }}" method="POST">
@@ -206,7 +206,7 @@
                 });
             });
         </script>
-        <script>
+        {{-- <script>
             $('#get-location').on('click', function() {
                 if (!navigator.geolocation) {
                     Swal.fire({
@@ -262,8 +262,8 @@
                             }
                         });
                     },
-               
+
                 );
             });
-        </script>
+        </script> --}}
     @endpush
