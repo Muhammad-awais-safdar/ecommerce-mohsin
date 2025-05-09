@@ -22,11 +22,11 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => 'Perfume - ' . $this->faker->word(), // Example: Perfume - Rose
-            'description' => $this->faker->paragraph(), // Random description
-            'price' => $this->faker->randomFloat(2, 10, 200), // Random price between 10 and 200
-            'image' => 'https://placehold.co/600x400', // Random image URL
-            'discount_percentage' => $this->faker->randomFloat(2, 10, 90),
+            'name' => 'Perfume - ' . $this->faker->word(),
+            'description' => $this->faker->paragraph(),
+            'price' => $this->faker->randomFloat(2, 10, 200),
+            'discount_percentage' => $this->faker->numberBetween(10, 90),
+            'images' => array_map(fn($i) => 'https://placehold.co/600x400?text=Image+' . ($i + 1), range(0, 4)),
             'created_at' => now(),
             'updated_at' => now(),
         ];

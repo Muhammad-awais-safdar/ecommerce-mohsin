@@ -44,8 +44,15 @@ class ProductResource extends Resource
                 ->minValue(0)
                 ->maxValue(100)
                 ->nullable(),
-            FileUpload::make('image')->image()->directory('products')->imageEditor() // optional, if you want manual cropping
-                ->imagePreviewHeight('200') // optional UI tweak,
+            FileUpload::make('images') // use plural name to reflect it's multiple
+                ->label('Product Images')
+                ->image()
+                ->multiple() // enables multiple file uploads
+                ->directory('products')
+                ->imageEditor()
+                ->imagePreviewHeight('200')
+                ->reorderable() // optional: allows drag-and-drop ordering
+                ->maxFiles(5),
         ]);
     }
 
@@ -67,7 +74,6 @@ class ProductResource extends Resource
                     DeleteBulkAction::make(),
                 ]),
             ]);
-
     }
 
     public static function getRelations(): array

@@ -1,15 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Stripe\Stripe;
-use Stripe\Checkout\Session;
-// use App\Models\Order;
 use App\Models\Order;
 use App\Models\OrderItem;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Stripe\Checkout\Session;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class CheckoutController extends Controller
 {
@@ -86,7 +86,6 @@ class CheckoutController extends Controller
             session()->forget('cart');
 
             return redirect()->route('checkout.payment', ['order_id' => $order->id])->with('success', 'Order placed successfully!');
-
         } catch (\Exception $e) {
             DB::rollBack();
             // dd($e);
@@ -94,7 +93,24 @@ class CheckoutController extends Controller
         }
     }
 
+    public function checkout(Request $request)
+    {
+        $product = \App\Models\Product::findOrFail($request->product_id);
 
+        $cart = [
+            $product->id => [
+                'name' => $product->name,
+                'quantity' => 1,
+                'price' => $product->price,
+                'image' => $product->image,
+            ]
+        ];
+
+        // Store cart in session temporarily for checkout
+        session(['cart' => $cart]);
+
+        return redirect()->route('checkout');
+    }
 
     public function payment(Request $request)
     {
@@ -135,5 +151,4 @@ class CheckoutController extends Controller
             return back()->with('error', 'Stripe Error: ' . $e->getMessage());
         }
     }
-
 }

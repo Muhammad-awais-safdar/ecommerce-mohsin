@@ -89,7 +89,7 @@
                                         </p>
                                         <p>
 
-                                            <button type="submit" class="form-control-submit button-submit">
+                                            <button type="submit" class="btn-stelina-primary">
                                                 <span class="btn-text">SEND MESSAGE</span>
                                                 <span class="btn-spinner" style="display:none;">
                                                     <i class="fa fa-spinner fa-spin"></i> Sending...

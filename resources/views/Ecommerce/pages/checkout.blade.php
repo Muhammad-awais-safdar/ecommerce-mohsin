@@ -27,7 +27,7 @@
             </h3>
 
             <div class="checkout-wrapp">
-                {{-- <button type="button" id="get-location" class="button">Use My Current Location</button> --}}
+
 
                 <div class="shipping-address-form checkout-form">
                     <form action="{{ route('checkout.store') }}" method="POST">
@@ -135,8 +135,12 @@
                                     </div>
                                 </div>
 
-                                <div class="form-row">
-                                    <button type="submit" class="button button-payment">Place Order</button>
+                                <div class="form-row" style="float: right;">
+
+                                    <button type="submit" class="btn-stelina-primary">Place Order</button>
+                                    {{-- <button class="btn-stelina-primary"><span>Book Now</span></button> --}}
+                                    {{-- <button class="btn-stelina-outline"><span>Learn More</span></button> --}}
+
                                 </div>
                             @endif
                         </div>
@@ -144,126 +148,67 @@
                 </div>
             </div>
         </div>
+    </div>
 
-    @endsection
-    @push('scripts')
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script>
-            // Check postcode logic as you already have it
-            $('#check-postcode').on('click', function() {
-                let postcode = $('#postcode').val().trim().toUpperCase();
+@endsection
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Check postcode logic as you already have it
+        $('#check-postcode').on('click', function() {
+            let postcode = $('#postcode').val().trim().toUpperCase();
 
-                const regex = /^([A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2})$/i;
-                if (!regex.test(postcode)) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Invalid Postcode',
-                        text: 'Please enter a valid UK postcode (e.g., SW1A 1AA)',
-                    });
-                    return;
-                }
-
+            const regex = /^([A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2})$/i;
+            if (!regex.test(postcode)) {
                 Swal.fire({
-                    title: 'Looking up postcode...',
-                    allowOutsideClick: false,
-                    didOpen: () => {
-                        Swal.showLoading();
-                    }
+                    icon: 'error',
+                    title: 'Invalid Postcode',
+                    text: 'Please enter a valid UK postcode (e.g., SW1A 1AA)',
                 });
+                return;
+            }
 
-                $.ajax({
-                    url: `https://api.postcodes.io/postcodes/${postcode}`,
-                    method: 'GET',
-                    success: function(response) {
-                        Swal.close();
-                        if (response.status === 200) {
-                            const data = response.result;
-                            $('#city').val(data.admin_district);
-                            $('#county').val(data.region);
-                        } else if (response.status === 404) {
-                            Swal.fire({
-                                icon: 'warning',
-                                title: 'Postcode Not Found',
-                                text: 'The postcode entered does not exist in our database. Please check and try again.',
-                            });
-                        } else {
-                            Swal.fire({
-                                icon: 'warning',
-                                title: 'Error',
-                                text: 'An unexpected error occurred. Please try again later.',
-                            });
-                        }
-                    },
-                    error: function() {
-                        Swal.close();
+            Swal.fire({
+                title: 'Looking up postcode...',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            $.ajax({
+                url: `https://api.postcodes.io/postcodes/${postcode}`,
+                method: 'GET',
+                success: function(response) {
+                    Swal.close();
+                    if (response.status === 200) {
+                        const data = response.result;
+                        $('#city').val(data.admin_district);
+                        $('#county').val(data.region);
+                    } else if (response.status === 404) {
                         Swal.fire({
-                            icon: 'error',
-                            title: 'Lookup Failed',
-                            text: 'Unable to fetch address. Please check your postcode or internet connection.',
+                            icon: 'warning',
+                            title: 'Postcode Not Found',
+                            text: 'The postcode entered does not exist in our database. Please check and try again.',
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Error',
+                            text: 'An unexpected error occurred. Please try again later.',
                         });
                     }
-                });
-            });
-        </script>
-        {{-- <script>
-            $('#get-location').on('click', function() {
-                if (!navigator.geolocation) {
+                },
+                error: function() {
+                    Swal.close();
                     Swal.fire({
                         icon: 'error',
-                        title: 'Geolocation Not Supported',
-                        text: 'Your browser does not support location detection.',
+                        title: 'Lookup Failed',
+                        text: 'Unable to fetch address. Please check your postcode or internet connection.',
                     });
-                    return;
                 }
-
-                Swal.fire({
-                    title: 'Fetching your location...',
-                    allowOutsideClick: false,
-                    didOpen: () => Swal.showLoading(),
-                });
-
-                navigator.geolocation.getCurrentPosition(
-                    function(position) {
-                        const lat = position.coords.latitude;
-                        const lon = position.coords.longitude;
-
-                        // Use OpenStreetMap Nominatim for reverse geocoding
-                        $.ajax({
-                            url: `https://nominatim.openstreetmap.org/reverse`,
-                            method: 'GET',
-                            data: {
-                                format: 'json',
-                                lat: lat,
-                                lon: lon,
-                                addressdetails: 1,
-                            },
-                            success: function(response) {
-                                Swal.close();
-                                const address = response.address;
-                                $('#address_line1').val(
-                                    `${response.display_name || ''}`.trim()
-                                );
-
-                                $('#city').val(address.city || address.town || address.village || '');
-
-                                $('#county').val(address.county || address.state || '');
-
-                                $('#postcode').val(address.postcode || '');
-
-                            },
-                            error: function() {
-                                Swal.close();
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Failed to Fetch Address',
-                                    text: 'Could not get address from your coordinates.',
-                                });
-                            }
-                        });
-                    },
-
-                );
             });
-        </script> --}}
-    @endpush
+        });
+    </script>
+@endpush

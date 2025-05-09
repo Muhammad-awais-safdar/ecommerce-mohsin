@@ -43,13 +43,29 @@
                     <div class="details-product">
                         <div class="details-thumd">
                             <div class="image-preview-container image-thick-box image_preview_container">
-                                <img id="img_zoom" data-zoom-image="{{ asset($product->image) }}"
-                                    src="{{ asset('storage/' . $product->image) }}" alt="img">
-                                <a href="{{ asset('storage/' . $product->image) }}" class="btn-zoom open_qv"><i
-                                        class="fa fa-search" aria-hidden="true"></i></a>
+                                <img id="img_zoom"
+                                    data-zoom-image="{{ $product->images[0] ?? 'https://placehold.co/600x400' }}"
+                                    src="{{ $product->images[0] ?? 'https://placehold.co/600x400' }}"
+                                    alt="{{ $product->name }}">
+                                <a href="#" class="btn-zoom open_qv"><i class="fa fa-search" aria-hidden="true"></i></a>
                             </div>
-                      
+
+                            <div class="product-preview image-small product_preview">
+                                <div id="thumbnails" class="thumbnails_carousel owl-carousel" data-nav="true"
+                                    data-autoplay="false" data-dots="false" data-loop="false" data-margin="10"
+                                    data-responsive='{"0":{"items":3},"480":{"items":3},"600":{"items":3},"1000":{"items":3}}'>
+
+                                    @foreach ($product->images as $index => $image)
+                                    <a href="#" data-image="{{ $image }}" data-zoom-image="{{ $image }}"
+                                        class="{{ $index === 0 ? 'active' : '' }}">
+                                        <img src="{{ $image }}" data-large-image="{{ $image }}"
+                                            alt="{{ $product->name }}">
+                                    </a>
+                                    @endforeach
+                                </div>
+                            </div>
                         </div>
+
                         <div class="details-infor">
                             <h1 class="product-title">
                                 {{ $product->name }}
@@ -86,6 +102,7 @@
 
 
                             <div class="group-button">
+
                                 <div class="quantity-add-to-cart"
                                     style="display: flex;align-items: center;justify-content: flex-start;">
                                     {{-- <div class="quantity">
@@ -256,7 +273,7 @@
 
                                                 {{-- <a href="#" class="button quick-wiew-button">Quick View</a> --}}
                                                 <div class="loop-form-add-to-cart">
-                                                    <button class="single_add_to_cart_button button"
+                                                    <button class="btn-stelina-primary button"
                                                         onclick="addToCart({{ $item->id }})">Add to cart
                                                     </button>
                                                 </div>
