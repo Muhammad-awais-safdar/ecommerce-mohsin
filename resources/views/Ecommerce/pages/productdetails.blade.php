@@ -52,7 +52,7 @@
 
                             <div class="product-preview image-small product_preview">
                                 <div id="thumbnails" class="thumbnails_carousel owl-carousel" data-nav="true"
-                                    data-autoplay="false" data-dots="false" data-loop="false" data-margin="10"
+                                    data-autoplay="true" data-dots="false" data-loop="true" data-margin="10"
                                     data-responsive='{"0":{"items":3},"480":{"items":3},"600":{"items":3},"1000":{"items":3}}'>
 
                                     @foreach($product->images as $key => $image)
@@ -71,14 +71,24 @@
                             <h1 class="product-title">
                                 {{ $product->name }}
                             </h1>
+                            @php
+                            // Make sure $product->reviews is loaded
+                            $count = $product->reviews->count();
+                            $avg = $count
+                            ? round($product->reviews->avg('rating')) // round to nearest integer
+                            : 0;
+                            @endphp
+                            
                             <div class="stars-rating">
                                 <div class="star-rating">
-                                    <span class="star-5"></span>
+                                    {{-- “star-{{ $avg }}” will show N filled stars via your CSS --}}
+                                    <span class="star-{{ $avg }}"></span>
                                 </div>
                                 <div class="count-star">
-                                    (7)
+                                    ({{ $count }})
                                 </div>
                             </div>
+                          
                             <div class="availability">
                                 availability:
                                 <a href="#">in Stock</a>
@@ -159,33 +169,27 @@
                                                             alt="Avatar">
                                                     </a>
                                                     <div class="comment-text">
-                                                        <div class="stars-rating">
-                                                            <div class="star-rating">
-                                                                @php
-                                                                // Make sure $product->reviews is loaded
-                                                                $count = $product->reviews->count();
-                                                                $avg = $count
-                                                                ? round($product->reviews->avg('rating')) 
-                                                                : 0;
-                                                                @endphp
-
-                                                                <div class="stars-rating">
-                                                                    <div class="star-rating">
-                                                                        {{-- “star-{{ $avg }}” will show N filled stars
-                                                                        via your CSS --}}
-                                                                        <span class="star-{{ $avg }}"></span>
-                                                                    </div>
-                                                                    <div class="count-star">
-                                                                        ({{ $count }})
-                                                                    </div>
+                                                        <div class="comment-text">
+                                                            @php
+                                                            $count = $product->reviews->count();
+                                                            $avg = $count ? round($product->reviews->avg('rating')) : 0;
+                                                            @endphp
+                                                            
+                                                            <div class="stars-rating">
+                                                                <div class="star-rating">
+                                                                    <span class="star-{{ $avg }}"></span> {{-- Expected to be styled via CSS --}}
                                                                 </div>
-                                                                {{-- <span class="star-{{ $review->rating }}"></span>
-                                                                --}}
+                                                            
+                                                                @if ($count > 0)
+                                                                <div class="count-star">
+                                                                    ({{ $count }})
+                                                                </div>
+                                                                @else
+                                                                <div class="count-star">
+                                                                    (No reviews)
+                                                                </div>
+                                                                @endif
                                                             </div>
-                                                            <div class="count-star">
-                                                                ({{ $review->rating }})
-                                                            </div>
-                                                        </div>
                                                         <p class="meta">
                                                             <strong class="author">{{ $review->user_name }}</strong>
                                                             <span>-</span>
