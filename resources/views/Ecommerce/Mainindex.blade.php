@@ -359,12 +359,7 @@
                                                         @endphp
 
                                                         @if($count > 0)
-                                                        <p>{{ $count }} review{{ $count > 1 ? 's' : '' }}
-                                                        @else
-                                                        <p>No reviews yet</p>
-                                                        @endif
-
-                                                        <div class="stars-rating">
+                                                       <div class="stars-rating">
                                                             <div class="star-rating">
                                                                 {{-- “star-{{ $avg }}” will show N filled stars via your
                                                                 CSS --}}
@@ -374,6 +369,11 @@
                                                                 ({{ $count }})
                                                             </div>
                                                         </div>
+                                                        @else
+                                                        <p>No reviews yet</p>
+                                                        @endif
+
+
                                                         <div class="price">
                                                             @php
                                                             $originalPrice = $product->price;
