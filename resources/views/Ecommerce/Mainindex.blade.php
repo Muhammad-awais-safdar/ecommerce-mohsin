@@ -359,8 +359,7 @@
                                                         @endphp
 
                                                         @if($count > 0)
-                                                        <p>{{ $count }} review{{ $count > 1 ? 's' : '' }} — Average
-                                                            Rating: {{ $avg }}/5</p>
+                                                        <p>{{ $count }} review{{ $count > 1 ? 's' : '' }}
                                                         @else
                                                         <p>No reviews yet</p>
                                                         @endif
