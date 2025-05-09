@@ -63,7 +63,7 @@
                                 </p>
 
                                 <p class="form-row">
-                                    <button type="submit" class="button">Submit Refund Request</button>
+                                    <button type="submit" class="btn-stelina-outline">Submit Refund Request</button>
                                 </p>
                             </div>
                         </div>

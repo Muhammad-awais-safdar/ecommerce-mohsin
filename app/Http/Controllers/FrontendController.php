@@ -27,16 +27,12 @@ class FrontendController extends Controller
 
     public function show($id, SeoService $seoService)
     {
-        // 1. Fetch the current product (with its reviews if you need them)
-        $product = Product::with('reviews')->findOrFail($id);
+        $product = Product::with(['reviews'])->findOrFail($id);
 
-        // 2. Get all other products (exclude the current one) with their review counts
         $allproducts = Product::withCount('reviews')
-            ->whereNotIn('id', [$product->id])  // pass an array here
+            ->whereNotIn('id', [$product->id])
             ->get();
-       
-        // dd($seo);
-        // 3. Return your view (no dd())
+
         return view('Ecommerce.pages.productdetails', compact('product', 'allproducts'));
     }
 
@@ -75,5 +71,4 @@ class FrontendController extends Controller
             ],
         ]);
     }
-
 }

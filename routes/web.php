@@ -1,4 +1,5 @@
 <?php
+
 use App\Models\SiteSetting;
 use App\Http\Controllers\CartController;
 
@@ -11,6 +12,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RefundRequestController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controller\OfferController;
 
 
 
@@ -34,6 +36,8 @@ Route::get('/checkout', [CheckoutController::class, 'form'])->name('checkout');
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 // Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
 Route::get('/checkout/payment', [CheckoutController::class, 'payment'])->name('checkout.payment');
+Route::post('/buy-now', [CheckoutController::class, 'checkout'])->name('buy.now');
+
 
 
 Route::get('/payment/success', [PaymentController::class, 'success'])->name('payment.success');
@@ -82,3 +86,8 @@ Route::get('/robots.txt', function () {
     $robots = SiteSetting::first()?->robots_txt ?? "User-agent: *\nDisallow:";
     return response($robots, 200)->header('Content-Type', 'text/plain');
 });
+
+
+// offer //
+// routes/web.php
+Route::post('/offers', [OfferController::class, 'store'])->name('offers.store');

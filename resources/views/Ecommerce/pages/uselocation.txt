@@ -1,0 +1,61 @@
+      {{-- <button type="button" id="get-location" class="button">Use My Current Location</button> --}}
+          {{-- <script>
+            $('#get-location').on('click', function() {
+                if (!navigator.geolocation) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Geolocation Not Supported',
+                        text: 'Your browser does not support location detection.',
+                    });
+                    return;
+                }
+
+                Swal.fire({
+                    title: 'Fetching your location...',
+                    allowOutsideClick: false,
+                    didOpen: () => Swal.showLoading(),
+                });
+
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        const lat = position.coords.latitude;
+                        const lon = position.coords.longitude;
+
+                        // Use OpenStreetMap Nominatim for reverse geocoding
+                        $.ajax({
+                            url: `https://nominatim.openstreetmap.org/reverse`,
+                            method: 'GET',
+                            data: {
+                                format: 'json',
+                                lat: lat,
+                                lon: lon,
+                                addressdetails: 1,
+                            },
+                            success: function(response) {
+                                Swal.close();
+                                const address = response.address;
+                                $('#address_line1').val(
+                                    `${response.display_name || ''}`.trim()
+                                );
+
+                                $('#city').val(address.city || address.town || address.village || '');
+
+                                $('#county').val(address.county || address.state || '');
+
+                                $('#postcode').val(address.postcode || '');
+
+                            },
+                            error: function() {
+                                Swal.close();
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Failed to Fetch Address',
+                                    text: 'Could not get address from your coordinates.',
+                                });
+                            }
+                        });
+                    },
+
+                );
+            });
+        </script> --}}

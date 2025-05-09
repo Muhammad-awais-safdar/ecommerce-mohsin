@@ -9,50 +9,29 @@ class ProductSeeder extends Seeder
 {
     public function run()
     {
-        // Seed 10 demo products
-        Product::create([
-            'name' => 'Perfume A',
-            'image' => 'https://placehold.co/600x400',
-            'description' => 'Description of Perfume A',
-            'discount_percentage'=>'40',
-            'price' => 50.00,
-            
-        ]);
+        $products = [
+            'Perfume A',
+            'Perfume B',
+            'Perfume C',
+            'Perfume D',
+            'Perfume E',
+        ];
 
-        Product::create([
-            'name' => 'Perfume B',
-            'image' => 'https://placehold.co/600x400',
-            'description' => 'Description of Perfume B',
-            'discount_percentage'=>'40',
-            'price' => 60.00,
-            
-        ]);
-
-        Product::create([
-            'name' => 'Perfume C',
-            'image' => 'https://placehold.co/600x400',
-            'description' => 'Description of Perfume C',
-            'discount_percentage'=>'40',
-            'price' => 75.00,
-            
-        ]);
-
-        Product::create([
-            'name' => 'Perfume D',
-            'image' => 'https://placehold.co/600x400',
-            'description' => 'Description of Perfume D',
-            'discount_percentage'=>'40',
-            'price' => 85.00,
-            
-        ]);
-
-        Product::create([
-            'name' => 'Perfume E',
-            'image' => 'https://placehold.co/600x400',
-            'description' => 'Description of Perfume E',
-            'discount_percentage'=>'40',
-            'price' => 45.00,
-            
-        ]);
+        foreach ($products as $productName) {
+            Product::create([
+                'name' => $productName,
+                'images' => [
+                    'https://placehold.co/600x400?text=' . urlencode($productName . ' Image 1'),
+                    'https://placehold.co/600x400?text=' . urlencode($productName . ' Image 2'),
+                    'https://placehold.co/600x400?text=' . urlencode($productName . ' Image 3'),
+                    'https://placehold.co/600x400?text=' . urlencode($productName . ' Image 4'),
+                    'https://placehold.co/600x400?text=' . urlencode($productName . ' Image 5'),
+                ],
+                'description' => 'Description of ' . $productName,
+                'discount_percentage' => '40',
+                'price' => fake()->randomFloat(2, 40, 90),
+            ]);
+        }
     }
 }
+    

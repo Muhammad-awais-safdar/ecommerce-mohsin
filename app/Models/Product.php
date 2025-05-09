@@ -1,18 +1,20 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'description', 'price', 'image', 'discount_percentage'];
+    protected $fillable = ['name', 'description', 'price', 'images', 'discount_percentage'];
 
     public function reviews()
     {
         return $this->hasMany(Review::class);
     }
+
     public function getDiscountedPriceAttribute(): float
     {
         if ($this->discount_percentage) {
@@ -20,4 +22,7 @@ class Product extends Model
         }
         return $this->price;
     }
+    protected $casts = [
+        'images' => 'array',
+    ];
 }
