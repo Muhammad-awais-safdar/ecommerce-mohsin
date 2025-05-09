@@ -40,7 +40,7 @@
                                         <div class="product-thumb">
                                             <div class="thumb-inner">
                                                 <a href="{{ route('product.show', $product->id) }}">
-                                                    <img src="{{ asset('storage/' . $product->image) }}" alt="img">
+                                                    <img src="{{ asset('storage/' . $product->images[0]) }}" alt="img">
                                                 </a>
                                                 <div class="thumb-group">
 

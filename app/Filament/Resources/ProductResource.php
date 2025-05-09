@@ -44,15 +44,18 @@ class ProductResource extends Resource
                 ->minValue(0)
                 ->maxValue(100)
                 ->nullable(),
-            FileUpload::make('images') // use plural name to reflect it's multiple
+            FileUpload::make('images')
                 ->label('Product Images')
                 ->image()
-                ->multiple() // enables multiple file uploads
-                ->directory('products')
-                ->imageEditor()
+                ->multiple()
+                ->reorderable()
+                ->directory('products') // Automatically saves to storage/app/public/products
                 ->imagePreviewHeight('200')
-                ->reorderable() // optional: allows drag-and-drop ordering
-                ->maxFiles(5),
+                ->maxFiles(5)
+                // ->preserveFilenames(), // optional: keep original filenames
+
+
+
         ]);
     }
 
@@ -62,7 +65,10 @@ class ProductResource extends Resource
             ->columns([
                 TextColumn::make('name')->label('Name'),
                 TextColumn::make('discount_percentage')->label('Discount'),
-                ImageColumn::make('image')->label('Image'),
+                ImageColumn::make('images.0') // Accessing the first image in the array
+                    ->label('Main Image')
+                    ->width(100)
+                    ->height(100),
                 TextColumn::make('price')->label('Price'),
             ])->defaultSort('created_at', 'desc')
             ->actions([
