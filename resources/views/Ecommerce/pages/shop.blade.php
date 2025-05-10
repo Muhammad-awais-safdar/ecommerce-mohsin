@@ -39,7 +39,7 @@
                                         </div>
                                         <div class="product-thumb">
                                             <div class="thumb-inner">
-                                                <a href="{{ route('product.show', $product->id) }}">
+                                                <a href="{{ route('product.show', $product->slug) }}">
                                                     <img src="{{ asset('storage/' . $product->images[0]) }}" alt="img">
                                                 </a>
                                                 <div class="thumb-group">
@@ -54,7 +54,7 @@
                                         </div>
                                         <div class=" product-info">
                                             <h5 class="product-name product_title">
-                                                <a href="{{ route('product.show', $product->id) }}">{{ $product->name }}</a>
+                                                <a href="{{ route('product.show', $product->slug) }}">{{ $product->name }}</a>
                                             </h5>
                                             <div class="group-info">
                                                 @php

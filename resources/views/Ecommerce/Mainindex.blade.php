@@ -1,4 +1,58 @@
 @extends('Ecommerce.layouts.app')
+@push('styles')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js"
+    integrity="sha512-Ysw1DcK1P+uYLqprEAzNQJP+J4hTx4t/3X2nbVwszao8wD+9afLjBQYjz7Uk4ADP+Er++mJoScI42ueGtQOzEA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.css"
+    integrity="sha512-rd0qOHVMOcez6pLWPVFIv7EfSdGKLt+eafXh4RO/12Fgr41hDQxfGvoi1Vy55QIVcQEujUE1LQrATCLl2Fs+ag=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+    .reviews-section {
+        /* background-color: var(--color-background); */
+        padding: 80px 0;
+        position: relative;
+        z-index: 5;
+    }
+
+    .reviews-section h2 {
+        text-align: center;
+        color: var(--color-background);
+        font-size: 2rem;
+        margin-bottom: 30px;
+        font-weight: 700;
+        position: relative;
+    }
+
+    .review-slider {
+        max-width: 700px;
+        margin: 0 auto;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+        border: 2px solid var(--color-border);
+    }
+
+    .swiper-slide img {
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: transform 0.5s ease;
+    }
+
+    .swiper-slide:hover img {
+        transform: scale(1.02);
+    }
+
+    .swiper-pagination-bullet {
+        background-color: var(--color-accent-primary);
+        opacity: 1;
+    }
+
+    .swiper-pagination-bullet-active {
+        background-color: var(--color-accent-secondary);
+    }
+</style>
+@endpush
 @section('content')
 <div class="fullwidth-template">
     <div class="home-slider-banner">
@@ -6,26 +60,10 @@
             <div class="row10">
                 <div class="col-lg-8 silider-wrapp">
                     <div class="home-slider">
-                        <div class="slider-owl owl-slick equal-container nav-center" data-slick='{"autoplay":true, "autoplaySpeed":9000, "arrows":false, "dots":true, "infinite":true, "speed":1000, "rows":1}' data-responsive='[{"breakpoint":"2000","settings":{"slidesToShow":1}}]'>
-                            <div class="slider-item style7">
-                                <div class="slider-inner equal-element">
-                                    <div class="slider-infor">
-                                        <h5 class="title-small">
-                                            Sale up to 20% off!
-                                        </h5>
-                                        <h3 class="title-big">
-                                            TAKE A PERFUME <br> TOP TRENDS UK
-                                        </h3>
-                                        <div class="price">
-                                            Now from just:
-                                            <span class="number-price">
-                                                £109.00
-                                            </span>
-                                        </div>
-                                        <a href="#" class="button btn-shop-the-look bgroud-style">Shop now</a>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="slider-owl owl-slick equal-container nav-center"
+                            data-slick='{"autoplay":true, "autoplaySpeed":9000, "arrows":false, "dots":true, "infinite":true, "speed":1000, "rows":1}'
+                            data-responsive='[{"breakpoint":"2000","settings":{"slidesToShow":1}}]'>
+
                             <div class="slider-item style8">
                                 <div class="slider-inner equal-element">
                                     <div class="slider-infor">
@@ -41,15 +79,16 @@
                                                 &#163;99.00
                                             </span>
                                         </div>
-                                        <a href="#" class="button btn-shop-product">Shop now</a>
+                                        <a href="{{ route('shop') }}" class="button btn-shop-product">Shop now</a>
                                     </div>
                                 </div>
                             </div>
+                           
                             <div class="slider-item style9">
                                 <div class="slider-inner equal-element">
                                     <div class="slider-infor">
                                         <h5 class="title-small">
-                                            Top Trends Uk Best Collection
+                                            Top Trends Uk <br /> Best Collection
                                         </h5>
                                         <h3 class="title-big">
                                             TAKE A PERFUME <br> TOP TRENDS UK
@@ -104,7 +143,9 @@
                 Deal of the day
             </h3>
 
-            <div class="owl-products owl-slick equal-container nav-center" data-slick='{"autoplay":true, "autoplaySpeed":1000, "arrows":false, "dots":false, "infinite":true, "speed":800, "rows":1}' data-responsive='[{"breakpoint":"2000","settings":{"slidesToShow":4}},{"breakpoint":"1200","settings":{"slidesToShow":3}},{"breakpoint":"992","settings":{"slidesToShow":2}},{"breakpoint":"480","settings":{"slidesToShow":1}}]'>
+            <div class="owl-products owl-slick equal-container nav-center"
+                data-slick='{"autoplay":true, "autoplaySpeed":1500, "arrows":false, "dots":false, "infinite":true, "speed":1500, "rows":1}'
+                data-responsive='[{"breakpoint":"2000","settings":{"slidesToShow":4}},{"breakpoint":"1200","settings":{"slidesToShow":3}},{"breakpoint":"992","settings":{"slidesToShow":2}},{"breakpoint":"480","settings":{"slidesToShow":1}}]'>
                 @foreach ($products as $item)
                 <div class="product-item style-5">
                     <div class="product-inner equal-element">
@@ -119,14 +160,13 @@
                         </div>
                         <div class="product-thumb">
                             <div class="thumb-inner">
-                                <a href="#">
+                                <a href="{{ route('product.show', $item->slug) }}">
                                     <img src="{{ asset('storage/' . $item->images[0]) }}" alt="img">
                                 </a>
                                 <div class="thumb-group">
-
-                                    {{-- <a href="#" class="button quick-wiew-button">Quick View</a> --}}
                                     <div class="loop-form-add-to-cart">
-                                        <button class="single_add_to_cart_button button" onclick="addToCart({{ $item->id }})">Add to cart
+                                        <button class="single_add_to_cart_button button"
+                                            onclick="addToCart({{ $item->id }})">Add to cart
                                         </button>
                                     </div>
                                 </div>
@@ -137,20 +177,18 @@
                         </div>
                         <div class="product-info">
                             <h5 class="product-name product_title">
-                                <a href="{{ route('product.show', $item->id) }}">{{ $item->name }}</a>
+                                <a href="{{ route('product.show', $item->slug) }}">{{ $item->name }}</a>
                             </h5>
                             <div class="group-info">
                                 @php
-                                // Make sure $product->reviews is loaded
                                 $count = $item->reviews->count();
                                 $avg = $count
-                                ? round($item->reviews->avg('rating')) // round to nearest integer
+                                ? round($item->reviews->avg('rating'))
                                 : 0;
                                 @endphp
 
                                 <div class="stars-rating">
                                     <div class="star-rating">
-                                        {{-- “star-{{ $avg }}” will show N filled stars via your CSS --}}
                                         <span class="star-{{ $avg }}"></span>
                                     </div>
                                     <div class="count-star">
@@ -271,7 +309,7 @@
                                         Enjoy up to 20% off across our entire collection.
                                         Because luxury should feel rewarding.
                                     </span>
-                                    <a href="#" class="button btn-shop-now">Shop now</a>
+                                    <a href="{{ route('shop') }}" class="button btn-shop-now">Shop now</a>
                                 </div>
                             </div>
                         </div>
@@ -294,8 +332,32 @@
                                 Price from:
                                 <span class="number-price">&#163;99.00</span>
                             </div>
-                            <a href="#" class="button btn-shop-now">Shop now</a>
+                            <a href="{{ route('shop') }}" class="button btn-shop-now">Shop now</a>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="banner-wrapp rows-space-65" style="background-color: var(--color-accent-primary);">
+        <div class="container">
+            <div class="reviews-section banner-wrapp rows-space-65">
+                <div class="container">
+                    <h2>What Our eBay Customers Say</h2>
+                    <div class="review-slider swiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <img src="https://placehold.co/700x500" alt="eBay Review 1" />
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="https://placehold.co/700x500" alt="eBay Review 2" />
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="https://placehold.co/700x500" alt="eBay Review 3" />
+                            </div>
+                        </div>
+                        <!-- Pagination -->
+                        <div class="swiper-pagination"></div>
                     </div>
                 </div>
             </div>
@@ -303,14 +365,9 @@
     </div>
     <div class="stelina-tabs  default rows-space-40">
         <div class="container">
-            <div class="tab-head">
-                <ul class="tab-link">
-                    <li class="active">
-                        <a aria-expanded="true">Bestseller</a>
-                    </li>
-
-                </ul>
-            </div>
+            <h3 class="custommenu-title-blog">
+                Best Seller
+            </h3>
             <div class="stelina-product">
                 <ul class="row list-products auto-clear equal-container product-grid">
                     <ul class="products-list row">
@@ -335,13 +392,14 @@
                                 </div>
                                 <div class="product-thumb">
                                     <div class="thumb-inner">
-                                        <a href="{{ route('product.show', $product->id) }}">
+                                        <a href="{{ route('product.show', $product->slug) }}">
                                             <img src="{{ asset('storage/' . $product->images[0]) }}" alt="img">
                                         </a>
                                         <div class="thumb-group">
 
                                             <div class="loop-form-add-to-cart">
-                                                <button class="single_add_to_cart_button button" onclick="addToCart({{ $product->id }})"">Add to cart
+                                                <button class="single_add_to_cart_button button"
+                                                    onclick="addToCart({{ $product->id }})"">Add to cart
                                                         </button>
                                                     </div>
                                                 </div>
@@ -349,7 +407,7 @@
                                         </div>
                                         <div class=" product-info">
                                                     <h5 class="product-name product_title">
-                                                        <a href="{{ route('product.show', $product->id) }}">{{
+                                                        <a href="{{ route('product.show', $product->slug) }}">{{
                                                             $product->name }}</a>
                                                     </h5>
                                                     <div class="group-info">
@@ -359,10 +417,9 @@
                                                         @endphp
 
                                                         @if($count > 0)
-                                                       <div class="stars-rating">
+                                                        <div class="stars-rating">
                                                             <div class="star-rating">
-                                                                {{-- “star-{{ $avg }}” will show N filled stars via your
-                                                                CSS --}}
+
                                                                 <span class="star-{{ $avg }}"></span>
                                                             </div>
                                                             <div class="count-star">
@@ -408,3 +465,22 @@
     </div>
 </div>
 @endsection
+@push('scripts')
+<script>
+    const swiper = new Swiper('.swiper', {
+      loop: true,
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: true,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      effect: 'fade',
+      fadeEffect: {
+        crossFade: true
+      },
+    });
+</script>
+@endpush

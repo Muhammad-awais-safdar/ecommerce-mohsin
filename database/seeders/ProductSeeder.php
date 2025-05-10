@@ -21,11 +21,11 @@ class ProductSeeder extends Seeder
             Product::create([
                 'name' => $productName,
                 'images' => [
-                    'https://placehold.co/600x400?text=' . urlencode($productName . ' Image 1'),
-                    'https://placehold.co/600x400?text=' . urlencode($productName . ' Image 2'),
-                    'https://placehold.co/600x400?text=' . urlencode($productName . ' Image 3'),
-                    'https://placehold.co/600x400?text=' . urlencode($productName . ' Image 4'),
-                    'https://placehold.co/600x400?text=' . urlencode($productName . ' Image 5'),
+                    'https://placehold.co/600x400?text=Image+1',
+                    'https://placehold.co/600x400?text=Image+2',
+                    'https://placehold.co/600x400?text=Image+3',
+                    'https://placehold.co/600x400?text=Image+4',
+                    'https://placehold.co/600x400?text=Image+5',
                 ],
                 'description' => 'Description of ' . $productName,
                 'discount_percentage' => '40',
@@ -34,4 +34,3 @@ class ProductSeeder extends Seeder
         }
     }
 }
-    

@@ -6,13 +6,13 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\OfferController;
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\File;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RefundRequestController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controller\OfferController;
 
 
 
@@ -20,7 +20,7 @@ use App\Http\Controller\OfferController;
 
 Route::get('/', [FrontendController::class, 'index'])->name('home');
 Route::get('/shop', [FrontendController::class, 'shop'])->name('shop');
-Route::get('/product/{id}', [FrontendController::class, 'show'])->name('product.show');
+Route::get('/product/{slug}', [FrontendController::class, 'show'])->name('product.show');
 Route::get('/about', [FrontendController::class, 'about'])->name('about');
 Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
 Route::post('/reviews', [FrontendController::class, 'reviews'])->name('reviews.store');
@@ -90,4 +90,4 @@ Route::get('/robots.txt', function () {
 
 // offer //
 // routes/web.php
-Route::post('/offers', [OfferController::class, 'store'])->name('offers.store');
+Route::post('/make-offer', [OfferController::class, 'store'])->name('offer.store');

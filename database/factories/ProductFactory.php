@@ -4,25 +4,20 @@ namespace Database\Factories;
 
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class ProductFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
     protected $model = Product::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition(): array
     {
+        $name = 'Perfume - ' . $this->faker->unique()->word();
+        $slug = Str::slug($name) . '-' . Str::random(6); // ensures uniqueness
+
         return [
-            'name' => 'Perfume - ' . $this->faker->word(),
+            'name' => $name,
+            'slug' => strtolower($slug),
             'description' => $this->faker->paragraph(),
             'price' => $this->faker->randomFloat(2, 10, 200),
             'discount_percentage' => $this->faker->numberBetween(10, 90),

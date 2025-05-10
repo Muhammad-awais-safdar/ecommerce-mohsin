@@ -78,7 +78,7 @@
                             ? round($product->reviews->avg('rating')) // round to nearest integer
                             : 0;
                             @endphp
-                            
+
                             <div class="stars-rating">
                                 <div class="star-rating">
                                     {{-- “star-{{ $avg }}” will show N filled stars via your CSS --}}
@@ -88,7 +88,7 @@
                                     ({{ $count }})
                                 </div>
                             </div>
-                          
+
                             <div class="availability">
                                 availability:
                                 <a href="#">in Stock</a>
@@ -115,14 +115,7 @@
                             <div class="group-button">
                                 <div class="quantity-add-to-cart"
                                     style="display: flex;align-items: center;justify-content: flex-start;">
-                                    {{-- <div class="quantity">
-                                        <div class="control">
-                                            <a class="btn-number qtyminus quantity-minus" href="#">-</a>
-                                            <input type="text" data-step="1" data-min="0" value="1" title="Qty"
-                                                class="input-qty qty" size="4">
-                                            <a href="#" class="btn-number qtyplus quantity-plus">+</a>
-                                        </div>
-                                    </div> --}}
+                            
                                     <button class="btn-stelina-outline me-3"
                                         onclick="addToCart({{ $product->id }})"><span>Add to cart</span>
                                     </button>
@@ -174,12 +167,13 @@
                                                             $count = $product->reviews->count();
                                                             $avg = $count ? round($product->reviews->avg('rating')) : 0;
                                                             @endphp
-                                                            
+
                                                             <div class="stars-rating">
                                                                 <div class="star-rating">
-                                                                    <span class="star-{{ $avg }}"></span> {{-- Expected to be styled via CSS --}}
+                                                                    <span class="star-{{ $avg }}"></span> {{-- Expected
+                                                                    to be styled via CSS --}}
                                                                 </div>
-                                                            
+
                                                                 @if ($count > 0)
                                                                 <div class="count-star">
                                                                     ({{ $count }})
@@ -190,17 +184,18 @@
                                                                 </div>
                                                                 @endif
                                                             </div>
-                                                        <p class="meta">
-                                                            <strong class="author">{{ $review->user_name }}</strong>
-                                                            <span>-</span>
-                                                            <span class="time">{{ $review->created_at->format('F j, Y')
-                                                                }}</span>
-                                                        </p>
-                                                        <div class="description">
-                                                            <p>{{ $review->comment }}</p>
+                                                            <p class="meta">
+                                                                <strong class="author">{{ $review->user_name }}</strong>
+                                                                <span>-</span>
+                                                                <span class="time">{{ $review->created_at->format('F j,
+                                                                    Y')
+                                                                    }}</span>
+                                                            </p>
+                                                            <div class="description">
+                                                                <p>{{ $review->comment }}</p>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
                                             </li>
                                             @empty
                                             <li class="conment">
@@ -307,7 +302,7 @@
                                     </div>
                                     <div class="product-info">
                                         <h5 class="product-name product_title">
-                                            <a href="{{ route('product.show', $item->id) }}">{{ $item->name }}</a>
+                                            <a href="{{ route('product.show', $item->slug) }}">{{ $item->name }}</a>
                                         </h5>
                                         <div class="group-info">
                                             @php

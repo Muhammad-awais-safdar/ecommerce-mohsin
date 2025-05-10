@@ -13660,9 +13660,10 @@ a:active,
     color: #007bff;
     /* Change color on hover */
 }
+
 /* button  */
 .btn-stelina-primary {
-    background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-secondary));
+    background: var(--color-accent-primary);
     color: var(--color-background);
     padding: 1.3rem 2.2rem;
     font-size: 1.7rem;
@@ -13705,9 +13706,20 @@ a:active,
 }
 
 @keyframes pulse-glow {
-    0% { transform: scale(1); opacity: 0.3; }
-    50% { transform: scale(1.1); opacity: 0.5; }
-    100% { transform: scale(1); opacity: 0.3; }
+    0% {
+        transform: scale(1);
+        opacity: 0.3;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0.3;
+    }
 }
 
 .btn-stelina-outline {
@@ -13715,7 +13727,7 @@ a:active,
     border: 2px solid var(--color-accent-primary);
     background-color: transparent;
     color: var(--color-accent-primary);
-      padding: 1.3rem 2.2rem;
+    padding: 1.3rem 2.2rem;
     font-size: 1.7rem;
     font-weight: 900;
     border-radius: 50px;
@@ -13744,7 +13756,7 @@ a:active,
     left: -75%;
     width: 50%;
     height: 100%;
-    background: linear-gradient(120deg, rgba(255,255,255,0.3), rgba(255,255,255,0));
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
     transform: skewX(-25deg);
     transition: left 0.75s ease;
 }

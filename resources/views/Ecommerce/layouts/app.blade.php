@@ -7,9 +7,9 @@
     <meta http-equiv="X-UA-compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @php
-        use App\Models\ThemeSetting;
+    use App\Models\ThemeSetting;
 
-        $colors = ThemeSetting::pluck('value', 'key')->toArray();
+    $colors = ThemeSetting::pluck('value', 'key')->toArray();
     @endphp
 
     <style>
@@ -23,11 +23,11 @@
         }
     </style>
     @php
-        $favicon = \App\Models\SiteSetting::first()?->favicon;
+    $favicon = \App\Models\SiteSetting::first()?->favicon;
     @endphp
 
     @if ($favicon)
-        <link rel="icon" type="image/x-icon" href="{{ asset('storage/' . $favicon) }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('storage/' . $favicon) }}">
     @endif
     <link
         href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;display=swap"
@@ -61,43 +61,44 @@
 
     @if ($seo)
 
-        <title>{{ $seo?->meta_title ?? 'Default Title' }}</title>
-        <meta name="description" content="{{ $seo?->meta_description }}">
-        <meta name="keywords" content="{{ $seo?->meta_keywords }}">
+    <title>{{ $seo?->meta_title ?? 'Default Title' }}</title>
+    <meta name="description" content="{{ $seo?->meta_description }}">
+    <meta name="keywords" content="{{ $seo?->meta_keywords }}">
 
-        <!-- Open Graph -->
-        <meta property="og:title" content="{{ $seo?->og_title }}">
-        <!-- OG Image -->
-        @if ($seo?->og_image)
-            <meta property="og:image" content="{{ asset('storage/' . $seo->og_image) }}">
-        @endif
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{ $seo?->og_title }}">
+    <!-- OG Image -->
+    @if ($seo?->og_image)
+    <meta property="og:image" content="{{ asset('storage/' . $seo->og_image) }}">
+    @endif
 
 
-        <!-- Canonical & Robots -->
-        <link rel="canonical" href="{{ $seo?->canonical_url ?? url()->current() }}">
-        <meta name="robots" content="{{ $seo?->robots ?? 'index, follow' }}">
+    <!-- Canonical & Robots -->
+    <link rel="canonical" href="{{ $seo?->canonical_url ?? url()->current() }}">
+    <meta name="robots" content="{{ $seo?->robots ?? 'index, follow' }}">
 
-        <!-- Twitter Card -->
-        <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content="{{ $seo?->twitter_title ?? $seo?->meta_title }}">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $seo?->twitter_title ?? $seo?->meta_title }}">
 
-        <!-- Twitter Image -->
-        @if ($seo?->twitter_image)
-            <meta name="twitter:image" content="{{ asset('storage/' . $seo->twitter_image) }}">
-        @endif
+    <!-- Twitter Image -->
+    @if ($seo?->twitter_image)
+    <meta name="twitter:image" content="{{ asset('storage/' . $seo->twitter_image) }}">
+    @endif
     @endif
 
 
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "{{ $seo?->meta_title }}",
-    "description": "{{ $seo?->meta_description }}",
-    "url": "{{ url()->current() }}"
-}
-</script>
+        {
+            "@context": "https://schema.org"
+            , "@type": "WebPage"
+            , "name": "{{ $seo?->meta_title }}"
+            , "description": "{{ $seo?->meta_description }}"
+            , "url": "{{ url()->current() }}"
+        }
+
+    </script>
 
     @stack('styles')
 </head>
@@ -127,7 +128,8 @@
                     <div class="col-lg-3 col-sm-4 col-md-3 col-xs-7 col-ts-12 header-element">
                         <div class="logo">
                             <a href="{{ route('home') }}">
-                                <img src="{{ asset('assets/images/logo.png') }}" alt="img">
+                                <img src="{{ asset('assets/images/logo.png') }}" alt="img" style="
+                                width: 67%;                           ">
                             </a>
                         </div>
                     </div>
@@ -144,13 +146,13 @@
                                                     <a href="{{ route('home') }}" class="stelina-menu-item-title"
                                                         title="Home">Home</a>
                                                 </li>
-                                                <li class="menu-item ">
-                                                    <a href="{{ route('shop') }}" class="stelina-menu-item-title"
-                                                        title="Shop">Shop</a>
-                                                </li>
                                                 <li class="menu-item">
                                                     <a href="{{ route('about') }}" class="stelina-menu-item-title"
                                                         title="About">About</a>
+                                                </li>
+                                                <li class="menu-item ">
+                                                    <a href="{{ route('shop') }}" class="stelina-menu-item-title"
+                                                        title="Shop">Shop</a>
                                                 </li>
                                                 <li class="menu-item">
                                                     <a href="{{ route('contact') }}" class="stelina-menu-item-title"
@@ -166,11 +168,10 @@
                     <div class="col-lg-2 col-sm-12 col-md-3 col-xs-12 col-ts-12">
                         <div class="header-control">
                             <div class="block-minicart block-header">
-                                <a href="{{ route('showCart') }}" class="shopcart-icon"
-                                    data-stelina="stelina-dropdown">
+                                <a href="{{ route('showCart') }}" class="shopcart-icon" data-stelina="stelina-dropdown">
                                     Cart
-                                    <span class="count"
-                                        id="cart-count">{{ session('cart') ? array_sum(array_column(session('cart'), 'quantity')) : 0 }}</span>
+                                    <span class="count" id="cart-count">{{ session('cart') ?
+                                        array_sum(array_column(session('cart'), 'quantity')) : 0 }}</span>
                                 </a>
 
                             </div>
@@ -191,7 +192,7 @@
         <div class="wapper">
             <div class="item mobile-logo">
                 <div class="logo">
-                    <a href="{{route('home')}}">
+                    <a href="{{ route('home') }}">
                         <img src="{{ asset('assets/images/logo.png') }}" alt="img">
                     </a>
                 </div>
@@ -232,20 +233,18 @@
                         <div class="stelina-custommenu default">
                             <h2 class="widgettitle">Quick Menu</h2>
                             <ul class="menu">
-                                <li class="menu-item">
-                                    <a href="#">New arrivals</a>
+
+                                <li class="menu-item ">
+                                    <a href="{{ route('home') }}" title="Home">Home</a>
                                 </li>
                                 <li class="menu-item">
-                                    <a href="#">Life style</a>
+                                    <a href="{{ route('about') }}" title="About">About</a>
+                                </li>
+                                <li class="menu-item ">
+                                    <a href="{{ route('shop') }}" title="Shop">Shop</a>
                                 </li>
                                 <li class="menu-item">
-                                    <a href="#">Accents</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#">Tables</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#">Dining</a>
+                                    <a href="{{ route('contact') }}" title="contact Us">Contact</a>
                                 </li>
                             </ul>
                         </div>
@@ -271,9 +270,9 @@
                             <h2 class="widgettitle">Information</h2>
                             <ul class="menu">
                                 @foreach (App\Models\Page::all() as $page)
-                                    <li class="menu-item">
-                                        <a href="{{ url($page->slug) }}">{{ ucwords(strtolower($page->name)) }}</a>
-                                    </li>
+                                <li class="menu-item">
+                                    <a href="{{ url($page->slug) }}">{{ ucwords(strtolower($page->name)) }}</a>
+                                </li>
                                 @endforeach
 
                                 <li class="menu-item">
@@ -287,7 +286,7 @@
                     <div class="row">
                         <div class="col-sm-12 col-xs-12">
                             <div class="stelina-socials">
-                                <ul class="socials">
+                                {{-- <ul class="socials">
                                     <li>
                                         <a href="#" class="social-item" target="_blank">
                                             <i class="icon fa fa-facebook"></i>
@@ -303,11 +302,11 @@
                                             <i class="icon fa fa-instagram"></i>
                                         </a>
                                     </li>
-                                </ul>
+                                </ul> --}}
                             </div>
                             <div class="coppyright">
                                 Copyright © @php
-                                    echo date('Y');
+                                echo date('Y');
                                 @endphp
                                 <a href="{{ route('home') }}">Top Trends UK</a>
                                 . All rights reserved
@@ -334,8 +333,8 @@
                 <a href="{{ route('showCart') }}">
                     <span class="icon">
                         <i class="fa fa-shopping-basket" aria-hidden="true"></i>
-                        <span class="count-icon"
-                            id="cart-count">{{ session('cart') ? array_sum(array_column(session('cart'), 'quantity')) : 0 }}</span>
+                        <span class="count-icon" id="cart-count">{{ session('cart') ?
+                            array_sum(array_column(session('cart'), 'quantity')) : 0 }}</span>
                     </span>
                     <span class="text">Cart</span>
                 </a>

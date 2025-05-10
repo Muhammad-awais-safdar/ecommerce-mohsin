@@ -11,20 +11,18 @@ class OfferController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'product_id'    => 'required|exists:products,id',
-            'offered_price' => 'required|numeric|min:0.01',
-            'contact_info'  => 'required|string'
+            'product_id' => 'required|exists:products,id',
+            'offer_price' => 'required|numeric|min:1',
+            'email' => 'nullable|email',
         ]);
 
-        Offer::create([
-            'session_id'    => session()->getId(),
-            'product_id'    => $request->product_id,
-            'offered_price' => $request->offered_price,
-            'contact_info'  => $request->contact_info,
+        $offer = Offer::create([
+            'product_id' => $request->product_id,
+            'session_id' => session()->getId(),
+            'email' => $request->email,
+            'offer_price' => $request->offer_price,
         ]);
 
-        return response()->json([
-            'message' => 'Your offer has been submitted! We will contact you soon.'
-        ]);
+        return response()->json(['message' => 'Offer submitted successfully.']);
     }
 }

@@ -15,7 +15,7 @@ class FrontendController extends Controller
         $products = Product::get();
         $allproducts = Product::withCount('reviews')
             ->withAvg('reviews', 'rating')
-            ->take(12)
+            ->take(8)
             ->get();
         return view('Ecommerce.Mainindex', compact('products', 'allproducts'));
     }
@@ -25,16 +25,17 @@ class FrontendController extends Controller
         return view('Ecommerce.pages.shop', compact('products'));
     }
 
-    public function show($id, SeoService $seoService)
+    public function show($slug, SeoService $seoService)
     {
-        $product = Product::with(['reviews'])->findOrFail($id);
+        $product = Product::with(['reviews'])->where('slug', $slug)->firstOrFail(); // returns a single model
 
         $allproducts = Product::withCount('reviews')
-            ->whereNotIn('id', [$product->id])
+            ->where('id', '!=', $product->id)
             ->get();
 
         return view('Ecommerce.pages.productdetails', compact('product', 'allproducts'));
     }
+
 
     public function about()
     {
