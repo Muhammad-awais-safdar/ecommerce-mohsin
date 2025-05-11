@@ -24,11 +24,11 @@
                     <div class="page-main-content">
                         <div class="container-fluid">
                             <div class="row">
-                                <div class="col-md-4"
-                                    style="background: url({{ asset('assets/images/item-instagram-1.jpg') }}) center/cover no-repeat content-box;">
+                                <div class="col-md-5"
+                                    style="background: url({{ asset('assets/images/aboutUs.jpg') }}) center/cover no-repeat content-box;">
 
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-md-7">
                                     <section class="bg-white py-12 px-6 md:px-12 lg:px-24 text-gray-800">
                                         <div class="max-w-5xl mx-auto">
                                             <h2 class="text-4xl font-bold mb-6 text-gray-900">Welcome to Top Trends UK

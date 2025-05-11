@@ -286,23 +286,7 @@
                     <div class="row">
                         <div class="col-sm-12 col-xs-12">
                             <div class="stelina-socials">
-                                {{-- <ul class="socials">
-                                    <li>
-                                        <a href="#" class="social-item" target="_blank">
-                                            <i class="icon fa fa-facebook"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="social-item" target="_blank">
-                                            <i class="icon fa fa-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="social-item" target="_blank">
-                                            <i class="icon fa fa-instagram"></i>
-                                        </a>
-                                    </li>
-                                </ul> --}}
+                                {{-- <img src="{{ asset('assets/images/trustedSeller.png') }}" class="img-fluid w-25"  /> --}}
                             </div>
                             <div class="coppyright">
                                 Copyright © @php
