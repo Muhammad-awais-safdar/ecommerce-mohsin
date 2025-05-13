@@ -16,16 +16,9 @@ use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\RefundRequestController;
 
 
-Route::get('/migrate', function () {
-    Artisan::call('migrate:fresh', [
-        '--seed' => true,
-        '--force' => true,
-    ]);
-
-    // Artisan::call('storage:link');
-
-    return nl2br(Artisan::output()); // convert \n to <br> for HTML display
-});
+if (app()->environment('local', 'staging')) {
+    require __DIR__ . '/artisan.php';
+}
 
 
 
