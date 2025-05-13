@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('offers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            $table->string('session_id');
+            $table->string('name');
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
+            $table->string('quantity')->nullable();
             $table->decimal('offer_price', 10, 2);
             $table->enum('status', ['pending', 'accepted', 'declined'])->default('pending');
             $table->timestamps();

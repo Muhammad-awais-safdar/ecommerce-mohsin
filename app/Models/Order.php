@@ -19,6 +19,7 @@ class Order extends Model
         'status',
         'tracking_number',
         'tracking_status',
+        'tracking_service_provider',
     ];
 
     public function orderItems()
@@ -28,7 +29,11 @@ class Order extends Model
     protected static function booted()
     {
         static::updated(function ($order) {
-            if ($order->isDirty('tracking_status')) {
+            if (
+                $order->isDirty('tracking_status') ||
+                $order->isDirty('tracking_service_provider') ||
+                $order->isDirty('tracking_number')
+            ) {
                 event(new TrackingStatusUpdated($order));
             }
         });

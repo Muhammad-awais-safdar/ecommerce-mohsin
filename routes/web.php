@@ -23,8 +23,8 @@ if (app()->environment('local', 'staging')) {
 
 
 // Order tracking
-Route::get('/track-order', [TrackingController::class, 'trackOrderForm'])->name('order.track.form');
-Route::post('/track-order', [TrackingController::class, 'trackOrder'])->name('order.track');
+// Route::get('/track-order', [TrackingController::class, 'trackOrderForm'])->name('order.track.form');
+// Route::post('/track-order', [TrackingController::class, 'trackOrder'])->name('order.track');
 
 Route::get('/', [FrontendController::class, 'index'])->name('home');
 Route::get('/shop', [FrontendController::class, 'shop'])->name('shop');
@@ -101,4 +101,4 @@ Route::get('/robots.txt', function () {
 
 // offer //
 // routes/web.php
-Route::post('/make-offer', [OfferController::class, 'store'])->name('offer.store');
+Route::post('/make-offer', [OfferController::class, 'store'])->name('make.offer');

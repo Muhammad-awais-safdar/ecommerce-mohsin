@@ -171,9 +171,7 @@
         </div>
 
         <a href="{{ route('home') }}" class="button">📦 Continue Shopping</a>
-        @if ($order->tracking_number)
-        <a href="{{ route('order.track.form') }}" class="button">🚚 Track My Order</a>
-        @endif
+
 
         <div class="footer">
             <p>If you have any questions, feel free to reply to this email. We are here to help you 24/7!</p>

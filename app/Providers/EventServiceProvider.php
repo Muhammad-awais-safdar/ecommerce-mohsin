@@ -16,6 +16,9 @@ class EventServiceProvider extends ServiceProvider
         \App\Events\TrackingStatusUpdated::class => [
             \App\Listeners\SendTrackingStatusEmail::class,
         ],
+        \App\Events\OfferStatusUpdated::class => [
+            \App\Listeners\SendOfferStatusMail::class,
+        ],
     ];
 
     /**

@@ -1,4 +1,5 @@
-{{-- <!DOCTYPE html>
+{{--
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -259,11 +260,12 @@
         <div class="details">
             <p><span>Tracking Number:</span> {{ $order->tracking_number }}</p>
             <p><span>Order ID:</span> #{{ $order->id }}</p>
+            <p><span>Delievry Partner:</span> #{{ $order->tracking_service_provider }}</p>
             <p><span>Order Date:</span> {{ $order->created_at->format('d M Y, h:i A') }}</p>
             <p><span>Total:</span> £{{ number_format($order->total_amount, 2) }}</p>
         </div>
 
-        <a href="{{ route('order.track.form') }}" class="cta-button">🔍 Track My Order</a>
+        {{-- <a href="{{ route('order.track.form') }}" class="cta-button">🔍 Track My Order</a> --}}
 
         <div class="footer">
             <p>Need help? Just reply to this email or reach out to our support team.</p>

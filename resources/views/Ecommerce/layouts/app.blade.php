@@ -246,9 +246,7 @@
                                 <li class="menu-item">
                                     <a href="{{ route('contact') }}" title="contact Us">Contact</a>
                                 </li>
-                                <li class="menu-item">
-                                    <a href="{{ route('order.track.form') }}" title="Tracking Order">Tracking Order</a>
-                                </li>
+                               
                             </ul>
                         </div>
                     </div>

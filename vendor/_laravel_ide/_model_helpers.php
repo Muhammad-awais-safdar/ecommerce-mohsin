@@ -629,17 +629,19 @@ namespace App\Models {
      * @property \Illuminate\Support\Carbon|null $created_at
      * @property mixed $status
      * @property float $offer_price
+     * @property string|null $quantity
      * @property string|null $phone
      * @property string|null $email
-     * @property string $session_id
+     * @property string $name
      * @property int $product_id
      * @property int $id
      * @property-read \App\Models\Product $product
      * @method static \Illuminate\Database\Eloquent\Builder<Offer>|Offer whereId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Offer>|Offer whereProductId($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Offer>|Offer whereSessionId($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Offer>|Offer whereName($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Offer>|Offer whereEmail($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Offer>|Offer wherePhone($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Offer>|Offer whereQuantity($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Offer>|Offer whereOfferPrice($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Offer>|Offer whereStatus($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Offer>|Offer whereCreatedAt($value)
@@ -945,6 +947,7 @@ namespace App\Models {
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
      * @property string $tracking_status
+     * @property string|null $tracking_service_provider
      * @property string|null $tracking_number
      * @property string $status
      * @property float $total_amount
@@ -963,6 +966,7 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<Order>|Order whereTotalAmount($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Order>|Order whereStatus($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Order>|Order whereTrackingNumber($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Order>|Order whereTrackingServiceProvider($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Order>|Order whereTrackingStatus($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Order>|Order whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Order>|Order whereUpdatedAt($value)

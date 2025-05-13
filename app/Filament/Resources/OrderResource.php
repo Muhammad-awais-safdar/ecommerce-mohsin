@@ -39,18 +39,21 @@ class OrderResource extends Resource
                         'paid' => 'Paid',
                     ])
                     ->native(false),
-
-                Select::make('tracking_status')
-                    ->label('Tracking Status')
-                    ->placeholder('Select tracking status')
-                    ->options([
-                        'processing' => 'Processing',
-                        'in_transit' => 'In Transit',
-                        'out_for_delivery' => 'Out for Delivery',
-                        'delivered' => 'Delivered',
-                        'failed' => 'Failed',
-                    ])
-                    ->native(false),
+                TextInput::make('tracking_number'),
+                TextInput::make('tracking_service_provider')
+                    ->label('Tracking Company')
+                    ->placeholder('Enter tracking company name'),
+                // Select::make('tracking_status')
+                //     ->label('Tracking Status')
+                //     ->placeholder('Select tracking status')
+                //     ->options([
+                //         'processing' => 'Processing',
+                //         'in_transit' => 'In Transit',
+                //         'out_for_delivery' => 'Out for Delivery',
+                //         'delivered' => 'Delivered',
+                //         'failed' => 'Failed',
+                //     ])
+                //     ->native(false),
             ]);
     }
 
@@ -65,6 +68,7 @@ class OrderResource extends Resource
                 TextColumn::make('total_amount'),
                 TextColumn::make('status'),
                 TextColumn::make('tracking_status')->label('Tracking'),
+                TextColumn::make('tracking_service_provider')->label('Tracking Company'),
                 TextColumn::make('created_at')->since()->sortable(),
             ])
             ->defaultSort('created_at', 'desc')

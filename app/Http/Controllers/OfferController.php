@@ -12,17 +12,23 @@ class OfferController extends Controller
     {
         $request->validate([
             'product_id' => 'required|exists:products,id',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:20',
             'offer_price' => 'required|numeric|min:1',
-            'email' => 'nullable|email',
+            'quantity' => 'required|integer|min:1',
         ]);
 
-        $offer = Offer::create([
+        Offer::create([
             'product_id' => $request->product_id,
-            'session_id' => session()->getId(),
+            'name' => $request->name,
             'email' => $request->email,
+            'phone' => $request->phone,
             'offer_price' => $request->offer_price,
+            'quantity' => $request->quantity,
+            'status' => 'pending',
         ]);
 
-        return response()->json(['message' => 'Offer submitted successfully.']);
+        return back()->with('success', 'Your offer has been submitted!');
     }
 }
