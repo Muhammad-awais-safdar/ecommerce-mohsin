@@ -1,135 +1,137 @@
+<!-- resources/views/Ecommerce/track.blade.php -->
 @extends('Ecommerce.layouts.app')
+
 @section('content')
-<!-- resources/views/track.blade.php -->
-<div class="container mx-auto max-w-xl p-6 bg-white shadow-lg rounded-lg mt-10 border border-gray-200">
-    <h2 class="text-2xl font-bold mb-4 text-center text-gray-800">Track Your Order</h2>
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-light animate__animated animate__fadeInDown">
+                <div class="card-header bg-white text-center border-0">
+                    <h2 class="mb-0"><i class="bi bi-box-seam-fill text-primary"></i> Track Your Order</h2>
+                </div>
+                <div class="card-body">
+                    <form id="trackOrderForm" class="mb-4">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="tracking_number" class="form-label">Tracking Number</label>
+                            <input type="text" class="form-control" id="tracking_number" name="tracking_number"
+                                placeholder="#123456" required>
+                        </div>
+                        <button type="submit"
+                            class="ms-3 btn-stelina-primary button w-100 animate__animated animate__pulse">
+                            <i class="bi bi-search me-2"></i> Track Order
+                        </button>
+                    </form>
 
-    <form id="trackOrderForm" class="space-y-4">
-        @csrf
-        <label for="tracking_number" class="block text-gray-700 font-medium">Enter Tracking Number:</label>
-        <input type="text" name="tracking_number" id="tracking_number" required
-            class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="e.g., #123456">
-        <button type="submit"
-            class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-300">
-            Track Order
-        </button>
-    </form>
+                    <div id="loader" class="text-center my-4 d-none">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2 text-muted">Looking up your order...</p>
+                    </div>
 
-    <div id="loader" class="mt-4 hidden text-center">
-        <svg class="animate-spin h-6 w-6 text-blue-600 mx-auto" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-            <path class="opacity-75" fill="currentColor"
-                d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 100 16v-4l-3 3 3 3v-4a8 8 0 01-8-8z" />
-        </svg>
-        <p class="text-gray-600 mt-2">Tracking your order...</p>
+                    <div id="responseContainer" class="d-none"></div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div id="responseContainer" class="mt-6 hidden"></div>
 </div>
 
-<!-- jQuery CDN -->
+<!-- Bootstrap Icons CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<!-- Animate.css CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>
-    $('#trackOrderForm').on('submit', function (e) {
-        e.preventDefault();
-        let trackingNumber = $('#tracking_number').val();
-        let token = $('input[name="_token"]').val();
-        $('#loader').removeClass('hidden');
-        $('#responseContainer').addClass('hidden').html('');
+    $(document).ready(function() {
+        $('#trackOrderForm').on('submit', function(e) {
+            e.preventDefault();
+            const trackingNumber = $('#tracking_number').val().trim();
+            const token = $('input[name="_token"]').val();
 
-        $.ajax({
-            url: "{{ route('order.track') }}",
-            method: "POST",
-            data: {
-                _token: token,
-                tracking_number: trackingNumber
-            },
-          success: function (response) {
-            $('#loader').addClass('hidden');
-            
-            if (response.success) {
-            const trackingHtml = renderTrackingStatus(response.data.tracking_status);
-            const paymentHtml = renderPaymentStatus(response.data.status); // status = payment status
-            
-            $('#responseContainer').removeClass('hidden').html(`
-            <div class="mb-4">
-                <h3 class="text-lg font-semibold text-gray-800">Payment Status</h3>
-                ${paymentHtml}
-            </div>
-            <div>
-                <h3 class="text-lg font-semibold text-gray-800">Tracking Status</h3>
-                ${trackingHtml}
-            </div>
-            `);
-            } else {
-            $('#responseContainer').removeClass('hidden').html(`<p class="text-red-600 font-semibold">${response.message}</p>`);
+            if (!trackingNumber) {
+                showError('Please enter a tracking number.');
+                return;
             }
-            },
-            error: function () {
-                $('#loader').addClass('hidden');
-                $('#responseContainer').removeClass('hidden').html(`<p class="text-red-600 font-semibold">Something went wrong. Try again.</p>`);
-            }
+
+            $('#loader').removeClass('d-none');
+            $('#responseContainer').addClass('d-none').html('');
+
+            $.ajax({
+                url: '{{ route('order.track') }}',
+                method: 'POST',
+                data: { _token: token, tracking_number: trackingNumber },
+                success(response) {
+                    $('#loader').addClass('d-none');
+                    if (response.success) {
+                        renderResponse(response.data);
+                    } else {
+                        showError(response.message);
+                    }
+                },
+                error() {
+                    $('#loader').addClass('d-none');
+                    showError('An error occurred. Please try again.');
+                }
+            });
         });
+
+        function showError(message) {
+            $('#responseContainer')
+                .removeClass('d-none')
+                .html(
+                    `<div class="alert alert-danger animate__animated animate__shakeX" role="alert">
+                        ${message}
+                    </div>`
+                );
+        }
+
+        function renderResponse(data) {
+            console.log(data);
+            const orderDate = new Date(data.order_date);
+            const paymentBadge = data.status === 'paid'
+                ? '<span class="badge bg-success">Paid</span>'
+                : '<span class="badge bg-warning text-dark">Pending</span>';
+
+            const steps = ['processing','in_transit','out_for_delivery','delivered'];
+            const stepNames = { processing: 'Processing', in_transit: 'In Transit', out_for_delivery: 'Out for Delivery', delivered: 'Delivered' };
+            const currentIndex = steps.indexOf(data.tracking_status);
+
+            let trackerHtml = '<div class="d-flex justify-content-between align-items-center position-relative pb-4">';
+
+            steps.forEach((step, idx) => {
+                const active = idx <= currentIndex;
+                const iconClass = active ? 'bi-check-circle-fill text-primary' : 'bi-circle text-secondary';
+                const textClass = active ? 'text-dark fw-bold' : 'text-muted';
+
+                trackerHtml += `
+                    <div class="text-center flex-fill">
+                        <i class="bi ${iconClass} fs-2 animate__animated ${active ? 'animate__fadeInDown' : ''}"></i>
+                        <p class="mt-2 mb-0 ${textClass} small">${stepNames[step]}</p>
+                    </div>
+                `;
+            });
+
+            trackerHtml += '</div>';
+
+            $('#responseContainer')
+                .removeClass('d-none')
+                .html(
+                    `<div class="card border-success animate__animated animate__fadeInUp">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="bi bi-credit-card-2-front-fill text-success me-2"></i>Payment Status</h5>
+                            ${paymentBadge}
+                        </div>
+                    </div>
+                    <div class="mt-4 card border-info animate__animated animate__fadeInUp animate__delay-1s">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="bi bi-truck text-info me-2"></i>Tracking Progress</h5>
+                            ${trackerHtml}
+                        </div>
+                    </div>`
+                );
+        }
     });
-
-    function renderTrackingStatus(status) {
-        const steps = {
-            processing: 'Processing',
-            in_transit: 'In Transit',
-            out_for_delivery: 'Out for Delivery',
-            delivered: 'Delivered',
-            failed: 'Failed'
-        };
-
-        const order = ['processing', 'in_transit', 'out_for_delivery', 'delivered'];
-        const isFailed = status === 'failed';
-        let html = `<div class="flex flex-col space-y-4">`;
-
-        for (const step of order) {
-            const active = order.indexOf(step) <= order.indexOf(status) && !isFailed;
-            html += `
-                <div class="flex items-center space-x-4">
-                    ${getStatusSVG(step, active, isFailed && step === status)}
-                    <span class="${active ? 'text-green-700 font-semibold' : 'text-gray-600'}">${steps[step]}</span>
-                </div>`;
-        }
-
-        if (isFailed) {
-            html += `
-                <div class="flex items-center space-x-4">
-                    ${getStatusSVG('failed', true, true)}
-                    <span class="text-red-600 font-semibold">Failed</span>
-                </div>`;
-        }
-
-        html += `</div>`;
-        return html;
-    }
-
-    function getStatusSVG(status, active, isFailed = false) {
-        const color = isFailed ? 'text-red-600' : (active ? 'text-green-600' : 'text-gray-400');
-
-        const icons = {
-            processing: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ${color}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582a7 7 0 101.164 8H4v5H3V4h1z" />
-                        </svg>`,
-            in_transit: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ${color}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h1l1 2h13l1-2h1m-4 10a2 2 0 11-4 0 2 2 0 014 0zm-8 0a2 2 0 11-4 0 2 2 0 014 0z" />
-                        </svg>`,
-            out_for_delivery: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ${color}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-6h13V9l-3-3H9a1 1 0 00-1 1v10h1zm0 0H5a2 2 0 00-2 2v1h6v-3z" />
-                              </svg>`,
-            delivered: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ${color}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                        </svg>`,
-            failed: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ${color}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>`
-        };
-
-        return icons[status];
-    }
 </script>
 @endsection

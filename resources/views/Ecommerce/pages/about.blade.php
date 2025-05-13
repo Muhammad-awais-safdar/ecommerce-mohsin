@@ -37,7 +37,7 @@
                                             <p class="text-lg leading-relaxed mb-4">
                                                 At <strong>Top Trends UK</strong>, we bring you closer to the world’s
                                                 finest fragrances with a promise of authenticity,
-                                                elegance, and trust. As official resellers of <strong>100% original
+                                                elegance, and trust. As official resellers of <strong>
                                                     luxury branded perfumes</strong>, we’ve earned our
                                                 reputation across major platforms like <em>eBay, Amazon, Walmart</em>,
                                                 and <em>OnBuy</em> by delivering only the best in
@@ -63,7 +63,7 @@
                                                 <h3 class="text-2xl font-semibold text-gray-900 mb-4">Why Shop with Us?
                                                 </h3>
                                                 <ul class="space-y-3 text-lg list-disc pl-6">
-                                                    <li>💎 <strong>100% Original Luxury Perfumes</strong></li>
+                                                    <li>💎 <strong>Original Luxury Perfumes</strong></li>
                                                     <li>🚚 <strong>Free UK Delivery on All Orders</strong></li>
                                                     <li>🔄 <strong>Easy 1-Click Refund Process Within 24 Hours</strong>
                                                     </li>

@@ -44,7 +44,7 @@ class ManageThemeSettings extends ManageRecords
                 }),
             Action::make('Migrate')
                 ->color('success')
-                ->icon('heroicon-o-database')
+                ->icon('heroicon-o-adjustments-horizontal')
                 ->action(function () {
                     Artisan::call('migrate', ['--force' => true]);
                     $this->notify('success', 'Migration completed');

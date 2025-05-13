@@ -23,8 +23,7 @@ if (app()->environment('local', 'staging')) {
 
 
 // Order tracking
-Route::get('/track-order', [FrontendController::class, 'trackOrderForm'])->name('order.track.form');
-// Route::get('/track-order', [TrackingController::class, 'trackOrderForm'])->name('order.track.form');
+Route::get('/track-order', [TrackingController::class, 'trackOrderForm'])->name('order.track.form');
 Route::post('/track-order', [TrackingController::class, 'trackOrder'])->name('order.track');
 
 Route::get('/', [FrontendController::class, 'index'])->name('home');

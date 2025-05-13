@@ -16,15 +16,27 @@ class TrackingController extends Controller
     public function trackOrder(Request $request)
     {
         $request->validate([
-            'tracking_number' => 'required|string'
+            'tracking_number' => 'required|string',
         ]);
 
-        $order = Order::where('tracking_number', $request->tracking_number)->first();
+        $trackingNumber = $request->tracking_number;
+
+        // Example: Fetch order by tracking number
+        $order = Order::where('tracking_number', $trackingNumber)->first();
 
         if (!$order) {
-            return back()->with('error', 'Tracking number not found.');
+            return response()->json([
+                'success' => false,
+                'message' => 'No order found with this tracking number.',
+            ]);
         }
 
-        return view('Ecommerce.track.result', compact('order'));
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'tracking_status' => $order->tracking_status, // Example: processing, in_transit, delivered, failed
+                'status' => $order->status, // Example: paid, pending, failed
+            ],
+        ]);
     }
 }
