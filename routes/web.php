@@ -17,17 +17,17 @@ use App\Http\Controllers\RefundRequestController;
 
 
 Route::get('/migrate', function () {
-    // Optional: add auth or IP check to protect this route in production
-
-    $response = Artisan::call('migrate:fresh', [
+    Artisan::call('migrate:fresh', [
         '--seed' => true,
         '--force' => true,
     ]);
 
+    Artisan::call('storage:link');
 
-    dd($response);  
+    return nl2br(Artisan::output()); // convert \n to <br> for HTML display
 });
 
+git add . 
 
 // Order tracking
 Route::get('/track-order', [FrontendController::class, 'trackOrderForm'])->name('order.track.form');
