@@ -27,7 +27,7 @@ Route::get('/migrate', function () {
     return nl2br(Artisan::output()); // convert \n to <br> for HTML display
 });
 
-git add . 
+
 
 // Order tracking
 Route::get('/track-order', [FrontendController::class, 'trackOrderForm'])->name('order.track.form');
