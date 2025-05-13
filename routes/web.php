@@ -22,7 +22,7 @@ Route::get('/migrate', function () {
         '--force' => true,
     ]);
 
-    Artisan::call('storage:link');
+    // Artisan::call('storage:link');
 
     return nl2br(Artisan::output()); // convert \n to <br> for HTML display
 });
