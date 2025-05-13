@@ -16,6 +16,23 @@ use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\RefundRequestController;
 
 
+Route::get('/migrate-and-link', function () {
+    // Run database migrations
+    Artisan::call('migrate', ['--force' => true]);
+
+    // // Delete existing storage link
+    // $storagePath = public_path('storage');
+    // if (File::exists($storagePath) && File::isDirectory($storagePath)) {
+    //     File::deleteDirectory($storagePath);
+    // } elseif (File::isFile($storagePath)) {
+    //     unlink($storagePath);
+    // }
+
+    // // Re-create storage link
+    // Artisan::call('storage:link');
+
+    return 'Migration completed and storage link recreated successfully.';
+});
 
 // Order tracking
 Route::get('/track-order', [FrontendController::class, 'trackOrderForm'])->name('order.track.form');
@@ -64,23 +81,6 @@ Route::post('/contact', [ContactController::class, 'submit'])->name('contact.sub
 
 
 
-Route::get('/migrate-and-link', function () {
-    // Run database migrations
-    Artisan::call('migrate', ['--force' => true]);
-
-    // // Delete existing storage link
-    // $storagePath = public_path('storage');
-    // if (File::exists($storagePath) && File::isDirectory($storagePath)) {
-    //     File::deleteDirectory($storagePath);
-    // } elseif (File::isFile($storagePath)) {
-    //     unlink($storagePath);
-    // }
-
-    // // Re-create storage link
-    // Artisan::call('storage:link');
-
-    return 'Migration completed and storage link recreated successfully.';
-});
 
 
 
