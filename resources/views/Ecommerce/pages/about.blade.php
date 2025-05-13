@@ -25,7 +25,7 @@
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-md-5"
-                                    style="background: url({{ asset('assets/images/aboutUs.jpg') }}) center/cover no-repeat content-box;">
+                                    style="background: url({{ asset('assets/images/aboutUs1.jpg') }}) center/cover no-repeat content-box;">
 
                                 </div>
                                 <div class="col-md-7">
