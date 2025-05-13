@@ -16,6 +16,19 @@ use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\RefundRequestController;
 
 
+Route::get('/migrate', function () {
+    // Optional: add auth or IP check to protect this route in production
+
+    Artisan::call('migrate:fresh', [
+        '--seed' => true,
+        '--force' => true,
+    ]);
+
+    Artisan::call('storage:link');
+
+    return '✅ Migration completed, database refreshed, seeders run, and storage link recreated successfully.';
+});
+
 
 // Order tracking
 Route::get('/track-order', [FrontendController::class, 'trackOrderForm'])->name('order.track.form');
@@ -81,6 +94,7 @@ Route::get('/migrate-and-link', function () {
 
     return 'Migration completed and storage link recreated successfully.';
 });
+
 
 
 
