@@ -329,27 +329,7 @@ function addToCart(productId) {
 
 
 
-// Get the current time
-const now = new Date();
 
-// Set the end time to 24 hours from now
-const endTime = new Date(now.getTime() + 27 * 60 * 60 * 1000); // 24 hours later
-
-// Format the countdown parameters
-const year = endTime.getFullYear();
-const month = endTime.getMonth() + 1;  // Months are 0-based
-const day = endTime.getDate();
-const hour = endTime.getHours();
-const minute = endTime.getMinutes();
-const second = endTime.getSeconds();
-
-// Initialize the countdown using the calculated time
-document.getElementById("countdown").setAttribute("data-y", year);
-document.getElementById("countdown").setAttribute("data-m", month);
-document.getElementById("countdown").setAttribute("data-d", day);
-document.getElementById("countdown").setAttribute("data-h", hour);
-document.getElementById("countdown").setAttribute("data-i", minute);
-document.getElementById("countdown").setAttribute("data-s", second);
 
 // Contact Form
 const content = document.getElementById('marqueeContent');
@@ -371,4 +351,79 @@ function animate() {
 
 // Start animation
 animate();
+
+
+//timer for card
+// Function to calculate remaining time until next 72-hour reset
+function getRemainingTime() {
+    const now = new Date();
+
+    // Get time since Unix Epoch in milliseconds
+    const currentTime = now.getTime();
+
+    // Duration of 3 days in milliseconds
+    const cycleDuration = 72 * 60 * 60 * 1000;
+
+    // Time remaining until next cycle ends
+    const timeRemaining = cycleDuration - (currentTime % cycleDuration);
+
+    return new Date(now.getTime() + timeRemaining);
+}
+
+// Function to update countdowns
+function initializeCountdowns() {
+    const countdownElements = document.querySelectorAll("[data-countdown]");
+
+    countdownElements.forEach(element => {
+        const endTime = getRemainingTime();
+
+        const year = endTime.getFullYear();
+        const month = endTime.getMonth() + 1;
+        const day = endTime.getDate();
+        const hour = endTime.getHours();
+        const minute = endTime.getMinutes();
+        const second = endTime.getSeconds();
+
+        // Set data attributes (optional if used by a plugin)
+        element.setAttribute("data-y", year);
+        element.setAttribute("data-m", month);
+        element.setAttribute("data-d", day);
+        element.setAttribute("data-h", hour);
+        element.setAttribute("data-i", minute);
+        element.setAttribute("data-s", second);
+
+        // Show countdown timer
+        startCountdown(element, endTime);
+    });
+}
+
+// Function to run countdown per element
+function startCountdown(element, endTime) {
+    function update() {
+        const now = new Date();
+        const diff = endTime - now;
+
+        if (diff <= 0) {
+            initializeCountdowns(); // Reset after 3 days automatically
+            return;
+        }
+
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        element.innerHTML = `
+            <span>${String(hours).padStart(2, '0')}h :</span>
+            <span>${String(minutes).padStart(2, '0')}m :</span>
+            <span>${String(seconds).padStart(2, '0')}s</span>
+        `;
+    }
+
+    update();
+    setInterval(update, 1000);
+}
+
+// Initialize on page load
+initializeCountdowns();
+
 

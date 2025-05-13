@@ -83,7 +83,7 @@
                                     </div>
                                 </div>
                             </div>
-                           
+
                             <div class="slider-item style9">
                                 <div class="slider-inner equal-element">
                                     <div class="slider-infor">
@@ -172,7 +172,7 @@
                                 </div>
                             </div>
                             <div class="product-count-down">
-                                <div class="stelina-countdown" id="countdown"></div>
+                                <div class="stelina-countdown" data-countdown></div>
                             </div>
                         </div>
                         <div class="product-info">
@@ -346,15 +346,23 @@
                     <h2>What Our eBay Customers Say</h2>
                     <div class="review-slider swiper">
                         <div class="swiper-wrapper">
+                            @if (!empty($ebayVerified) && $ebayVerified->isNotEmpty())
+                            @foreach ($ebayVerified as $ebay)
+                            @if (!empty($ebay->imagePath))
                             <div class="swiper-slide">
-                                <img src="https://placehold.co/700x500" alt="eBay Review 1" />
+                                <img src="{{ asset($ebay->imagePath) }}" alt="{{ $ebay->imageName ?? 'Ebay Image' }}" />
                             </div>
+                            @else
                             <div class="swiper-slide">
-                                <img src="https://placehold.co/700x500" alt="eBay Review 2" />
+                                <img src="{{ asset('images/default-placeholder.png') }}" alt="Default Image" />
                             </div>
+                            @endif
+                            @endforeach
+                            @else
                             <div class="swiper-slide">
-                                <img src="https://placehold.co/700x500" alt="eBay Review 3" />
+                                <img src="{{ asset('images/no-items-found.png') }}" alt="No Ebay Items" />
                             </div>
+                            @endif
                         </div>
                         <!-- Pagination -->
                         <div class="swiper-pagination"></div>

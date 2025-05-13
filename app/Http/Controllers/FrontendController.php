@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EbayVerified;
 use App\Models\Product;
 use App\Models\Review;
 use App\Services\SeoService;
@@ -12,12 +13,13 @@ class FrontendController extends Controller
 {
     public function index()
     {
+        $ebayVerified = EbayVerified::all();
         $products = Product::get();
         $allproducts = Product::withCount('reviews')
             ->withAvg('reviews', 'rating')
             ->take(8)
             ->get();
-        return view('Ecommerce.Mainindex', compact('products', 'allproducts'));
+        return view('Ecommerce.Mainindex', compact('products', 'allproducts','ebayVerified'));
     }
     public function shop()
     {
