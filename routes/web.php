@@ -19,14 +19,13 @@ use App\Http\Controllers\RefundRequestController;
 Route::get('/migrate', function () {
     // Optional: add auth or IP check to protect this route in production
 
-    Artisan::call('migrate:fresh', [
+    $response = Artisan::call('migrate:fresh', [
         '--seed' => true,
         '--force' => true,
     ]);
 
-    Artisan::call('storage:link');
 
-    return '✅ Migration completed, database refreshed, seeders run, and storage link recreated successfully.';
+    dd($response);  
 });
 
 
