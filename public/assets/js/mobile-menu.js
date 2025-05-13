@@ -300,7 +300,7 @@ function addToCart(productId) {
     $.ajax({
         url: '/add-to-cart/' + productId,
         type: 'POST',
-       
+
         success: function (response) {
             if (response.status === 'success') {
                 // ✅ Update cart count
@@ -329,51 +329,46 @@ function addToCart(productId) {
 
 
 
-    // Get the current time
-    const now = new Date();
+// Get the current time
+const now = new Date();
 
-    // Set the end time to 24 hours from now
-    const endTime = new Date(now.getTime() + 27 * 60 * 60 * 1000); // 24 hours later
+// Set the end time to 24 hours from now
+const endTime = new Date(now.getTime() + 27 * 60 * 60 * 1000); // 24 hours later
 
-    // Format the countdown parameters
-    const year = endTime.getFullYear();
-    const month = endTime.getMonth() + 1;  // Months are 0-based
-    const day = endTime.getDate();
-    const hour = endTime.getHours();
-    const minute = endTime.getMinutes();
-    const second = endTime.getSeconds();
+// Format the countdown parameters
+const year = endTime.getFullYear();
+const month = endTime.getMonth() + 1;  // Months are 0-based
+const day = endTime.getDate();
+const hour = endTime.getHours();
+const minute = endTime.getMinutes();
+const second = endTime.getSeconds();
 
-    // Initialize the countdown using the calculated time
-    document.getElementById("countdown").setAttribute("data-y", year);
-    document.getElementById("countdown").setAttribute("data-m", month);
-    document.getElementById("countdown").setAttribute("data-d", day);
-    document.getElementById("countdown").setAttribute("data-h", hour);
-    document.getElementById("countdown").setAttribute("data-i", minute);
+// Initialize the countdown using the calculated time
+document.getElementById("countdown").setAttribute("data-y", year);
+document.getElementById("countdown").setAttribute("data-m", month);
+document.getElementById("countdown").setAttribute("data-d", day);
+document.getElementById("countdown").setAttribute("data-h", hour);
+document.getElementById("countdown").setAttribute("data-i", minute);
 document.getElementById("countdown").setAttribute("data-s", second);
-// Contact Form 
+
+// Contact Form
 const content = document.getElementById('marqueeContent');
-  const wrapper = document.getElementById('marqueeWrapper');
+const wrapper = document.getElementById('marqueeWrapper');
 
-  let speed = 1; // pixels per frame
-  let pos = wrapper.offsetWidth;
+let speed = 1; // pixels per frame
+let pos = wrapper.offsetWidth;
 
-  function animate() {
+function animate() {
     pos -= speed;
     if (pos < -content.offsetWidth) {
-      pos = wrapper.offsetWidth;
+        pos = wrapper.offsetWidth;
     }
     content.style.transform = `translateX(${pos}px)`;
     if (!wrapper.classList.contains('paused')) {
-      requestAnimationFrame(animate);
+        requestAnimationFrame(animate);
     }
-  }
+}
 
-  // Start animation
-  animate();
+// Start animation
+animate();
 
-  // Pause on hover
-  wrapper.addEventListener('mouseenter', () => wrapper.classList.add('paused'));
-  wrapper.addEventListener('mouseleave', () => {
-    wrapper.classList.remove('paused');
-    animate(); // resume
-  });
