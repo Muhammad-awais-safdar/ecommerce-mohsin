@@ -68,16 +68,16 @@ Route::get('/migrate-and-link', function () {
     // Run database migrations
     Artisan::call('migrate', ['--force' => true]);
 
-    // Delete existing storage link
-    $storagePath = public_path('storage');
-    if (File::exists($storagePath) && File::isDirectory($storagePath)) {
-        File::deleteDirectory($storagePath);
-    } elseif (File::isFile($storagePath)) {
-        unlink($storagePath);
-    }
+    // // Delete existing storage link
+    // $storagePath = public_path('storage');
+    // if (File::exists($storagePath) && File::isDirectory($storagePath)) {
+    //     File::deleteDirectory($storagePath);
+    // } elseif (File::isFile($storagePath)) {
+    //     unlink($storagePath);
+    // }
 
-    // Re-create storage link
-    Artisan::call('storage:link');
+    // // Re-create storage link
+    // Artisan::call('storage:link');
 
     return 'Migration completed and storage link recreated successfully.';
 });
