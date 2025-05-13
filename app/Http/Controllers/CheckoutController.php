@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Stripe\Stripe;
 use App\Models\Order;
 use App\Models\OrderItem;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Stripe\Checkout\Session;
 use Illuminate\Routing\Controller;
@@ -32,7 +33,6 @@ class CheckoutController extends Controller
             'customer_email' => 'required|email|max:100',
             'customer_phone' => 'required|string|max:20',
             'address_line1' => 'required|string',
-            'address_line2' => 'string',
             'country' => 'required|string',
             'county' => 'required|string',
             'city' => 'required|string',
@@ -42,6 +42,7 @@ class CheckoutController extends Controller
         $cart = session()->get('cart', []);
 
         if (empty($cart)) {
+            // dd($cart);
             return back()->with('error', 'Your cart is empty.');
         }
 
@@ -67,6 +68,8 @@ class CheckoutController extends Controller
                 'shipping_address' => $shippingAddress,
                 'total_amount' => $totalAmount,
                 'status' => 'pending',
+                'tracking_number' => strtoupper(Str::random(10)), // Example: "TRK9FJ3K2M"
+                'tracking_status' => 'processing',
             ]);
 
 
@@ -74,6 +77,7 @@ class CheckoutController extends Controller
                 OrderItem::create([
                     'order_id' => $order->id,
                     'product_id' => $productId,
+                    'status' => 'pending',
                     'quantity' => $item['quantity'],
                     'price' => $item['price'],
                 ]);
@@ -96,13 +100,22 @@ class CheckoutController extends Controller
     public function checkout(Request $request)
     {
         $product = \App\Models\Product::findOrFail($request->product_id);
+        $discount = $product->discount_percentage ?? 0;
+
+        // Apply discount if any
+        $finalPrice = $product->price;
+        if ($discount > 0) {
+            $finalPrice = $product->price - ($product->price * ($discount / 100));
+        }
 
         $cart = [
             $product->id => [
                 'name' => $product->name,
+                'price' => $finalPrice,
+                'original_price' => $product->price,
+                'discount' => $discount,
                 'quantity' => 1,
-                'price' => $product->price,
-                'image' => $product->image,
+                'image' => $product->image ?? 'default.jpg',
             ]
         ];
 

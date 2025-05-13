@@ -72,4 +72,8 @@ class FrontendController extends Controller
             ],
         ]);
     }
+    public function trackOrderForm()
+    {
+        return view('Ecommerce.track.form');
+    }
 }

@@ -49,7 +49,7 @@
                                                     <td class="product-price" data-title="Price">
                                                         {{-- £{{ number_format($item['price'], 2) }} --}}
 
-                                                        @if ($item['discount'] > 0)
+                                                        @if ($item['discount'] && $item['discount'] > 0 )
                                                             <del>£{{ number_format($item['original_price'], 2) }}</del>
                                                             <span>£{{ number_format($item['price'], 2) }}</span>
                                                         @else

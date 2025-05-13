@@ -16,10 +16,11 @@ return new class extends Migration {
             $table->string('customer_phone');
             $table->text('shipping_address');
             $table->decimal('total_amount', 10, 2);
-            $table->string('status')->default('pending'); // pending, paid
+            $table->string('status')->default('pending');
+            $table->string('tracking_number')->nullable();
+            $table->string('tracking_status')->default('processing');
             $table->timestamps();
         });
-
     }
 
     /**

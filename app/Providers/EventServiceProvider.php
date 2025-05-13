@@ -13,6 +13,9 @@ class EventServiceProvider extends ServiceProvider
         \App\Events\RefundStatusUpdated::class => [
             \App\Listeners\SendRefundStatusUpdateMail::class,
         ],
+        \App\Events\TrackingStatusUpdated::class => [
+            \App\Listeners\SendTrackingStatusEmail::class,
+        ],
     ];
 
     /**

@@ -1,22 +1,26 @@
 <?php
 
 use App\Models\SiteSetting;
-use App\Http\Controllers\CartController;
-
-use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\FrontendController;
-use App\Http\Controllers\OfferController;
-use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\File;
-use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\RefundRequestController;
-use Illuminate\Support\Facades\Artisan;
+
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\OfferController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\TrackingController;
+use App\Http\Controllers\RefundRequestController;
 
 
 
-
+// Order tracking
+Route::get('/track-order', [FrontendController::class, 'trackOrderForm'])->name('order.track.form');
+// Route::get('/track-order', [TrackingController::class, 'trackOrderForm'])->name('order.track.form');
+Route::post('/track-order', [TrackingController::class, 'trackOrder'])->name('order.track');
 
 Route::get('/', [FrontendController::class, 'index'])->name('home');
 Route::get('/shop', [FrontendController::class, 'shop'])->name('shop');
@@ -57,6 +61,8 @@ Route::fallback(function () {
 
 Route::get('/{slug}', [PageController::class, 'show'])->name('pages.show');
 Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
+
+
 
 Route::get('/migrate-and-link', function () {
     // Run database migrations
