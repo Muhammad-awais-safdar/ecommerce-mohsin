@@ -625,6 +625,33 @@ namespace App\Models {
     /**
      * App\Models\LoginActivity
      *
+     * @property \Illuminate\Support\Carbon|null $updated_at
+     * @property \Illuminate\Support\Carbon|null $created_at
+     * @property bool $is_notified
+     * @property string $session_hash
+     * @property string $user_agent
+     * @property string|null $browser
+     * @property string|null $device_type
+     * @property string|null $platform
+     * @property string|null $isp
+     * @property string|null $location
+     * @property string $ip_address
+     * @property int $user_id
+     * @property int $id
+     * @property-read \App\Models\User $user
+     * @method static \Illuminate\Database\Eloquent\Builder<LoginActivity>|LoginActivity whereId($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<LoginActivity>|LoginActivity whereUserId($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<LoginActivity>|LoginActivity whereIpAddress($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<LoginActivity>|LoginActivity whereLocation($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<LoginActivity>|LoginActivity whereIsp($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<LoginActivity>|LoginActivity wherePlatform($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<LoginActivity>|LoginActivity whereDeviceType($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<LoginActivity>|LoginActivity whereBrowser($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<LoginActivity>|LoginActivity whereUserAgent($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<LoginActivity>|LoginActivity whereSessionHash($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<LoginActivity>|LoginActivity whereIsNotified($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<LoginActivity>|LoginActivity whereCreatedAt($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<LoginActivity>|LoginActivity whereUpdatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<LoginActivity>|LoginActivity newModelQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<LoginActivity>|LoginActivity newQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<LoginActivity>|LoginActivity query()

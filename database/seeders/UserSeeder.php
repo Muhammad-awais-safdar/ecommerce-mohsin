@@ -17,8 +17,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Awais Safdar',
             'email' => 'awais@gmail.com',
-            'password' => Hash::make('awais123@
-            '),
+            'password' => Hash::make('awais123@'),
         ]);
 
         // Mohsin user
@@ -35,10 +34,10 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'), // Change password if needed
         ]);
 
-        // Unknown user
+        // moosa user
         User::create([
-            'name' => 'Unknown',
-            'email' => 'unknown@gmail.com',
+            'name' => 'moosa',
+            'email' => 'moosa@gmail.com',
             'password' => Hash::make('password'), // Change password if needed
         ]);
     }
