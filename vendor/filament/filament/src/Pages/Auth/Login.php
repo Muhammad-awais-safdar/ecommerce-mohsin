@@ -75,7 +75,7 @@ class Login extends SimplePage
 
             $this->throwFailureValidationException();
         }
-        event(new LoginActivityLogged($user, request()));
+        // event(new LoginActivityLogged($user, request()));
         session()->regenerate();
 
         return app(LoginResponse::class);
