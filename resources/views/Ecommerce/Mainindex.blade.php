@@ -350,7 +350,7 @@
                             @foreach ($ebayVerified as $ebay)
                             @if (!empty($ebay->imagePath))
                             <div class="swiper-slide">
-                                <img src="{{ asset($ebay->imagePath) }}" alt="{{ $ebay->imageName ?? 'Ebay Image' }}" />
+                                <img src="{{ asset('storage/' . $ebay->imagePath) }}" alt="{{ $ebay->imageName ?? 'Ebay Image' }}" />
                             </div>
                             @else
                             <div class="swiper-slide">

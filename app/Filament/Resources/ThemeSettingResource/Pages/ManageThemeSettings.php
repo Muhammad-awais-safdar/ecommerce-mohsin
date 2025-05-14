@@ -42,12 +42,17 @@ class ManageThemeSettings extends ManageRecords
                         ->success()
                         ->send();
                 }),
+
             Action::make('Migrate')
                 ->color('success')
                 ->icon('heroicon-o-adjustments-horizontal')
                 ->action(function () {
                     Artisan::call('migrate', ['--force' => true]);
-                    $this->notify('success', 'Migration completed');
+
+                    Notification::make()
+                        ->title('Migration completed')
+                        ->success()
+                        ->send();
                 }),
 
             Action::make('Storage Link')
@@ -55,7 +60,11 @@ class ManageThemeSettings extends ManageRecords
                 ->icon('heroicon-o-link')
                 ->action(function () {
                     Artisan::call('storage:link');
-                    $this->notify('success', 'Storage linked');
+
+                    Notification::make()
+                        ->title('Storage linked')
+                        ->success()
+                        ->send();
                 }),
 
             Action::make('Optimize')
@@ -63,7 +72,11 @@ class ManageThemeSettings extends ManageRecords
                 ->icon('heroicon-o-bolt')
                 ->action(function () {
                     Artisan::call('optimize');
-                    $this->notify('success', 'Application optimized');
+
+                    Notification::make()
+                        ->title('Application optimized')
+                        ->success()
+                        ->send();
                 }),
 
             Action::make('Clear Cache')
@@ -75,7 +88,11 @@ class ManageThemeSettings extends ManageRecords
                     Artisan::call('config:clear');
                     Artisan::call('route:clear');
                     Artisan::call('view:clear');
-                    $this->notify('success', 'All caches cleared');
+
+                    Notification::make()
+                        ->title('All caches cleared')
+                        ->success()
+                        ->send();
                 }),
 
             Action::make('Seed DB')
@@ -83,7 +100,11 @@ class ManageThemeSettings extends ManageRecords
                 ->icon('heroicon-o-adjustments-horizontal')
                 ->action(function () {
                     Artisan::call('db:seed', ['--force' => true]);
-                    $this->notify('success', 'Database seeding complete');
+
+                    Notification::make()
+                        ->title('Database seeding complete')
+                        ->success()
+                        ->send();
                 }),
         ];
     }
