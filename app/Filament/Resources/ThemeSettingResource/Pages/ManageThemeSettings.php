@@ -67,17 +67,17 @@ class ManageThemeSettings extends ManageRecords
                         ->send();
                 }),
 
-            Action::make('Optimize')
-                ->color('primary')
-                ->icon('heroicon-o-bolt')
-                ->action(function () {
-                    Artisan::call('optimize');
+            // Action::make('Optimize')
+            //     ->color('primary')
+            //     ->icon('heroicon-o-bolt')
+            //     ->action(function () {
+            //         Artisan::call('optimize');
 
-                    Notification::make()
-                        ->title('Application optimized')
-                        ->success()
-                        ->send();
-                }),
+            //         Notification::make()
+            //             ->title('Application optimized')
+            //             ->success()
+            //             ->send();
+            //     }),
 
             Action::make('Clear Cache')
                 ->color('danger')
@@ -95,17 +95,17 @@ class ManageThemeSettings extends ManageRecords
                         ->send();
                 }),
 
-            Action::make('Seed DB')
-                ->color('gray')
-                ->icon('heroicon-o-adjustments-horizontal')
-                ->action(function () {
-                    Artisan::call('db:seed', ['--force' => true]);
+            // Action::make('Seed DB')
+            //     ->color('gray')
+            //     ->icon('heroicon-o-adjustments-horizontal')
+            //     ->action(function () {
+            //         Artisan::call('db:seed', ['--force' => true]);
 
-                    Notification::make()
-                        ->title('Database seeding complete')
-                        ->success()
-                        ->send();
-                }),
+            //         Notification::make()
+            //             ->title('Database seeding complete')
+            //             ->success()
+            //             ->send();
+            //     }),
         ];
     }
 
