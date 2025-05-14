@@ -87,7 +87,7 @@ class UserResource extends Resource
                 TextColumn::make('name')->sortable()->searchable(),
                 TextColumn::make('email')->sortable()->searchable(),
                 TextColumn::make('email_verified_at')->dateTime(),
-                // TextColumn::make('is_verified')->boolean(),
+                TextColumn::make('is_verified')->label('Verified')->boolean()->trueIcon('heroicon-o-check')->falseIcon('heroicon-o-x')->sortable(),
                 TextColumn::make('created_at')->sortable()->since(),
                 TextColumn::make('updated_at')->sortable()->since(),
             ])
