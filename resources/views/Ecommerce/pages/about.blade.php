@@ -24,7 +24,7 @@
                     <div class="page-main-content">
                         <div class="container-fluid">
                             <div class="row">
-                                <div class="col-md-5"
+                                <div class="col-md-5 d-none d-md-block col-md-5"
                                     style="background: url({{ asset('assets/images/aboutUs1.jpg') }}) center/cover no-repeat content-box;">
 
                                 </div>

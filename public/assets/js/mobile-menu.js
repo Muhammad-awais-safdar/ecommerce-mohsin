@@ -385,8 +385,8 @@ function initializeCountdowns() {
         const second = endTime.getSeconds();
 
         // Set data attributes (optional if used by a plugin)
-        element.setAttribute("data-y", year);
-        element.setAttribute("data-m", month);
+        // element.setAttribute("data-y", year);
+        // element.setAttribute("data-m", month);
         element.setAttribute("data-d", day);
         element.setAttribute("data-h", hour);
         element.setAttribute("data-i", minute);
@@ -408,14 +408,16 @@ function startCountdown(element, endTime) {
             return;
         }
 
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
         const minutes = Math.floor((diff / (1000 * 60)) % 60);
         const seconds = Math.floor((diff / 1000) % 60);
 
         element.innerHTML = `
-            <span>${String(hours).padStart(2, '0')}h :</span>
-            <span>${String(minutes).padStart(2, '0')}m :</span>
-            <span>${String(seconds).padStart(2, '0')}s</span>
+            <span class="box-count">${String(days).padStart(2, '0')}d :</span>
+            <span class="box-count">${String(hours).padStart(2, '0')}h :</span>
+            <span class="box-count">${String(minutes).padStart(2, '0')}m :</span>
+            <span class="box-count">${String(seconds).padStart(2, '0')}s</span>
         `;
     }
 
@@ -425,5 +427,6 @@ function startCountdown(element, endTime) {
 
 // Initialize on page load
 initializeCountdowns();
+
 
 

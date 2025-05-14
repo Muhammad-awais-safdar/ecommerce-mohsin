@@ -224,23 +224,24 @@
 
 
                             <div class="group-button">
-                                <div class="quantity-add-to-cart"
-                                    style="display: flex;align-items: center;justify-content: flex-start;">
+                                <div class="d-flex flex-wrap gap-5">
 
-                                    <button class="btn-stelina-outline me-3"
-                                        onclick="addToCart({{ $product->id }})"><span>Add to cart</span>
+                                    <button class="btn-stelina-outline" onclick="addToCart({{ $product->id }})">
+                                        <span>Add to cart</span>
                                     </button>
+
                                     <form method="POST" action="{{ route('buy.now') }}">
                                         @csrf
                                         <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                        <button type="submit" class="ms-3 btn-stelina-primary button">
+                                        <button type="submit" class="btn-stelina-primary button">
                                             Buy Now
                                         </button>
                                     </form>
-                                    <button onclick="openModal()" class="ms-3 btn-stelina-primary button">Make an
-                                        Offer</button>
-                                    {{-- <button id="openOfferModal" class="btn-stelina-outline">Make an Offer</button>
-                                    --}}
+
+                                    <button onclick="openModal()" class="btn-stelina-primary button">
+                                        Make an Offer
+                                    </button>
+
                                 </div>
                             </div>
                         </div>
@@ -432,7 +433,7 @@
                                     <div class="product-thumb">
                                         <div class="thumb-inner">
                                             <a href="#">
-                                                <img src="{{ asset('storage/' . $product->images[0]) }}" alt="img">
+                                                <img src="{{ asset('storage/' . $item->images[0]) }}" alt="img">
                                             </a>
                                             <div class="thumb-group">
 
@@ -445,8 +446,7 @@
                                             </div>
                                         </div>
                                         <div class="product-count-down">
-                                            <div class="stelina-countdown" data-y="2021" data-m="10" data-w="4"
-                                                data-d="10" data-h="20" data-i="20" data-s="60"></div>
+                                            <div class="stelina-countdown" data-countdown></div>
                                         </div>
                                     </div>
                                     <div class="product-info">
