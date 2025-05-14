@@ -14,6 +14,7 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Checkbox;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Actions\DeleteAction;
@@ -87,7 +88,13 @@ class UserResource extends Resource
                 TextColumn::make('name')->sortable()->searchable(),
                 TextColumn::make('email')->sortable()->searchable(),
                 TextColumn::make('email_verified_at')->dateTime(),
-                TextColumn::make('is_verified')->label('Verified')->boolean()->trueIcon('heroicon-o-check')->falseIcon('heroicon-o-x')->sortable(),
+                IconColumn::make('is_verified')
+                    ->label('Verified')
+                    ->boolean()
+                    ->trueIcon('heroicon-o-check')
+                    ->falseIcon('heroicon-o-x-mark')
+                    ->sortable(),
+
                 TextColumn::make('created_at')->sortable()->since(),
                 TextColumn::make('updated_at')->sortable()->since(),
             ])
