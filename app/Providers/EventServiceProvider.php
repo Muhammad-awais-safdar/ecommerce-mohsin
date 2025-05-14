@@ -2,6 +2,14 @@
 
 namespace App\Providers;
 
+use App\Events\OfferStatusUpdated;
+use App\Events\LoginActivityLogged;
+use App\Events\RefundStatusUpdated;
+use App\Listeners\LogLoginActivity;
+use App\Events\TrackingStatusUpdated;
+use App\Listeners\SendOfferStatusMail;
+use App\Listeners\SendTrackingStatusEmail;
+use App\Listeners\SendRefundStatusUpdateMail;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -10,14 +18,17 @@ class EventServiceProvider extends ServiceProvider
      * The event to listener mappings for the application.
      */
     protected $listen = [
-        \App\Events\RefundStatusUpdated::class => [
-            \App\Listeners\SendRefundStatusUpdateMail::class,
+        RefundStatusUpdated::class => [
+            SendRefundStatusUpdateMail::class,
         ],
-        \App\Events\TrackingStatusUpdated::class => [
-            \App\Listeners\SendTrackingStatusEmail::class,
+        TrackingStatusUpdated::class => [
+            SendTrackingStatusEmail::class,
         ],
-        \App\Events\OfferStatusUpdated::class => [
-            \App\Listeners\SendOfferStatusMail::class,
+        OfferStatusUpdated::class => [
+            SendOfferStatusMail::class,
+        ],
+        LoginActivityLogged::class => [
+            LogLoginActivity::class,
         ],
     ];
 

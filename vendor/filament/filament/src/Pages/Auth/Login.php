@@ -11,6 +11,7 @@ use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use App\Events\LoginActivityLogged;
 use Filament\Http\Responses\Auth\Contracts\LoginResponse;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Notifications\Notification;
@@ -74,7 +75,7 @@ class Login extends SimplePage
 
             $this->throwFailureValidationException();
         }
-
+        event(new LoginActivityLogged($user, request()));
         session()->regenerate();
 
         return app(LoginResponse::class);

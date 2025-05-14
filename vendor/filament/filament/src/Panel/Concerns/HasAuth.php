@@ -126,7 +126,7 @@ trait HasAuth
     public function login(string | Closure | array | null $action = Login::class): static
     {
         $this->loginRouteAction = $action;
-
+        
         return $this;
     }
 
