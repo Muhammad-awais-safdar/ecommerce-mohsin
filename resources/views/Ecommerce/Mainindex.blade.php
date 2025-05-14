@@ -343,7 +343,7 @@
             </div>
         </div>
     </div>
-    <div class="banner-wrapp rows-space-65" style="background-color: var(--color-accent-primary);">
+    <div class="banner-wrapp" style="background-color: var(--color-accent-primary);">
         <div class="container">
             <div class="reviews-section banner-wrapp rows-space-65">
                 <div class="container">
