@@ -26,24 +26,23 @@
     .review-slider {
         max-width: 700px;
         margin: 0 auto;
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
-        border: 2px solid var(--color-border);
+        /* Center the slider */
     }
 
     .swiper-slide {
-        width: auto !important;
-        /* Adapt to image width */
-        display: inline-block;
-        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
     }
 
     .swiper-slide img {
         width: 100%;
-        height: auto;
+        max-width: 700px;
+        height: 300px;
+        object-fit: contain;
+        /* Fit image nicely */
         display: block;
-        transition: transform 0.5s ease;
     }
 
     .swiper-slide:hover img {
