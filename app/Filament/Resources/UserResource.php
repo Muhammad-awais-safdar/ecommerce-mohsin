@@ -20,6 +20,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Tables\Actions\DeleteAction;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Forms\Components\DateTimePicker;
 use Filament\Tables\Actions\DeleteBulkAction;
 use App\Filament\Resources\UserResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -66,9 +67,8 @@ class UserResource extends Resource
                     ->dehydrated(fn($state) => ! empty($state) ? Hash::make($state) : null)
                     ->confirmed(),
 
-                Forms\Components\TextInput::make('email_verified_at')
+                DateTimePicker::make('email_verified_at')
                     ->label('Email Verified At')
-                    ->dateTime()
                     ->default(null), // Default as null
 
                 Toggle::make('is_active')
