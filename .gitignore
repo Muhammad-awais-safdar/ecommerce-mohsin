@@ -1,6 +1,4 @@
 
-# Laravel & PHP
-/node_modules
 /public/storage
 /storage/*.key
 .env
