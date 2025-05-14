@@ -68,7 +68,7 @@ class UserResource extends Resource
 
                 Forms\Components\TextInput::make('email_verified_at')
                     ->label('Email Verified At')
-                    ->disabled()
+                    ->dateTime()
                     ->default(null), // Default as null
 
                 Toggle::make('is_active')
