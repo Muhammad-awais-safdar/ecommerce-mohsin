@@ -7,6 +7,7 @@ use App\Models\User;
 use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Carbon\Carbon;
 use Filament\Resources\Resource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -93,7 +94,21 @@ class UserResource extends Resource
                     ->trueIcon('heroicon-o-check')
                     ->falseIcon('heroicon-o-x-mark')
                     ->sortable(),
+                TextColumn::make('status')
+                    ->label('Status')
+                    ->formatStateUsing(function ($record) {
+                        if (!$record->last_seen_at) {
+                            return 'Offline';
+                        }
 
+                        $diffInMinutes = Carbon::now()->diffInMinutes($record->last_seen_at);
+
+                        if ($diffInMinutes < 5) {
+                            return '🟢 Online';
+                        } else {
+                            return '🔴 Offline (Last seen ' . $diffInMinutes . ' min ago)';
+                        }
+                    }),
                 TextColumn::make('created_at')->sortable()->since(),
                 TextColumn::make('updated_at')->sortable()->since(),
             ])
