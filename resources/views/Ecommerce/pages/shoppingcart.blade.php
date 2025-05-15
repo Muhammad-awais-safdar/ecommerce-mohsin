@@ -38,7 +38,7 @@
                                         <tr class="cart_item" data-id="{{ $id }}">
                                             <td class="product-thumbnail">
                                                 <a href="#">
-                                                    <img src="{{ asset('storage/' . ($item['image[0]'] ?? 'default.jpg')) }}"
+                                                    <img src="{{ asset('storage/' . ($item['image[0][0][0]'] ?? 'default.jpg')) }}"
                                                         alt="img"
                                                         class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image">
                                                 </a>

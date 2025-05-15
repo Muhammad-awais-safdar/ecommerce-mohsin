@@ -115,7 +115,7 @@ class CheckoutController extends Controller
                 'original_price' => $product->price,
                 'discount' => $discount,
                 'quantity' => 1,
-                'image' => $product->image ?? 'default.jpg',
+                'image' => $product->image[0] ?? 'default.jpg',
             ]
         ];
 
