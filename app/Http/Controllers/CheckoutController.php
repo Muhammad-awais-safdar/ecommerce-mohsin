@@ -107,7 +107,7 @@ class CheckoutController extends Controller
         if ($discount > 0) {
             $finalPrice = $product->price - ($product->price * ($discount / 100));
         }
-
+        $firstImage = $product->images[0] ?? 'default.jpg';
         $cart = [
             $product->id => [
                 'name' => $product->name,
@@ -115,7 +115,7 @@ class CheckoutController extends Controller
                 'original_price' => $product->price,
                 'discount' => $discount,
                 'quantity' => 1,
-                'image' => $product->image[0] ?? 'default.jpg',
+                'image' => $firstImage,
             ]
         ];
 

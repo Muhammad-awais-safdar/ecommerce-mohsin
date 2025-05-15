@@ -20,7 +20,7 @@ class CartController extends Controller
         }
 
         $cart = session()->get('cart', []);
-
+        $firstImage = $product->images[0] ?? 'default.jpg';
         if (isset($cart[$id])) {
             $cart[$id]['quantity']++;
         } else {
@@ -30,10 +30,11 @@ class CartController extends Controller
                 'original_price' => $product->price,
                 'discount' => $discount,
                 'quantity' => 1,
-                'image' => $product->image[0] ?? 'default.jpg',
+                'image' => $firstImage,
             ];
         }
 
+        // dd($cart);
         session()->put('cart', $cart);
 
         $count = array_sum(array_map(fn($item) => $item['quantity'] ?? 0, $cart));
