@@ -25,7 +25,7 @@
                 </div>
                 @endif
         </h3>
-    
+
         <div class="checkout-wrapp">
 
 
@@ -113,7 +113,7 @@
                                     @endphp
                                     <li class="product-item-order">
                                         <div class="product-thumb">
-                                            <img src="{{ asset('storage/' . ($item['image'] ?? 'default.jpg')) }}"
+                                            <img src="{{ asset('storage/' . ($item['image[0]'] ?? 'default.jpg')) }}"
                                                 alt="Product Image">
                                         </div>
                                         <div class="product-order-inner">
