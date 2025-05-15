@@ -50,17 +50,17 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                TextInput::make('name')
                     ->label('Name')
                     ->required(),
 
-                Forms\Components\TextInput::make('email')
+                TextInput::make('email')
                     ->label('Email')
                     ->required()
                     ->email()
-                    ->unique(ignoreRecord: true), // Ensures email is unique, excluding the current record
+                    ->unique(ignoreRecord: true),
 
-                Forms\Components\TextInput::make('password')
+                TextInput::make('password')
                     ->label('Password')
                     ->password()
                     ->minLength(8)
@@ -94,6 +94,11 @@ class UserResource extends Resource
                     ->trueIcon('heroicon-o-check')
                     ->falseIcon('heroicon-o-x-mark')
                     ->sortable(),
+                TextColumn::make('last_login_at')
+                    ->label('Last Login At')
+                    ->getStateUsing(fn($record) => $record->last_seen_at)
+                    ->dateTime(),
+
                 TextColumn::make('status')
                     ->label('Status')
                     ->formatStateUsing(function ($record) {
