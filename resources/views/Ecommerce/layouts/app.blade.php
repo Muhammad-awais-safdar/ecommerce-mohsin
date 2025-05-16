@@ -246,7 +246,11 @@
                                 <li class="menu-item">
                                     <a href="{{ route('contact') }}" title="contact Us">Contact</a>
                                 </li>
-                               
+                                <li class="menu-item">
+                                    <a href="https://www.royalmail.com/track-your-item" target="_blank"
+                                        title="Track Your Order">Track Your Order</a>
+                                </li>
+
                             </ul>
                         </div>
                     </div>
@@ -287,7 +291,8 @@
                     <div class="row">
                         <div class="col-sm-12 col-xs-12">
                             <div class="stelina-socials">
-                                {{-- <img src="{{ asset('assets/images/trustedSeller.png') }}" class="img-fluid w-25"  /> --}}
+                                {{-- <img src="{{ asset('assets/images/trustedSeller.png') }}" class="img-fluid w-25" />
+                                --}}
                             </div>
                             <div class="coppyright">
                                 Copyright © @php
