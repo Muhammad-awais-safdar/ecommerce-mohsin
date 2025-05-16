@@ -20,6 +20,7 @@
             --color-accent-primary: {{ $colors['color_accent_primary'] ?? '#C7A200' }};
             --color-accent-secondary: {{ $colors['color_accent_secondary'] ?? '#FFD700' }};
             --color-border: {{ $colors['color_border'] ?? '#DDD6C5' }};
+            
         }
     </style>
     @php
