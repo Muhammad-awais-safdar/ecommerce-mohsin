@@ -9,7 +9,7 @@
 <style>
     .reviews-section {
         /* background-color: var(--color-background); */
-        padding: 80px 0;
+        padding: 80px 0px;
         position: relative;
         z-index: 5;
     }
