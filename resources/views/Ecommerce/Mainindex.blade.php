@@ -495,35 +495,7 @@
     slidesPerView: 'auto', // Adaptive to content width
     spaceBetween: 20, // Optional: spacing between slides
     });
-    // const swiper = new Swiper('.swiper', {
-    //         loop: true,
-    //         autoplay: {
-    //             delay: 1500,
-    //             disableOnInteraction: true,
-    //         },
-    //         pagination: {
-    //             el: '.swiper-pagination',
-    //             clickable: true,
-    //         },
-    //         effect: 'fade', // Only use fade if you want single slide at a time
-    //         fadeEffect: {
-    //             crossFade: true
-    //         },
-    //         breakpoints: {
-    //             0: {
-    //                 slidesPerView: 1,
-    //                 spaceBetween: 10
-    //             },
-    //             768: {
-    //                 slidesPerView: 2,
-    //                 spaceBetween: 20
-    //             },
-    //             1024: {
-    //                 slidesPerView: 3,
-    //                 spaceBetween: 30
-    //             }
-    //         }
-    //     });
+ 
 </script>
 
 @endpush
