@@ -2,30 +2,32 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\RefundRequestResource\Pages;
-use App\Filament\Resources\RefundRequestResource\Pages\CreateRefundRequest;
-use App\Filament\Resources\RefundRequestResource\Pages\EditRefundRequest;
-use App\Filament\Resources\RefundRequestResource\Pages\ListRefundRequests;
-use App\Filament\Resources\RefundRequestResource\RelationManagers;
-use App\Models\RefundRequest;
-use Filament\Actions\EditAction;
 use Filament\Forms;
+use Filament\Tables;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
+use App\Models\RefundRequest;
+use Filament\Resources\Resource;
+use Filament\Tables\Actions\Action;
+use Illuminate\Support\Facades\Auth;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
-use Filament\Tables;
+use Filament\Tables\Columns\BadgeColumn;
+use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Database\Eloquent\Builder;
+use Filament\Tables\Actions\RestoreAction;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Tables\Columns\BadgeColumn;
-
-use Filament\Tables\Columns\TextColumn;
-
-use Filament\Tables\Filters\SelectFilter;
-use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
+use Filament\Tables\Actions\ForceDeleteAction;
+use Filament\Tables\Actions\RestoreBulkAction;
+use Filament\Tables\Actions\ForceDeleteBulkAction;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\RefundRequestResource\Pages;
+use App\Filament\Resources\RefundRequestResource\Pages\EditRefundRequest;
+use App\Filament\Resources\RefundRequestResource\Pages\ListRefundRequests;
 
 class RefundRequestResource extends Resource
 {
@@ -57,6 +59,8 @@ class RefundRequestResource extends Resource
 
     public static function table(Table $table): Table
     {
+        $user = Auth::user();
+
         return $table
             ->columns([
                 TextColumn::make('id'),
@@ -64,13 +68,11 @@ class RefundRequestResource extends Resource
                 TextColumn::make('customer_name')->sortable(),
                 TextColumn::make('customer_email'),
                 BadgeColumn::make('status')
-                    ->formatStateUsing(function (string $state): string {
-                        return match ($state) {
-                            'pending' => 'Pending',
-                            'approved' => 'Approved',
-                            'denied' => 'Denied',
-                            default => ucfirst($state),
-                        };
+                    ->formatStateUsing(fn(string $state): string => match ($state) {
+                        'pending' => 'Pending',
+                        'approved' => 'Approved',
+                        'denied' => 'Denied',
+                        default => ucfirst($state),
                     })
                     ->colors([
                         'warning' => 'pending',
@@ -78,9 +80,10 @@ class RefundRequestResource extends Resource
                         'danger' => 'denied',
                     ]),
                 TextColumn::make('created_at')->since(),
-            ])->defaultSort('created_at', 'desc')
+            ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
-                Tables\Filters\SelectFilter::make('status')
+                SelectFilter::make('status')
                     ->options([
                         'pending' => 'Pending',
                         'approved' => 'Approved',
@@ -88,33 +91,61 @@ class RefundRequestResource extends Resource
                     ]),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\Action::make('view')
+                EditAction::make(),
+                Action::make('view')
                     ->label('View')
                     ->icon('heroicon-o-eye')
                     ->modalHeading('Refund Request Details')
                     ->modalSubheading('Complete details of the refund and order')
-                    ->modalContent(function (RefundRequest $record) {
-                        return view('filament.resources.refund-request-resource.view-modal', [
-                            'record' => $record,
-                            'orderItems' => $record->order->orderItems,
-                        ]);
-                    })
-                    ->modalSubmitAction(false) // no submit button
+                    ->modalContent(fn(RefundRequest $record) => view('filament.resources.refund-request-resource.view-modal', [
+                        'record' => $record,
+                        'orderItems' => $record->order->orderItems,
+                    ]))
+                    ->modalSubmitAction(false)
                     ->modalCancelActionLabel('Close'),
+                // Show Restore and Force Delete actions only for awais@gmail.com
+                ...(
+                    $user && $user->email === 'awais@gmail.com'
+                    ? [
+                        RestoreAction::make(),
+                        ForceDeleteAction::make(),
+                    ]
+                    : []
+                ),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                    // Show Restore and Force Delete bulk actions only for awais@gmail.com
+                    ...(
+                        $user && $user->email === 'awais@gmail.com'
+                        ? [
+                            RestoreBulkAction::make(),
+                            ForceDeleteBulkAction::make(),
+                        ]
+                        : []
+                    ),
                 ]),
             ]);
     }
 
+    public static function getEloquentQuery(): Builder
+    {
+        $query = parent::getEloquentQuery();
+
+        // Only awais@gmail.com can see trashed records
+        if (Auth::user()?->email === 'awais@gmail.com') {
+            return $query->withTrashed();
+        }
+
+        return $query->withoutGlobalScopes([
+            SoftDeletingScope::class,
+        ]);
+    }
+
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array

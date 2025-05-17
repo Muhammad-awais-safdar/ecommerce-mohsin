@@ -8,15 +8,23 @@ use App\Models\Order;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Filament\Tables\Actions\Action;
+use Illuminate\Support\Facades\Auth;
 use Filament\Forms\Components\Select;
+use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Actions\DeleteAction;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Tables\Actions\BulkActionGroup;
 use App\Filament\Resources\OrderResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\OrderResource\RelationManagers;
+use App\Filament\Resources\OrderResource\Pages\EditOrder;
+use App\Filament\Resources\OrderResource\Pages\ViewOrder;
+use App\Filament\Resources\OrderResource\Pages\ListOrders;
+use App\Filament\Resources\OrderItemsRelationManagerResource\RelationManagers\OrderItemsRelationManager;
 
 class OrderResource extends Resource
 {
@@ -43,17 +51,6 @@ class OrderResource extends Resource
                 TextInput::make('tracking_service_provider')
                     ->label('Tracking Company')
                     ->placeholder('Enter tracking company name'),
-                // Select::make('tracking_status')
-                //     ->label('Tracking Status')
-                //     ->placeholder('Select tracking status')
-                //     ->options([
-                //         'processing' => 'Processing',
-                //         'in_transit' => 'In Transit',
-                //         'out_for_delivery' => 'Out for Delivery',
-                //         'delivered' => 'Delivered',
-                //         'failed' => 'Failed',
-                //     ])
-                //     ->native(false),
             ]);
     }
 
@@ -78,10 +75,27 @@ class OrderResource extends Resource
             ->actions([
                 ViewAction::make(),
                 EditAction::make(),
+                Action::make('Restore')
+                    ->visible(fn($record) => Auth::user()?->email === 'awais@gmail.com' && $record->trashed())
+                    ->action(fn($record) => $record->restore())
+                    ->icon('heroicon-o-arrow-path')
+                    ->requiresConfirmation(),
+
+                Tables\Actions\DeleteAction::make()
+                    ->visible(fn($record) => Auth::user()?->email === 'awais@gmail.com'),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                BulkActionGroup::make([
+                    Tables\Actions\BulkAction::make('softDelete')
+                        ->label('Delete Selected')
+                        ->icon('heroicon-o-trash')
+                        ->requiresConfirmation()
+                        ->action(function ($records) {
+                            if (Auth::user()?->email === 'awais@gmail.com') {
+                                $records->each->delete();
+                            }
+                        })
+                        ->deselectRecordsAfterCompletion(),
                 ]),
             ]);
     }
@@ -100,5 +114,15 @@ class OrderResource extends Resource
             'view' => Pages\ViewOrder::route('/{record}'),
             'edit' => Pages\EditOrder::route('/{record}/edit'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->withTrashed();
+    }
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['customer_name', 'customer_email'];
     }
 }

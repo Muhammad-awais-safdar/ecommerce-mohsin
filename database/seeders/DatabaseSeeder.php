@@ -20,14 +20,14 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
-            // // OrderSeeder::class,
-            // ProductSeeder::class,
-            // SeoSeeder::class,
-            // ThemeSettingSeeder::class,
+            OrderSeeder::class,
+            ProductSeeder::class,
+            SeoSeeder::class,
+            ThemeSettingSeeder::class,
         ]);
-        // Order::factory()->count(50)->create();
+        Order::factory()->count(50)->create();
 
-        // Product::factory(30)->create();
-        // Review::factory()->count(200)->create();
+        Product::factory(30)->create();
+        Review::factory()->count(200)->create();
     }
 }

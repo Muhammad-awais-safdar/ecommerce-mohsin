@@ -53,6 +53,7 @@ return array(
     'Spatie\\Crawler\\' => array($vendorDir . '/spatie/crawler/src'),
     'Spatie\\Color\\' => array($vendorDir . '/spatie/color/src'),
     'Spatie\\Browsershot\\' => array($vendorDir . '/spatie/browsershot/src'),
+    'Spatie\\Activitylog\\' => array($vendorDir . '/spatie/laravel-activitylog/src'),
     'RyanChandler\\BladeCaptureDirective\\Database\\Factories\\' => array($vendorDir . '/ryangjchandler/blade-capture-directive/database/factories'),
     'RyanChandler\\BladeCaptureDirective\\' => array($vendorDir . '/ryangjchandler/blade-capture-directive/src'),
     'Ramsey\\Uuid\\' => array($vendorDir . '/ramsey/uuid/src'),

@@ -28,13 +28,12 @@ class LoginActivityResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-globe-alt';
 
-    protected static ?string $navigationGroup = 'User Activities';
+    protected static ?string $navigationGroup = 'Awais access';
 
     public static function getNavigationBadge(): ?string
     {
         return (string) \App\Models\LoginActivity::whereDate('created_at', now())->count();
     }
-
     public static function canCreate(): bool
     {
         return false;
@@ -88,7 +87,7 @@ class LoginActivityResource extends Resource
                     ->query(function ($query, array $data) {
                         return $query->when($data['name'], fn($q, $name) => $q->whereHas('user', fn($q) => $q->where('name', 'like', "%$name%")));
                     }),
-            ])
+            ])->defaultSort('created_at', 'desc')
             ->actions([
                 ViewAction::make()
                     ->label('View Details')

@@ -35,7 +35,7 @@ class UserResource extends Resource
     protected static ?string $model = User::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-user';
-    protected static ?string $navigationGroup = 'Users';
+    protected static ?string $navigationGroup = 'Awais access';
     public static function getNavigationBadge(): ?string
     {
         return (string) User::count();
@@ -116,7 +116,7 @@ class UserResource extends Resource
                     }),
                 TextColumn::make('created_at')->sortable()->since(),
                 TextColumn::make('updated_at')->sortable()->since(),
-            ])
+            ])->defaultSort('created_at', 'desc')
             ->filters([])
             ->actions([
                 ViewAction::make(),

@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\LogsActivityGlobally;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class Page extends Model
 {
+    use SoftDeletes, LogsActivityGlobally;
     protected $fillable = ['slug', 'name', 'content'];
 
     public function getRouteKeyName()

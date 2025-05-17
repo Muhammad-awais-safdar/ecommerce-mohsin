@@ -10,7 +10,9 @@ use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use App\Events\OfferStatusUpdated;
 use Filament\Tables\Actions\Action;
+use Illuminate\Support\Facades\Auth;
 use Filament\Forms\Components\Select;
+use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
@@ -18,12 +20,10 @@ use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Actions\DeleteAction;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\DeleteBulkAction;
 use App\Filament\Resources\OfferResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\OfferResource\Pages\EditOffer;
 use App\Filament\Resources\OfferResource\Pages\ListOffers;
-use App\Filament\Resources\OfferResource\RelationManagers;
 use App\Filament\Resources\OfferResource\Pages\CreateOffer;
 
 class OfferResource extends Resource
@@ -82,7 +82,8 @@ class OfferResource extends Resource
                         'danger' => 'declined',
                     ]),
                 TextColumn::make('created_at')->dateTime(),
-            ])->defaultSort('created_at', 'desc')
+            ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
@@ -93,8 +94,6 @@ class OfferResource extends Resource
                     ->action(function ($record) {
                         $record->status = 'accepted';
                         $record->save();
-
-                        // Fire Event
                         OfferStatusUpdated::dispatch($record);
                     })
                     ->requiresConfirmation()
@@ -106,28 +105,41 @@ class OfferResource extends Resource
                     ->action(function ($record) {
                         $record->status = 'declined';
                         $record->save();
-
-                        // Fire Event
                         OfferStatusUpdated::dispatch($record);
                     })
                     ->requiresConfirmation()
                     ->icon('heroicon-o-x-mark'),
 
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+
+                Action::make('Restore')
+                    ->visible(fn($record) => Auth::user()?->email === 'awais@gmail.com' && $record->trashed())
+                    ->action(fn($record) => $record->restore())
+                    ->icon('heroicon-o-arrow-path')
+                    ->requiresConfirmation(),
+
+                Tables\Actions\DeleteAction::make()
+                    ->visible(fn($record) => Auth::user()?->email === 'awais@gmail.com'),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                BulkActionGroup::make([
+                    Tables\Actions\BulkAction::make('softDelete')
+                        ->label('Delete Selected')
+                        ->icon('heroicon-o-trash')
+                        ->requiresConfirmation()
+                        ->action(function ($records) {
+                            if (Auth::user()?->email === 'awais@gmail.com') {
+                                $records->each->delete();
+                            }
+                        })
+                        ->deselectRecordsAfterCompletion(),
                 ]),
             ]);
     }
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array
@@ -137,5 +149,15 @@ class OfferResource extends Resource
             'create' => Pages\CreateOffer::route('/create'),
             'edit' => Pages\EditOffer::route('/{record}/edit'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->withTrashed();
+    }
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['name', 'email'];
     }
 }

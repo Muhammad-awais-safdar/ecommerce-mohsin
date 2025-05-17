@@ -61,7 +61,7 @@ class SeoResource extends Resource
                 TextColumn::make('meta_title'),
                 TextColumn::make('created_at')->date(),
 
-            ])
+            ])->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
