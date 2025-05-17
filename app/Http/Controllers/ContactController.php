@@ -30,7 +30,7 @@ class ContactController extends Controller
 
         // Send emails
         Mail::to($request->input('your-email'))->send(new CustomerThankYouMail($contact));
-        Mail::to(env('ADMIN_EMAIL'))->send(new AdminNotificationMail($contact));
+        // Mail::to(env('ADMIN_EMAIL'))->send(new AdminNotificationMail($contact));
 
         return response()->json(['message' => 'Thank you for contacting us!']);
     }
