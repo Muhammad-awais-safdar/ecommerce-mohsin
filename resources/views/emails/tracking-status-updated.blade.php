@@ -1,114 +1,3 @@
-{{--
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Order Tracking Update</title>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Open Sans', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
-        }
-
-        .container {
-            max-width: 700px;
-            margin: 30px auto;
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .header img {
-            height: 70px;
-        }
-
-        h1 {
-            font-size: 24px;
-            color: #2c3e50;
-        }
-
-        h2 {
-            font-size: 20px;
-            color: #007BFF;
-        }
-
-        .status-box {
-            background-color: #e9f5ff;
-            padding: 20px;
-            border-left: 6px solid #007BFF;
-            border-radius: 5px;
-            margin-top: 20px;
-            font-size: 18px;
-        }
-
-        .status-box strong {
-            color: #007BFF;
-        }
-
-        .footer {
-            margin-top: 40px;
-            text-align: center;
-            font-size: 14px;
-            color: #777;
-        }
-
-        .footer p {
-            margin: 5px 0;
-        }
-
-        .button {
-            display: inline-block;
-            background-color: #007BFF;
-            color: #fff;
-            text-decoration: none;
-            padding: 12px 20px;
-            border-radius: 5px;
-            font-size: 16px;
-            margin-top: 20px;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container">
-        <div class="header">
-            <img src="{{ asset('assets/images/logo.png') }}" alt="Top Trends UK">
-        </div>
-
-        <h1>🚚 Tracking Status Update</h1>
-
-        <p>Hi <strong>{{ $order->customer_name }}</strong>,</p>
-
-        <p>Your order with Tracking Number <strong>#{{ $order->tracking_number }}</strong> has an updated status:</p>
-
-        <div class="status-box">
-            <strong>{{ ucfirst($order->tracking_status) }}</strong>
-        </div>
-
-        <p>We hope you're excited to receive your order soon. You can check more details using the link below:</p>
-
-        <a href="{{ route('order.track.form') }}" class="button">🔍 Track My Order</a>
-
-        <div class="footer">
-            <p>If you have any questions or concerns, simply reply to this email.</p>
-            <p>Thank you for choosing <strong>Top Trends UK</strong>!</p>
-            <p>Happy Shopping! 🎉</p>
-        </div>
-    </div>
-</body>
-
-</html> --}}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -253,9 +142,9 @@
 
         <p>We’ve got an update regarding your recent order with us.</p>
 
-        <div class="status-box">
+        <a href="https://www.royalmail.com/track-your-item" class="status-box">
             Current Status: {{ strtoupper($order->tracking_status) }}
-        </div>
+        </a>
 
         <div class="details">
             <p><span>Tracking Number:</span> {{ $order->tracking_number }}</p>
@@ -265,7 +154,7 @@
             <p><span>Total:</span> £{{ number_format($order->total_amount, 2) }}</p>
         </div>
 
-        {{-- <a href="{{ route('order.track.form') }}" class="cta-button">🔍 Track My Order</a> --}}
+        <a href="https://www.royalmail.com/track-your-item" class=" cta-button">🔍 Track My Order</a>
 
         <div class="footer">
             <p>Need help? Just reply to this email or reach out to our support team.</p>
