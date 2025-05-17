@@ -483,19 +483,24 @@
 @push('scripts')
 <script>
     const swiper = new Swiper('.swiper', {
-    loop: true,
-    autoplay: {
-    delay: 1500,
-    disableOnInteraction: true,
-    },
-    pagination: {
-    el: '.swiper-pagination',
-    clickable: true,
-    },
-    slidesPerView: 'auto', // Adaptive to content width
-    spaceBetween: 20, // Optional: spacing between slides
+        loop: true,
+        autoplay: {
+            delay: 1500,
+            disableOnInteraction: true,
+        },
+        spaceBetween: 20,
+        breakpoints: {
+            0: {
+                slidesPerView: 1,
+            },
+            640: {
+                slidesPerView: 2,
+            },
+            1024: {
+                slidesPerView: 3,
+            },
+        },
     });
- 
 </script>
 
 @endpush
