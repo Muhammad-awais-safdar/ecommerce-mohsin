@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Contact;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 use App\Mail\CustomerThankYouMail;
 use App\Mail\AdminNotificationMail;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
@@ -18,7 +19,24 @@ class ContactController extends Controller
             'your-phone' => 'nullable|string|max:20',
             'your-company' => 'nullable|string|max:255',
             'your-message' => 'required|string',
+            'recaptcha_token' => 'required|string',
         ]);
+
+        // Verify reCAPTCHA
+        $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret' => config('services.recaptcha.secret_key'),
+            'response' => $request->input('recaptcha_token'),
+            'remoteip' => $request->ip(),
+        ]);
+
+        $data = $response->json();
+
+        if (!($data['success'] ?? false) || ($data['score'] ?? 0) < 0.5) {
+            return response()->json([
+                'errors' => ['recaptcha' => ['Failed CAPTCHA verification. Please try again.']]
+            ], 422);
+        }
+
 
         $contact = Contact::create([
             'name' => $request->input('your-name'),

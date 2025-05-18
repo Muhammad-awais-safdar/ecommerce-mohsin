@@ -20,7 +20,7 @@
             --color-accent-primary: {{ $colors['color_accent_primary'] ?? '#C7A200' }};
             --color-accent-secondary: {{ $colors['color_accent_secondary'] ?? '#FFD700' }};
             --color-border: {{ $colors['color_border'] ?? '#DDD6C5' }};
-            
+
         }
     </style>
     @php
@@ -36,6 +36,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css') }}">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.client_key') }}"></script>
     <link rel="stylesheet" href="{{ asset('assets/css/animate.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
