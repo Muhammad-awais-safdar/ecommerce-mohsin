@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\LogsActivityGlobally;
 use Illuminate\Database\Eloquent\Model;
 
 class TrackingScript extends Model
 {
+    use LogsActivityGlobally;
+
     protected $fillable = [
         'name',
         'location',

@@ -128,6 +128,35 @@
             opacity: 1;
         }
     }
+
+    /* If using custom CSS instead of utility classes */
+    [class^="star-"]::before {
+        content: "★★★★★";
+        letter-spacing: 3px;
+        background: linear-gradient(90deg, #facc15 var(--rating, 0%), #e5e7eb var(--rating, 0%));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .star-1 {
+        --rating: 20%;
+    }
+
+    .star-2 {
+        --rating: 40%;
+    }
+
+    .star-3 {
+        --rating: 60%;
+    }
+
+    .star-4 {
+        --rating: 80%;
+    }
+
+    .star-5 {
+        --rating: 100%;
+    }
 </style>
 @endpush
 @section('content')
@@ -303,14 +332,14 @@
                                             1 review for
                                             <span>{{ $product->name }}</span>
                                         </h2>
-                                        <ol class="commentlist">
+                                      <ol class="commentlist space-y-6">
                                             @forelse($product->reviews as $review)
                                             <li class="conment">
                                                 <div class="conment-container">
-                                                    <a href="#" class="avatar">
+                                                    {{-- <a href="#" class="avatar">
                                                         <img src="{{ asset('assets/images/avartar.png') }}"
                                                             alt="Avatar">
-                                                    </a>
+                                                    </a> --}}
                                                     <div class="comment-text">
                                                         <div class="comment-text">
                                                             @php

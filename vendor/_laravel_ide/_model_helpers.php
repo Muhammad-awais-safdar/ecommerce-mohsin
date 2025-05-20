@@ -4157,6 +4157,22 @@ namespace App\Models {
     /**
      * App\Models\TrackingScript
      *
+     * @property \Illuminate\Support\Carbon|null $updated_at
+     * @property \Illuminate\Support\Carbon|null $created_at
+     * @property boolean $is_active
+     * @property string $script
+     * @property mixed $location
+     * @property string $name
+     * @property int $id
+     * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+     * @property-read int|null $activities_count
+     * @method static \Illuminate\Database\Eloquent\Builder<TrackingScript>|TrackingScript whereId($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<TrackingScript>|TrackingScript whereName($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<TrackingScript>|TrackingScript whereLocation($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<TrackingScript>|TrackingScript whereScript($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<TrackingScript>|TrackingScript whereIsActive($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<TrackingScript>|TrackingScript whereCreatedAt($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<TrackingScript>|TrackingScript whereUpdatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<TrackingScript>|TrackingScript newModelQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<TrackingScript>|TrackingScript newQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<TrackingScript>|TrackingScript query()

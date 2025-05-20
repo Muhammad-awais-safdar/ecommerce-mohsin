@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use App\Rules\ReCaptcha;
 use Illuminate\Http\Request;
 use App\Mail\CustomerThankYouMail;
 use App\Mail\AdminNotificationMail;
@@ -19,23 +20,10 @@ class ContactController extends Controller
             'your-phone' => 'nullable|string|max:20',
             'your-company' => 'nullable|string|max:255',
             'your-message' => 'required|string',
-            'recaptcha_token' => 'required|string',
+            'g-recaptcha-response' => ['required', new ReCaptcha]
         ]);
 
-        // Verify reCAPTCHA
-        $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
-            'secret' => config('services.recaptcha.secret_key'),
-            'response' => $request->input('recaptcha_token'),
-            'remoteip' => $request->ip(),
-        ]);
 
-        $data = $response->json();
-
-        if (!($data['success'] ?? false) || ($data['score'] ?? 0) < 0.5) {
-            return response()->json([
-                'errors' => ['recaptcha' => ['Failed CAPTCHA verification. Please try again.']]
-            ], 422);
-        }
 
 
         $contact = Contact::create([
