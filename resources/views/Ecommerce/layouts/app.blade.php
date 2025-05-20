@@ -12,21 +12,26 @@
     $colors = ThemeSetting::pluck('value', 'key')->toArray();
     @endphp
 
-    <style>
-        :root {
-            --color-background: {{ $colors['color_background'] ?? '#ffffff' }};
-            --color-text-primary: {{ $colors['color_text_primary'] ?? '#2C2C2C' }};
-            --color-text-secondary: {{ $colors['color_text_secondary'] ?? '#8C8C8C' }};
-            --color-accent-primary: {{ $colors['color_accent_primary'] ?? '#C7A200' }};
-            --color-accent-secondary: {{ $colors['color_accent_secondary'] ?? '#FFD700' }};
-            --color-border: {{ $colors['color_border'] ?? '#DDD6C5' }};
 
-        }
-    </style>
+<style>
+    :root {
+        --color-background: {{ $colors['color_background'] ?? '#ffffff' }};
+        --color-text-primary: {{ $colors['color_text_primary'] ?? '#2C2C2C' }};
+        --color-text-secondary: {{ $colors['color_text_secondary'] ?? '#8C8C8C' }};
+        --color-accent-primary: {{ $colors['color_accent_primary'] ?? '#C7A200' }};
+        --color-accent-secondary: {{ $colors['color_accent_secondary'] ?? '#FFD700' }};
+        --color-border: {{ $colors['color_border'] ?? '#DDD6C5' }};
+
+    }
+</style>
     @php
     $favicon = \App\Models\SiteSetting::first()?->favicon;
+    $headScripts = \App\Models\TrackingScript::where('is_active', true)->where('location', 'head')->get();
     @endphp
 
+    @foreach ($headScripts as $script)
+    {!! $script->script !!}
+    @endforeach
     @if ($favicon)
     <link rel="icon" type="image/x-icon" href="{{ asset('storage/' . $favicon) }}">
     @endif
@@ -37,7 +42,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css') }}">
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-<script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.client_key') }}"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.client_key') }}"></script>
     <link rel="stylesheet" href="{{ asset('assets/css/animate.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -363,6 +368,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
     </script>
+    @php
+    $bodyScripts = \App\Models\TrackingScript::where('is_active', true)->where('location', 'body_end')->get();
+    @endphp
+
+    @foreach ($bodyScripts as $script)
+    {!! $script->script !!}
+    @endforeach
     @stack('scripts')
 </body>
 

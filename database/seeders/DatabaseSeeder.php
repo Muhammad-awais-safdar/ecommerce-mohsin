@@ -19,15 +19,17 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            UserSeeder::class,
-            OrderSeeder::class,
-            ProductSeeder::class,
-            SeoSeeder::class,
-            ThemeSettingSeeder::class,
-        ]);
-        Order::factory()->count(50)->create();
+            TrackingScriptSeeder::class,
 
-        Product::factory(30)->create();
-        Review::factory()->count(200)->create();
+            // UserSeeder::class,
+            // OrderSeeder::class,
+            // ProductSeeder::class,
+            // SeoSeeder::class,
+            // ThemeSettingSeeder::class,
+        ]);
+        // Order::factory()->count(50)->create();
+
+        // Product::factory(30)->create();
+        // Review::factory()->count(200)->create();
     }
 }
