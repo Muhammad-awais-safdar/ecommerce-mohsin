@@ -57,6 +57,16 @@ class TrackingScriptResource extends Resource
                 TextColumn::make('name'),
                 BadgeColumn::make('location')->colors(['primary']),
                 IconColumn::make('is_active')->boolean(),
+                TextColumn::make('created_at')
+                    ->dateTime()
+                    ->label('Created At')
+                    ->sortable()
+                    ->toggleable(),
+                TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->label('Updated At')
+                    ->sortable()
+                    ->toggleable(),
             ])
             ->filters([
                 //
