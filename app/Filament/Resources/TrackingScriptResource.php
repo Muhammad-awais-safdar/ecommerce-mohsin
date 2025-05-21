@@ -19,6 +19,7 @@ use Filament\Tables\Columns\BadgeColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteBulkAction;
+use Illuminate\Validation\Rules\ClosureValidationRule;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\TrackingScriptResource\Pages;
 use App\Filament\Resources\TrackingScriptResource\RelationManagers;
