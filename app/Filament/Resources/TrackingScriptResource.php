@@ -42,19 +42,7 @@ class TrackingScriptResource extends Resource
                     ->label('Script (JS or HTML)')
                     ->rows(10)
                     ->required()
-                    ->rules([
-                        'string',
-                        new ClosureValidationRule(function (string $attribute, mixed $value, Closure $fail) {
-                            if (!str_contains($value, '<script') && !str_contains($value, '<noscript')) {
-                                $fail('The script must contain valid <script> or <noscript> tags.');
-                            }
-
-                            if (str_contains($value, '<iframe') || str_contains($value, '<object')) {
-                                $fail('Usage of <iframe> or <object> tags is not allowed for security reasons.');
-                            }
-                        }),
-                    ])
-                    ->helperText('Paste official scripts from Meta, Google, TikTok, etc. Avoid <iframe> tags.'),
+                    ->maxLength(5000),
                 Select::make('location')
                     ->options(['head' => 'In <head>', 'body_end' => 'Before </body>'])
                     ->required(),
