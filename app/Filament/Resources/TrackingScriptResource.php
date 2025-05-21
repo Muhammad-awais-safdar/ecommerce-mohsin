@@ -17,6 +17,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\BadgeColumn;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Validation\Rule;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -37,23 +38,21 @@ class TrackingScriptResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')->required(),
-                Forms\Components\Textarea::make('script')
+                Textarea::make('script')
                     ->label('Script (JS or HTML)')
                     ->rows(10)
                     ->required()
                     ->rules([
                         'string',
-                        function ($attribute, $value, $fail) {
-                            // Basic tag check
+                        Rule::when(true, function ($attribute, $value, $fail) {
                             if (!str_contains($value, '<script') && !str_contains($value, '<noscript')) {
                                 $fail('The script must contain valid <script> or <noscript> tags.');
                             }
 
-                            // Optional: prevent dangerous things like <iframe> or <object>
                             if (str_contains($value, '<iframe') || str_contains($value, '<object')) {
                                 $fail('Usage of <iframe> or <object> tags is not allowed for security reasons.');
                             }
-                        }
+                        }),
                     ])
                     ->helperText('Paste official scripts from Meta, Google, TikTok, etc. Avoid <iframe> tags.'),
                 Select::make('location')
