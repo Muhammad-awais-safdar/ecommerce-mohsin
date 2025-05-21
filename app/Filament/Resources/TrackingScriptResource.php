@@ -37,7 +37,6 @@ class TrackingScriptResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')->required(),
-                Textarea::make('script')->label('Script (JS or HTML)')->rows(10)->required(),
                 Forms\Components\Textarea::make('script')
                     ->label('Script (JS or HTML)')
                     ->rows(10)
