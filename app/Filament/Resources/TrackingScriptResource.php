@@ -17,7 +17,6 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\BadgeColumn;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Validation\Rule;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -44,7 +43,7 @@ class TrackingScriptResource extends Resource
                     ->required()
                     ->rules([
                         'string',
-                        Rule::when(true, function ($attribute, $value, $fail) {
+                        new ClosureValidationRule(function (string $attribute, mixed $value, Closure $fail) {
                             if (!str_contains($value, '<script') && !str_contains($value, '<noscript')) {
                                 $fail('The script must contain valid <script> or <noscript> tags.');
                             }
