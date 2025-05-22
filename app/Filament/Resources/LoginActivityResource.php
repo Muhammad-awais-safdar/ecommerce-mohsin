@@ -9,18 +9,14 @@ use Filament\Tables\Table;
 use App\Models\LoginActivity;
 use Filament\Resources\Resource;
 use Illuminate\Support\Facades\Auth;
-use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Columns\BooleanColumn;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteBulkAction;
+use Illuminate\Support\HtmlString;
 use App\Filament\Resources\LoginActivityResource\Pages;
-use App\Filament\Resources\LoginActivityResource\RelationManagers;
-use App\Filament\Resources\LoginActivityResource\Pages\EditLoginActivity;
-use App\Filament\Resources\LoginActivityResource\Pages\CreateLoginActivity;
-use App\Filament\Resources\LoginActivityResource\Pages\ListLoginActivities;
 
 class LoginActivityResource extends Resource
 {
@@ -34,6 +30,7 @@ class LoginActivityResource extends Resource
     {
         return (string) \App\Models\LoginActivity::whereDate('created_at', now())->count();
     }
+
     public static function canCreate(): bool
     {
         return false;
@@ -65,10 +62,22 @@ class LoginActivityResource extends Resource
                 TextColumn::make('platform')->label('OS')->sortable(),
                 TextColumn::make('device_type')->label('Device')->sortable(),
                 TextColumn::make('browser')->label('Browser')->sortable(),
-
                 TextColumn::make('user_agent')->label('User Agent')->limit(20),
                 TextColumn::make('session_hash')->label('Session Hash')->limit(15),
                 BooleanColumn::make('is_notified')->label('Notified')->trueIcon('heroicon-o-check')->falseIcon('heroicon-o-bell-alert'),
+
+                TextColumn::make('status')
+                    ->label('Status')
+                    ->formatStateUsing(function ($state, $record) {
+                        $user = $record->user;
+                        if (! $user) return new HtmlString('<span class="text-gray-500">Unknown</span>');
+                        if ($user->isOnline()) {
+                            return new HtmlString('<span class="text-green-500 font-semibold"><svg class="inline w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 8 8"><circle cx="4" cy="4" r="3"/></svg>Online</span>');
+                        }
+                        return new HtmlString('<span class="text-gray-500">Last seen: ' . e($user->lastSeen()) . '</span>');
+                    })
+                    ->html(),
+
                 TextColumn::make('created_at')->since()->sortable(),
             ])
             ->filters([
@@ -87,30 +96,27 @@ class LoginActivityResource extends Resource
                     ->query(function ($query, array $data) {
                         return $query->when($data['name'], fn($q, $name) => $q->whereHas('user', fn($q) => $q->where('name', 'like', "%$name%")));
                     }),
-            ])->defaultSort('created_at', 'desc')
+            ])
+            ->defaultSort('created_at', 'desc')
             ->actions([
                 ViewAction::make()
                     ->label('View Details')
-                    ->modalWidth('lg')  // Optional, for larger modal
+                    ->modalWidth('lg')
                     ->modalHeading('Login Activity Details')
                     ->action(function (LoginActivity $record) {
-                        // Ensure to return the correct data
                         return view('filament.resources.login-activity.view', ['record' => $record]);
                     }),
-
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
 
     public static function getRelations(): array
     {
-        return [
-            // No relations for this case
-        ];
+        return [];
     }
 
     public static function getPages(): array
@@ -120,16 +126,13 @@ class LoginActivityResource extends Resource
         ];
     }
 
-    // Modal View Form - Read-Only
-
-
     public static function canEdit($record): bool
     {
-        return false;  // Disable editing
+        return false;
     }
 
     public static function canDelete($record): bool
     {
-        return false;  // Disable deletion
+        return false;
     }
 }

@@ -137,7 +137,7 @@ class ActivityLogResource extends Resource
                                 return view('filament.tables.columns.activity-properties', [
                                     'changes' => $record->properties->toArray()
                                 ])->render();
-                    }),
+                            }),
 
                         \Filament\Forms\Components\Placeholder::make('ip')
                             ->label('IP Address')
@@ -152,6 +152,7 @@ class ActivityLogResource extends Resource
                             ->label('Time')
                             ->content(fn(Activity $record) => $record->created_at->format('d M Y, h:i A')),
                     ]),
+                \Filament\Tables\Actions\DeleteAction::make(),
             ]);
     }
 
