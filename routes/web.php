@@ -13,6 +13,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\TrackingController;
+use App\Http\Controllers\OrderReceiptController;
 use App\Http\Controllers\RefundRequestController;
 
 
@@ -68,25 +69,6 @@ Route::post('/contact', [ContactController::class, 'submit'])->name('contact.sub
 
 
 
-Route::get('/migrate-and-link', function () {
-    // Run database migrations
-    Artisan::call('migrate', ['--force' => true]);
-
-    // // Delete existing storage link
-    // $storagePath = public_path('storage');
-    // if (File::exists($storagePath) && File::isDirectory($storagePath)) {
-    //     File::deleteDirectory($storagePath);
-    // } elseif (File::isFile($storagePath)) {
-    //     unlink($storagePath);
-    // }
-
-    // // Re-create storage link
-    // Artisan::call('storage:link');
-
-    return 'Migration completed and storage link recreated successfully.';
-});
-
-
 
 
 
@@ -102,3 +84,8 @@ Route::get('/robots.txt', function () {
 // offer //
 // routes/web.php
 Route::post('/make-offer', [OfferController::class, 'store'])->name('make.offer');
+
+
+// order reciept
+Route::get('/order/{order}/receipt', [OrderReceiptController::class, 'downloadPdfReceipt'])->name('order.receipt.download');
+Route::get('/download-receipt-image/{orderId}', [OrderReceiptController::class, 'downloadReceiptImage'])->name('order.receipt.download.img');
