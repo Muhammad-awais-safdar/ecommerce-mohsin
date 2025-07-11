@@ -963,7 +963,7 @@ namespace App\Models {
      * @property \Illuminate\Support\Carbon|null $deleted_at
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
-     * @property mixed $status
+     * @property string $status
      * @property float $offer_price
      * @property string|null $quantity
      * @property string|null $phone
@@ -1284,16 +1284,16 @@ namespace App\Models {
      * App\Models\Order
      *
      * @property \Illuminate\Support\Carbon|null $deleted_at
+     * @property string|null $tracking_service_provider
+     * @property string|null $customer_email
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
      * @property string $tracking_status
-     * @property string|null $tracking_service_provider
      * @property string|null $tracking_number
      * @property string $status
      * @property float $total_amount
      * @property string $shipping_address
      * @property string $customer_phone
-     * @property string|null $customer_email
      * @property string $customer_name
      * @property int $id
      * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\OrderItem> $orderItems
@@ -1302,16 +1302,16 @@ namespace App\Models {
      * @property-read int|null $activities_count
      * @method static \Illuminate\Database\Eloquent\Builder<Order>|Order whereId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Order>|Order whereCustomerName($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Order>|Order whereCustomerEmail($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Order>|Order whereCustomerPhone($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Order>|Order whereShippingAddress($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Order>|Order whereTotalAmount($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Order>|Order whereStatus($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Order>|Order whereTrackingNumber($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Order>|Order whereTrackingServiceProvider($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Order>|Order whereTrackingStatus($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Order>|Order whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Order>|Order whereUpdatedAt($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Order>|Order whereCustomerEmail($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Order>|Order whereTrackingServiceProvider($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Order>|Order whereDeletedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Order>|Order newModelQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<Order>|Order newQuery()
@@ -2243,12 +2243,12 @@ namespace App\Models {
      * App\Models\Product
      *
      * @property \Illuminate\Support\Carbon|null $deleted_at
+     * @property int|null $discount_percentage
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
      * @property array|null $images
      * @property string|null $status
      * @property float $price
-     * @property bool|null $discount_percentage
      * @property string|null $description
      * @property string $slug
      * @property string $name
@@ -2262,12 +2262,12 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereName($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereSlug($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereDescription($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereDiscountPercentage($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product wherePrice($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereStatus($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereImages($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereUpdatedAt($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereDiscountPercentage($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereDeletedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product newModelQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product newQuery()
@@ -2568,12 +2568,12 @@ namespace App\Models {
      * App\Models\RefundRequest
      *
      * @property \Illuminate\Support\Carbon|null $deleted_at
+     * @property string|null $customer_phone
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
-     * @property mixed $status
+     * @property string $status
      * @property string $reason
      * @property string $customer_email
-     * @property string|null $customer_phone
      * @property string $customer_name
      * @property int $order_id
      * @property int $id
@@ -2583,12 +2583,12 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<RefundRequest>|RefundRequest whereId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<RefundRequest>|RefundRequest whereOrderId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<RefundRequest>|RefundRequest whereCustomerName($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<RefundRequest>|RefundRequest whereCustomerPhone($value)
      * @method static \Illuminate\Database\Eloquent\Builder<RefundRequest>|RefundRequest whereCustomerEmail($value)
      * @method static \Illuminate\Database\Eloquent\Builder<RefundRequest>|RefundRequest whereReason($value)
      * @method static \Illuminate\Database\Eloquent\Builder<RefundRequest>|RefundRequest whereStatus($value)
      * @method static \Illuminate\Database\Eloquent\Builder<RefundRequest>|RefundRequest whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<RefundRequest>|RefundRequest whereUpdatedAt($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<RefundRequest>|RefundRequest whereCustomerPhone($value)
      * @method static \Illuminate\Database\Eloquent\Builder<RefundRequest>|RefundRequest whereDeletedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<RefundRequest>|RefundRequest newModelQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<RefundRequest>|RefundRequest newQuery()
@@ -2892,7 +2892,7 @@ namespace App\Models {
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
      * @property string $comment
-     * @property bool $rating
+     * @property int $rating
      * @property string $user_name
      * @property int $product_id
      * @property int $id
@@ -4161,7 +4161,7 @@ namespace App\Models {
      * @property \Illuminate\Support\Carbon|null $created_at
      * @property boolean $is_active
      * @property string $script
-     * @property mixed $location
+     * @property string $location
      * @property string $name
      * @property int $id
      * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
@@ -4473,12 +4473,12 @@ namespace App\Models {
      *
      * @property \Illuminate\Support\Carbon|null $deleted_at
      * @property string|null $last_seen_at
+     * @property bool $is_verified
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
      * @property string|null $remember_token
      * @property string $password
      * @property \Illuminate\Support\Carbon|null $email_verified_at
-     * @property bool $is_verified
      * @property string $email
      * @property string $name
      * @property int $id
@@ -4489,12 +4489,12 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<User>|User whereId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<User>|User whereName($value)
      * @method static \Illuminate\Database\Eloquent\Builder<User>|User whereEmail($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<User>|User whereIsVerified($value)
      * @method static \Illuminate\Database\Eloquent\Builder<User>|User whereEmailVerifiedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<User>|User wherePassword($value)
      * @method static \Illuminate\Database\Eloquent\Builder<User>|User whereRememberToken($value)
      * @method static \Illuminate\Database\Eloquent\Builder<User>|User whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<User>|User whereUpdatedAt($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<User>|User whereIsVerified($value)
      * @method static \Illuminate\Database\Eloquent\Builder<User>|User whereLastSeenAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<User>|User whereDeletedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<User>|User newModelQuery()

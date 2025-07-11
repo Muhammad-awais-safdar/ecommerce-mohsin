@@ -18,24 +18,24 @@ use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\BulkActionGroup;
-use App\Filament\Resources\OrderResource\Pages\ListOrders;
-use App\Filament\Resources\OrderResource\Pages\EditOrder;
-use App\Filament\Resources\OrderResource\Pages\ViewOrder;
+use App\Filament\Resources\AbandonedOrderResource\Pages\ListAbandonedOrders;
+use App\Filament\Resources\AbandonedOrderResource\Pages\EditAbandonedOrder;
+use App\Filament\Resources\AbandonedOrderResource\Pages\CreateAbandonedOrder;
 
-class OrderResource extends Resource
+class AbandonedOrderResource extends Resource
 {
     protected static ?string $model = Order::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationLabel = 'Paid Orders';
-    protected static ?string $pluralLabel = 'Paid Orders';
-    protected static ?string $label = 'Paid Order';
-    protected static ?string $navigationGroup = 'Orders';
+    protected static ?string $navigationIcon = 'heroicon-o-exclamation-circle';
+    protected static ?string $navigationLabel = 'Abandoned Orders';
+    protected static ?string $pluralLabel = 'Abandoned Orders';
+    protected static ?string $label = 'Abandoned Order';
+    protected static ?string $navigationGroup = 'Orders'; // optional: groups in sidebar
 
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
-            ->where('status', 'paid')
+            ->where('status', 'pending')
             ->withTrashed();
     }
 
@@ -110,9 +110,9 @@ class OrderResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListOrders::route('/'),
-            'view' => ViewOrder::route('/{record}'),
-            'edit' => EditOrder::route('/{record}/edit'),
+            'index' => ListAbandonedOrders::route('/'),
+            'create' => CreateAbandonedOrder::route('/create'),
+            'edit' => EditAbandonedOrder::route('/{record}/edit'),
         ];
     }
 
