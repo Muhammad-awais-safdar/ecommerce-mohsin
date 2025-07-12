@@ -45,7 +45,7 @@
                                                 <div class="thumb-group">
 
                                                     <div class="loop-form-add-to-cart">
-                                                        <button class="single_add_to_cart_button button"
+                                                        <button class="single_add_to_cart_button button add-to-cart-btn" data-id="{{ $product->id }}" data-name="{{ $product->name }}" data-price="{{ $finalPrice }}"
                                                             onclick="addToCart({{ $product->id }})"">Add to cart
                                                         </button>
                                                     </div>
@@ -108,3 +108,20 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('.add-to-cart-btn').forEach(function(button) {
+        button.addEventListener('click', function() {
+            fbq('track', 'AddToCart', {
+                content_ids: [button.dataset.id],
+                content_name: button.dataset.name,
+                content_type: 'product',
+                value: button.dataset.price,
+                currency: 'GBP'
+            });
+        });
+    });
+});
+</script>
+@endpush

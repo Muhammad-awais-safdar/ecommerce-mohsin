@@ -157,6 +157,7 @@
     .star-5 {
         --rating: 100%;
     }
+
 </style>
 @endpush
 @section('content')
@@ -183,24 +184,18 @@
                     <div class="details-product">
                         <div class="details-thumd">
                             <div class="image-preview-container image-thick-box image_preview_container">
-                                <img id="img_zoom" data-zoom-image="{{ asset('storage/' . $product->images[0]) }}"
-                                    src="{{ asset('storage/' . $product->images[0]) }}" alt="img">
+                                <img id="img_zoom" data-zoom-image="{{ asset('storage/' . $product->images[0]) }}" src="{{ asset('storage/' . $product->images[0]) }}" alt="img">
                                 <a href="{{ asset('storage/' . $product->images[0]) }}" class="btn-zoom open_qv">
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                 </a>
                             </div>
 
                             <div class="product-preview image-small product_preview">
-                                <div id="thumbnails" class="thumbnails_carousel owl-carousel" data-nav="true"
-                                    data-autoplay="true" data-dots="false" data-loop="true" data-margin="10"
-                                    data-responsive='{"0":{"items":3},"480":{"items":3},"600":{"items":3},"1000":{"items":3}}'>
+                                <div id="thumbnails" class="thumbnails_carousel owl-carousel" data-nav="true" data-autoplay="true" data-dots="false" data-loop="true" data-margin="10" data-responsive='{"0":{"items":3},"480":{"items":3},"600":{"items":3},"1000":{"items":3}}'>
 
                                     @foreach($product->images as $key => $image)
-                                    <a href="#" data-image="{{ asset('storage/' . $image) }}"
-                                        data-zoom-image="{{ asset('storage/' . $image) }}"
-                                        class="{{ $key === 0 ? 'active' : '' }}">
-                                        <img src="{{ asset('storage/' . $image) }}"
-                                            data-large-image="{{ asset('storage/' . $image) }}" alt="img">
+                                    <a href="#" data-image="{{ asset('storage/' . $image) }}" data-zoom-image="{{ asset('storage/' . $image) }}" class="{{ $key === 0 ? 'active' : '' }}">
+                                        <img src="{{ asset('storage/' . $image) }}" data-large-image="{{ asset('storage/' . $image) }}" alt="img">
                                     </a>
                                     @endforeach
 
@@ -255,7 +250,7 @@
                             <div class="group-button">
                                 <div class="d-flex flex-wrap gap-5">
 
-                                    <button class="btn-stelina-outline" onclick="addToCart({{ $product->id }})">
+                                    <button class="btn-stelina-outline add-to-cart-btn" data-id="{{ $product->id }}" data-name="{{ $product->name }}" data-price="{{ $finalPrice }}" onclick="addToCart({{ $product->id }})">
                                         <span>Add to cart</span>
                                     </button>
 
@@ -332,13 +327,13 @@
                                             1 review for
                                             <span>{{ $product->name }}</span>
                                         </h2>
-                                      <ol class="commentlist space-y-6">
+                                        <ol class="commentlist space-y-6">
                                             @forelse($product->reviews as $review)
                                             <li class="conment">
                                                 <div class="conment-container">
                                                     {{-- <a href="#" class="avatar">
                                                         <img src="{{ asset('assets/images/avartar.png') }}"
-                                                            alt="Avatar">
+                                                    alt="Avatar">
                                                     </a> --}}
                                                     <div class="comment-text">
                                                         <div class="comment-text">
@@ -407,8 +402,7 @@
                                                         <label>Your rating</label>
                                                         <p class="stars">
                                                             <span>
-                                                                @for ($i = 1; $i <= 5; $i++) <a href="#" class="star"
-                                                                    data-value="{{ $i }}">★</a>
+                                                                @for ($i = 1; $i <= 5; $i++) <a href="#" class="star" data-value="{{ $i }}">★</a>
                                                                     @endfor
                                                             </span>
                                                         </p>
@@ -416,8 +410,7 @@
 
                                                     <p class="comment-form-comment">
                                                         <label>Your review <span class="required">*</span></label>
-                                                        <textarea name="comment" id="comment" cols="45" rows="8"
-                                                            required></textarea>
+                                                        <textarea name="comment" id="comment" cols="45" rows="8" required></textarea>
                                                     </p>
 
                                                     <p class="comment-form-author">
@@ -444,9 +437,7 @@
                     <div style="clear: left;"></div>
                     <div class="related products product-grid">
                         <h2 class="product-grid-title">You may also like</h2>
-                        <div class="owl-products owl-slick equal-container nav-center"
-                            data-slick='{"autoplay":true, "autoplaySpeed":1000, "arrows":false, "dots":false, "infinite":true, "speed":800, "rows":1}'
-                            data-responsive='[{"breakpoint":"2000","settings":{"slidesToShow":4}},{"breakpoint":"1200","settings":{"slidesToShow":3}},{"breakpoint":"992","settings":{"slidesToShow":2}},{"breakpoint":"480","settings":{"slidesToShow":1}}]'>
+                        <div class="owl-products owl-slick equal-container nav-center" data-slick='{"autoplay":true, "autoplaySpeed":1000, "arrows":false, "dots":false, "infinite":true, "speed":800, "rows":1}' data-responsive='[{"breakpoint":"2000","settings":{"slidesToShow":4}},{"breakpoint":"1200","settings":{"slidesToShow":3}},{"breakpoint":"992","settings":{"slidesToShow":2}},{"breakpoint":"480","settings":{"slidesToShow":1}}]'>
                             @foreach ($allproducts as $item)
                             <div class="product-item style-5">
                                 <div class="product-inner equal-element">
@@ -468,8 +459,7 @@
 
                                                 {{-- <a href="#" class="button quick-wiew-button">Quick View</a> --}}
                                                 <div class="loop-form-add-to-cart">
-                                                    <button class="single_add_to_cart_button button"
-                                                        onclick="addToCart({{ $item->id }})">Add to cart
+                                                    <button class="single_add_to_cart_button button" onclick="addToCart({{ $item->id }})">Add to cart
                                                     </button>
                                                 </div>
                                             </div>
@@ -539,34 +529,34 @@
 
 <script>
     $(function() {
-            // STAR CLICK HANDLER
-            $('.star').on('click', function(e) {
-                e.preventDefault();
-                const val = $(this).data('value');
-                $('#rating').val(val);
-                // highlight stars up to selected
-                $('.star').each(function() {
-                    $(this).toggleClass('selected', $(this).data('value') <= val);
-                });
+        // STAR CLICK HANDLER
+        $('.star').on('click', function(e) {
+            e.preventDefault();
+            const val = $(this).data('value');
+            $('#rating').val(val);
+            // highlight stars up to selected
+            $('.star').each(function() {
+                $(this).toggleClass('selected', $(this).data('value') <= val);
             });
+        });
 
-            // FORM SUBMIT VIA AJAX
-            $('#reviewForm').submit(function(e) {
-                e.preventDefault();
-                let data = $(this).serialize();
+        // FORM SUBMIT VIA AJAX
+        $('#reviewForm').submit(function(e) {
+            e.preventDefault();
+            let data = $(this).serialize();
 
-                $.ajax({
-                    url: "{{ route('reviews.store') }}",
-                    method: 'POST',
-                    data: data,
-                    success: function(res) {
-                        // reset form
-                        $('#reviewForm')[0].reset();
-                        $('.star').removeClass('selected');
+            $.ajax({
+                url: "{{ route('reviews.store') }}"
+                , method: 'POST'
+                , data: data
+                , success: function(res) {
+                    // reset form
+                    $('#reviewForm')[0].reset();
+                    $('.star').removeClass('selected');
 
-                        // prepend the new comment to the list
-                        let r = res.review;
-                        let html = `
+                    // prepend the new comment to the list
+                    let r = res.review;
+                    let html = `
 <li class="conment">
   <div class="conment-container">
     <a href="#" class="avatar">
@@ -590,47 +580,66 @@
     </div>
   </div>
 </li>`;
-                        $('#commentList').prepend(html);
+                    $('#commentList').prepend(html);
 
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Thank you!',
-                            text: res.message
-                        });
-                    },
-                    error: function(xhr) {
-                        let errs = xhr.responseJSON.errors;
-                        let msg = [];
-                        $.each(errs, (k, v) => msg.push(v[0]));
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            html: msg.join('<br>')
-                        });
-                    }
+                    Swal.fire({
+                        icon: 'success'
+                        , title: 'Thank you!'
+                        , text: res.message
+                    });
+                }
+                , error: function(xhr) {
+                    let errs = xhr.responseJSON.errors;
+                    let msg = [];
+                    $.each(errs, (k, v) => msg.push(v[0]));
+                    Swal.fire({
+                        icon: 'error'
+                        , title: 'Oops...'
+                        , html: msg.join('<br>')
+                    });
+                }
+            });
+        });
+    });
+    // Get modal elements
+    // Get the modal and buttons
+    const modal = document.getElementById("offerModal");
+    const closeModal = document.querySelector(".close-modal");
+
+    // Open the modal when the button is clicked
+    function openModal() {
+        modal.style.display = "block";
+    }
+
+    // Close the modal when the user clicks the close button (×)
+    closeModal.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // Close the modal when the user clicks anywhere outside the modal
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+
+</script>
+@endpush
+@push('scripts')
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('.add-to-cart-btn').forEach(function(button) {
+            button.addEventListener('click', function() {
+                fbq('track', 'AddToCart', {
+                    content_ids: [button.dataset.id]
+                    , content_name: button.dataset.name
+                    , content_type: 'product'
+                    , value: button.dataset.price
+                    , currency: 'GBP'
                 });
             });
         });
-// Get modal elements
-// Get the modal and buttons
-const modal = document.getElementById("offerModal");
-const closeModal = document.querySelector(".close-modal");
+    });
 
-// Open the modal when the button is clicked
-function openModal() {
-modal.style.display = "block";
-}
-
-// Close the modal when the user clicks the close button (×)
-closeModal.onclick = function () {
-modal.style.display = "none";
-}
-
-// Close the modal when the user clicks anywhere outside the modal
-window.onclick = function (event) {
-if (event.target === modal) {
-modal.style.display = "none";
-}
-}
 </script>
 @endpush

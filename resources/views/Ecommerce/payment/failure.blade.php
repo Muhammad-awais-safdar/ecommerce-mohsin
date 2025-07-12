@@ -165,3 +165,12 @@
         }
     </style>
 @endpush
+
+
+@push('scripts')
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        fbq('track', 'InitiateCheckout');
+    });
+</script>
+@endpush

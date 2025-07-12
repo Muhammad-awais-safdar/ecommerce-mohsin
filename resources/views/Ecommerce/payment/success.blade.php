@@ -216,5 +216,12 @@
             }
         });
     });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        fbq('track', 'Purchase', {
+            value: '{{ $order->total_amount }}',
+            currency: 'GBP' // or your actual currency code
+        });
+    });
 </script>
 @endpush

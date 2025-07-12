@@ -64,8 +64,8 @@ class AbandonedOrderResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id')->sortable(),
-                TextColumn::make('customer_name'),
+            TextColumn::make('rowNumber')->label('#')->state(fn($record, $rowLoop) => $rowLoop->iteration),
+            TextColumn::make('customer_name'),
                 TextColumn::make('customer_phone'),
                 TextColumn::make('customer_email'),
                 TextColumn::make('total_amount'),
