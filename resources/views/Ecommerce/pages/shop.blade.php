@@ -26,6 +26,14 @@
 
                         <ul class="row list-products auto-clear equal-container product-grid">
                             @foreach ($products as $product)
+                            @php
+                            $originalPrice = $product->price;
+                            $discount = $product->discount_percentage ?? 0;
+                            $finalPrice =
+                            $discount > 0
+                            ? $originalPrice - $originalPrice * ($discount / 100)
+                            : $originalPrice;
+                            @endphp
                                 <li class="product-item  col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1">
                                     <div class="product-inner equal-element">
                                         <div class="product-top">
@@ -75,15 +83,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="price">
-                                                    @php
-                                                        $originalPrice = $product->price;
-                                                        $discount = $product->discount_percentage ?? 0;
-                                                        $finalPrice =
-                                                            $discount > 0
-                                                                ? $originalPrice - $originalPrice * ($discount / 100)
-                                                                : $originalPrice;
-                                                    @endphp
-
+                                                 
                                                     @if ($discount > 0)
                                                         <del>£{{ number_format($originalPrice, 2) }}</del>
                                                         <ins>£{{ number_format($finalPrice, 2) }}</ins>
