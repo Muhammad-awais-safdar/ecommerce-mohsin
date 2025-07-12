@@ -153,6 +153,14 @@
                 data-slick='{"autoplay":true, "autoplaySpeed":3000, "arrows":false, "dots":false, "infinite":true, "speed":3000, "rows":1}'
                 data-responsive='[{"breakpoint":"2000","settings":{"slidesToShow":4}},{"breakpoint":"1200","settings":{"slidesToShow":3}},{"breakpoint":"992","settings":{"slidesToShow":2}},{"breakpoint":"480","settings":{"slidesToShow":1}}]'>
                 @foreach ($products as $item)
+                @php
+                $originalPrice = $item->price;
+                $discount = $item->discount_percentage ?? 0;
+                $finalPrice =
+                $discount > 0
+                ? $originalPrice - $originalPrice * ($discount / 100)
+                : $originalPrice;
+                @endphp
                 <div class="product-item style-5">
                     <div class="product-inner equal-element">
                         <div class="product-top">
@@ -171,7 +179,7 @@
                                 </a>
                                 <div class="thumb-group">
                                     <div class="loop-form-add-to-cart">
-                                        <button class="single_add_to_cart_button button add-to-cart-btn" data-id="{{ $product->id }}" data-name="{{ $product->name }}" data-price="{{ $finalPrice }}"
+                                        <button class="single_add_to_cart_button button add-to-cart-btn" data-id="{{ $item->id }}" data-name="{{ $item->name }}" data-price="{{ $finalPrice }}"
                                             onclick="addToCart({{ $item->id }})">Add to cart
                                         </button>
                                     </div>
@@ -200,14 +208,7 @@
                                     </div>
                                 </div>
                                 <div class="price">
-                                    @php
-                                    $originalPrice = $item->price;
-                                    $discount = $item->discount_percentage ?? 0;
-                                    $finalPrice =
-                                    $discount > 0
-                                    ? $originalPrice - $originalPrice * ($discount / 100)
-                                    : $originalPrice;
-                                    @endphp
+                                
 
                                     @if ($discount > 0)
                                     <del>£{{ number_format($originalPrice, 2) }}</del>
