@@ -77,7 +77,7 @@
                                             TAKE A PERFUME <br> TOP TRENDS UK
                                         </h5>
                                         <h3 class="title-big">
-                                            Up to 20% Off <br />order now (updated)
+                                            Up to 20% Off <br />order now
                                         </h3>
                                         <div class="price">
                                             Save Price:
