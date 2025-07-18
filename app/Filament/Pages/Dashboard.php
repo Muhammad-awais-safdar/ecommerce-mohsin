@@ -5,6 +5,9 @@ namespace App\Filament\Pages;
 use App\Filament\Widgets\AllTimeEarnings;
 use Filament\Pages\Page;
 use App\Filament\Widgets\EarningsChart;
+use App\Filament\Widgets\ActivityOverview;
+use App\Filament\Widgets\ActivityChart;
+use App\Filament\Widgets\RecentActivities;
 use App\Filament\Widgets\FacebookAdSpendChart;
 use App\Filament\Widgets\FacebookLiveAdSpendChart;
 
@@ -17,10 +20,11 @@ class Dashboard extends Page
     public function getHeaderWidgets(): array
     {
         return [
-             AllTimeEarnings::class,
+            AllTimeEarnings::class,
+            ActivityOverview::class,
             EarningsChart::class,
-            // FacebookAdSpendChart::class,
-            // FacebookLiveAdSpendChart::class,
+            ActivityChart::class,
+            RecentActivities::class,
         ];
     }
 }

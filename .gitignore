@@ -9,6 +9,14 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 /resource/views/extra
+database/database.sqlite
+# Laravel specific files
+/public/storage
+/storage/*.key
+.env
+.env.*
+.phpunit.result.cache
+Homestead.json
 # Laravel IDE Helper
 _ide_helper.php
 .phpstorm.meta.php

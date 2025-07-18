@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\TranslatorHelper;
 use App\Models\Contact;
 use App\Rules\ReCaptcha;
 use Illuminate\Http\Request;
@@ -23,7 +24,10 @@ class ContactController extends Controller
             'g-recaptcha-response' => ['required', new ReCaptcha]
         ]);
 
+        $originalMessage = $request->input('your-message');
 
+        // 🔄 Translate using helper
+        $translatedMessage = TranslatorHelper::translateToEnglish($originalMessage);
 
 
         $contact = Contact::create([
@@ -31,12 +35,13 @@ class ContactController extends Controller
             'email' => $request->input('your-email'),
             'phone' => $request->input('your-phone'),
             'company' => $request->input('your-company'),
-            'message' => $request->input('your-message'),
+            'message' => $originalMessage,
+            'translated' => $translatedMessage,
         ]);
 
         // Send emails
         Mail::to($request->input('your-email'))->send(new CustomerThankYouMail($contact));
-        // Mail::to(env('ADMIN_EMAIL'))->send(new AdminNotificationMail($contact));
+        Mail::to(env('ADMIN_EMAIL'))->send(new AdminNotificationMail($contact));
 
         return response()->json(['message' => 'Thank you for contacting us!']);
     }

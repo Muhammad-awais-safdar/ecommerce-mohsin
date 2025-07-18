@@ -63,6 +63,7 @@ class ContactResource extends Resource
                 TextColumn::make('phone'),
                 TextColumn::make('company'),
                 TextColumn::make('message')->limit(50),
+                TextColumn::make('translated')->limit(50),
                 TextColumn::make('created_at')->since()->label('Date Submitted'),
             ])
             ->defaultSort('created_at', 'desc')
@@ -70,7 +71,7 @@ class ContactResource extends Resource
                 TrashedFilter::make()->visible($isAwais),
             ])
             ->actions([
-                EditAction::make(),
+                // EditAction::make(),
                 ViewAction::make()->label('View Details')->modalHeading('Contact Details')->modalWidth('lg'),
                 RestoreAction::make()->visible($isAwais),
                 ForceDeleteAction::make()->visible($isAwais),
@@ -100,8 +101,8 @@ class ContactResource extends Resource
     {
         return [
             'index' => Pages\ListContacts::route('/'),
-            'create' => Pages\CreateContact::route('/create'),
-            'edit' => Pages\EditContact::route('/{record}/edit'),
+            // 'create' => Pages\CreateContact::route('/create'),
+            // 'edit' => Pages\EditContact::route('/{record}/edit'),
         ];
     }
 }

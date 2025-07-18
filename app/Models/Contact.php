@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class Contact extends Model
 {
     use SoftDeletes, LogsActivityGlobally;
-    protected $fillable = ['name', 'email', 'phone', 'company', 'message'];
+    protected $fillable = ['name', 'email', 'phone', 'company', 'message' , 'translated'];
 
 
     public function getNameAttribute($value)
