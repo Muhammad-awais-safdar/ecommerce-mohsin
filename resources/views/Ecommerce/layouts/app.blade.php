@@ -127,7 +127,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
         <div class="container">
@@ -303,8 +302,9 @@
                                 --}}
                             </div>
                             <div class="coppyright">
-                                Copyright © @php
-                                echo date('Y');
+                                Copyright ©
+                                @php
+                                echo date('Y') . '-' . (date('Y') + 10);
                                 @endphp
                                 <a href="{{ route('home') }}">Top Trends UK</a>
                                 . All rights reserved

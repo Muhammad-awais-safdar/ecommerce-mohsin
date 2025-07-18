@@ -20,11 +20,8 @@ namespace App\Models {
      * @property-read mixed $discounted_price
      * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Review> $reviews
      * @property-read int|null $reviews_count
-<<<<<<< HEAD
-=======
      * @property-read \App\Models\ProductDetail $details
      * @property-read \App\Models\ProductStock $stock
->>>>>>> 313d755941c6c0c4e5703578bbca9a2f1b58af00
      * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
      * @property-read int|null $activities_count
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereId($value)
@@ -39,10 +36,7 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereUpdatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereDeletedAt($value)
-<<<<<<< HEAD
-=======
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product filterByBrand()
->>>>>>> 313d755941c6c0c4e5703578bbca9a2f1b58af00
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product newModelQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product newQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product query()
@@ -2578,8 +2572,6 @@ namespace App\Models {
     }
 
     /**
-<<<<<<< HEAD
-=======
      * App\Models\ProductDetail
      *
      * @property \Illuminate\Support\Carbon|null $updated_at
@@ -3219,7 +3211,6 @@ namespace App\Models {
     }
 
     /**
->>>>>>> 313d755941c6c0c4e5703578bbca9a2f1b58af00
      * App\Models\RefundRequest
      *
      * @property \Illuminate\Support\Carbon|null $deleted_at
