@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Artisan;
 use App\Services\SeoService;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Product;
@@ -30,5 +29,6 @@ class AppServiceProvider extends ServiceProvider
             $seo = app(SeoService::class)->getSeoData();
             $view->with('seo', $seo);
         });
+
     }
 }

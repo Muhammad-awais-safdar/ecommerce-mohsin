@@ -14,11 +14,11 @@ class ProductCacheService
     {
         $cacheKey = "shop_products_page_{$page}";
         
-        return Cache::remember($cacheKey, self::PAGINATION_CACHE_TTL, function () {
+        return Cache::remember($cacheKey, self::PAGINATION_CACHE_TTL, function () use ($page) {
             $query = Product::with('reviews');
             $query->orderBy('created_at', 'desc');
             
-            return $query->paginate(12);
+            return $query->paginate(12, ['*'], 'page', $page);
         });
     }
     
