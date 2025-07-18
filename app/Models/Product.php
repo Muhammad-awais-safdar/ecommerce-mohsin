@@ -42,4 +42,23 @@ class Product extends Model
             $product->slug = Str::slug($product->name);
         });
     }
+
+    // App\Models\Product
+    public function scopeFilterByBrand($query, $brand)
+    {
+        return $query->when($brand, fn($q) => $q->where('brand', $brand));
+    }
+
+    // app/Models/Product.php
+
+    public function details()
+    {
+        return $this->hasOne(ProductDetail::class);
+    }
+
+    public function stock()
+    {
+        return $this->hasOne(ProductStock::class);
+    }
+
 }

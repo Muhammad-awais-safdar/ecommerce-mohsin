@@ -2,18 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\EbayVerified;
 use App\Models\Review;
+use App\Models\EbayVerified;
 use App\Services\SeoService;
-use App\Services\ProductCacheService;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use App\Services\ProductCacheService;
 use Illuminate\Support\Facades\Cache;
 
 class FrontendController extends Controller
 {
     public function index(ProductCacheService $cacheService)
     {
+        $ebayVerified = Cache::remember('ebay_verified', 3600, function () {
+            return EbayVerified::all();
+        });
+        
+        $products = $cacheService->getHomepageProducts();
+        $allproducts = $cacheService->getFeaturedProducts();
+        
         $ebayVerified = Cache::remember('ebay_verified', 3600, function () {
             return EbayVerified::all();
         });
@@ -42,6 +49,8 @@ class FrontendController extends Controller
 
     public function show($slug, SeoService $seoService, ProductCacheService $cacheService)
     {
+        $product = $cacheService->getProductBySlug($slug);
+        $allproducts = $cacheService->getRelatedProducts($product->id);
         $product = $cacheService->getProductBySlug($slug);
         $allproducts = $cacheService->getRelatedProducts($product->id);
 

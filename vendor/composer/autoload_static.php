@@ -910,6 +910,10 @@ class ComposerStaticInit88970a0117c062eed55fa8728fc43833
         'App\\Filament\\Widgets\\AllTimeEarnings' => __DIR__ . '/../..' . '/app/Filament/Widgets/AllTimeEarnings.php',
         'App\\Filament\\Widgets\\EarningsChart' => __DIR__ . '/../..' . '/app/Filament/Widgets/EarningsChart.php',
         'App\\Filament\\Widgets\\RecentActivities' => __DIR__ . '/../..' . '/app/Filament/Widgets/RecentActivities.php',
+<<<<<<< HEAD
+=======
+        'App\\Helpers\\TranslatorHelper' => __DIR__ . '/../..' . '/app/Helpers/TranslatorHelper.php',
+>>>>>>> 313d755941c6c0c4e5703578bbca9a2f1b58af00
         'App\\Http\\Controllers\\ActivityLogController' => __DIR__ . '/../..' . '/app/Http/Controllers/ActivityLogController.php',
         'App\\Http\\Controllers\\CartController' => __DIR__ . '/../..' . '/app/Http/Controllers/CartController.php',
         'App\\Http\\Controllers\\CheckoutController' => __DIR__ . '/../..' . '/app/Http/Controllers/CheckoutController.php',
@@ -921,10 +925,16 @@ class ComposerStaticInit88970a0117c062eed55fa8728fc43833
         'App\\Http\\Controllers\\PageController' => __DIR__ . '/../..' . '/app/Http/Controllers/PageController.php',
         'App\\Http\\Controllers\\PaymentController' => __DIR__ . '/../..' . '/app/Http/Controllers/PaymentController.php',
         'App\\Http\\Controllers\\RefundRequestController' => __DIR__ . '/../..' . '/app/Http/Controllers/RefundRequestController.php',
+<<<<<<< HEAD
         'App\\Http\\Controllers\\TrackingController' => __DIR__ . '/../..' . '/app/Http/Controllers/TrackingController.php',
         'App\\Http\\Middleware\\CacheHeaders' => __DIR__ . '/../..' . '/app/Http/Middleware/CacheHeaders.php',
+=======
+        'App\\Http\\Middleware\\CacheHeaders' => __DIR__ . '/../..' . '/app/Http/Middleware/CacheHeaders.php',
+        'App\\Http\\Middleware\\EnsureProductCacheWarmed' => __DIR__ . '/../..' . '/app/Http/Middleware/EnsureProductCacheWarmed.php',
+>>>>>>> 313d755941c6c0c4e5703578bbca9a2f1b58af00
         'App\\Http\\Middleware\\LogUserActivity' => __DIR__ . '/../..' . '/app/Http/Middleware/LogUserActivity.php',
         'App\\Http\\Middleware\\UpdateLastSeenAt' => __DIR__ . '/../..' . '/app/Http/Middleware/UpdateLastSeenAt.php',
+        'App\\Jobs\\WarmProductCacheJob' => __DIR__ . '/../..' . '/app/Jobs/WarmProductCacheJob.php',
         'App\\Listeners\\LogLoginActivity' => __DIR__ . '/../..' . '/app/Listeners/LogLoginActivity.php',
         'App\\Listeners\\SendOfferStatusMail' => __DIR__ . '/../..' . '/app/Listeners/SendOfferStatusMail.php',
         'App\\Listeners\\SendRefundStatusUpdateMail' => __DIR__ . '/../..' . '/app/Listeners/SendRefundStatusUpdateMail.php',
@@ -945,6 +955,8 @@ class ComposerStaticInit88970a0117c062eed55fa8728fc43833
         'App\\Models\\OrderItem' => __DIR__ . '/../..' . '/app/Models/OrderItem.php',
         'App\\Models\\Page' => __DIR__ . '/../..' . '/app/Models/Page.php',
         'App\\Models\\Product' => __DIR__ . '/../..' . '/app/Models/Product.php',
+        'App\\Models\\ProductDetail' => __DIR__ . '/../..' . '/app/Models/ProductDetail.php',
+        'App\\Models\\ProductStock' => __DIR__ . '/../..' . '/app/Models/ProductStock.php',
         'App\\Models\\RefundRequest' => __DIR__ . '/../..' . '/app/Models/RefundRequest.php',
         'App\\Models\\Review' => __DIR__ . '/../..' . '/app/Models/Review.php',
         'App\\Models\\Seo' => __DIR__ . '/../..' . '/app/Models/Seo.php',

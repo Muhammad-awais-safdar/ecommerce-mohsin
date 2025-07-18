@@ -94,6 +94,10 @@ return array(
     'App\\Filament\\Widgets\\AllTimeEarnings' => $baseDir . '/app/Filament/Widgets/AllTimeEarnings.php',
     'App\\Filament\\Widgets\\EarningsChart' => $baseDir . '/app/Filament/Widgets/EarningsChart.php',
     'App\\Filament\\Widgets\\RecentActivities' => $baseDir . '/app/Filament/Widgets/RecentActivities.php',
+<<<<<<< HEAD
+=======
+    'App\\Helpers\\TranslatorHelper' => $baseDir . '/app/Helpers/TranslatorHelper.php',
+>>>>>>> 313d755941c6c0c4e5703578bbca9a2f1b58af00
     'App\\Http\\Controllers\\ActivityLogController' => $baseDir . '/app/Http/Controllers/ActivityLogController.php',
     'App\\Http\\Controllers\\CartController' => $baseDir . '/app/Http/Controllers/CartController.php',
     'App\\Http\\Controllers\\CheckoutController' => $baseDir . '/app/Http/Controllers/CheckoutController.php',
@@ -105,10 +109,16 @@ return array(
     'App\\Http\\Controllers\\PageController' => $baseDir . '/app/Http/Controllers/PageController.php',
     'App\\Http\\Controllers\\PaymentController' => $baseDir . '/app/Http/Controllers/PaymentController.php',
     'App\\Http\\Controllers\\RefundRequestController' => $baseDir . '/app/Http/Controllers/RefundRequestController.php',
+<<<<<<< HEAD
     'App\\Http\\Controllers\\TrackingController' => $baseDir . '/app/Http/Controllers/TrackingController.php',
     'App\\Http\\Middleware\\CacheHeaders' => $baseDir . '/app/Http/Middleware/CacheHeaders.php',
+=======
+    'App\\Http\\Middleware\\CacheHeaders' => $baseDir . '/app/Http/Middleware/CacheHeaders.php',
+    'App\\Http\\Middleware\\EnsureProductCacheWarmed' => $baseDir . '/app/Http/Middleware/EnsureProductCacheWarmed.php',
+>>>>>>> 313d755941c6c0c4e5703578bbca9a2f1b58af00
     'App\\Http\\Middleware\\LogUserActivity' => $baseDir . '/app/Http/Middleware/LogUserActivity.php',
     'App\\Http\\Middleware\\UpdateLastSeenAt' => $baseDir . '/app/Http/Middleware/UpdateLastSeenAt.php',
+    'App\\Jobs\\WarmProductCacheJob' => $baseDir . '/app/Jobs/WarmProductCacheJob.php',
     'App\\Listeners\\LogLoginActivity' => $baseDir . '/app/Listeners/LogLoginActivity.php',
     'App\\Listeners\\SendOfferStatusMail' => $baseDir . '/app/Listeners/SendOfferStatusMail.php',
     'App\\Listeners\\SendRefundStatusUpdateMail' => $baseDir . '/app/Listeners/SendRefundStatusUpdateMail.php',
@@ -129,6 +139,8 @@ return array(
     'App\\Models\\OrderItem' => $baseDir . '/app/Models/OrderItem.php',
     'App\\Models\\Page' => $baseDir . '/app/Models/Page.php',
     'App\\Models\\Product' => $baseDir . '/app/Models/Product.php',
+    'App\\Models\\ProductDetail' => $baseDir . '/app/Models/ProductDetail.php',
+    'App\\Models\\ProductStock' => $baseDir . '/app/Models/ProductStock.php',
     'App\\Models\\RefundRequest' => $baseDir . '/app/Models/RefundRequest.php',
     'App\\Models\\Review' => $baseDir . '/app/Models/Review.php',
     'App\\Models\\Seo' => $baseDir . '/app/Models/Seo.php',
