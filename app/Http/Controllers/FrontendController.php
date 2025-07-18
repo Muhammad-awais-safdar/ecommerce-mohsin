@@ -26,14 +26,12 @@ class FrontendController extends Controller
     public function shop(Request $request, ProductCacheService $cacheService)
     {
         $page = $request->get('page', 1);
-        $filters = $request->only(['search', 'min_price', 'max_price', 'sort', 'per_page', 'view']);
         
-        $products = $cacheService->getShopProducts($page, $filters);
+        $products = $cacheService->getShopProducts($page);
         
         if ($request->ajax()) {
             return response()->json([
                 'products' => view('Ecommerce.partials.product-grid', compact('products'))->render(),
-                'pagination' => $products->appends($filters)->links('vendor.pagination.default')->render()
             ]);
         }
         

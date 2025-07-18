@@ -10,58 +10,15 @@ class ProductCacheService
     const CACHE_TTL = 1800; // 30 minutes
     const PAGINATION_CACHE_TTL = 900; // 15 minutes
     
-    public function getShopProducts($page = 1, $filters = [])
+    public function getShopProducts($page = 1)
     {
-        $cacheKey = $this->generateShopCacheKey($page, $filters);
+        $cacheKey = "shop_products_page_{$page}";
         
-        return Cache::remember($cacheKey, self::PAGINATION_CACHE_TTL, function () use ($filters) {
+        return Cache::remember($cacheKey, self::PAGINATION_CACHE_TTL, function () {
             $query = Product::with('reviews');
+            $query->orderBy('created_at', 'desc');
             
-            // Apply filters when they exist
-            if (!empty($filters['search'])) {
-                $query->where(function($q) use ($filters) {
-                    $q->where('name', 'like', '%' . $filters['search'] . '%')
-                      ->orWhere('description', 'like', '%' . $filters['search'] . '%');
-                });
-            }
-            
-            if (!empty($filters['min_price'])) {
-                $query->where('price', '>=', $filters['min_price']);
-            }
-            
-            if (!empty($filters['max_price'])) {
-                $query->where('price', '<=', $filters['max_price']);
-            }
-            
-            if (!empty($filters['sort'])) {
-                switch ($filters['sort']) {
-                    case 'price_asc':
-                        $query->orderBy('price', 'asc');
-                        break;
-                    case 'price_desc':
-                        $query->orderBy('price', 'desc');
-                        break;
-                    case 'name_asc':
-                        $query->orderBy('name', 'asc');
-                        break;
-                    case 'name_desc':
-                        $query->orderBy('name', 'desc');
-                        break;
-                    case 'newest':
-                        $query->orderBy('created_at', 'desc');
-                        break;
-                    default:
-                        $query->orderBy('created_at', 'desc');
-                }
-            } else {
-                $query->orderBy('created_at', 'desc');
-            }
-            
-            // Handle per_page parameter
-            $perPage = !empty($filters['per_page']) ? (int)$filters['per_page'] : 12;
-            $perPage = min($perPage, 24); // Cap at 24 items per page
-            
-            return $query->paginate($perPage);
+            return $query->paginate(12);
         });
     }
     
@@ -98,6 +55,7 @@ class ProductCacheService
         });
     }
     
+    
     public function clearAllProductCache()
     {
         Cache::forget('homepage_products');
@@ -106,17 +64,6 @@ class ProductCacheService
         // Clear paginated shop cache
         for ($page = 1; $page <= 20; $page++) {
             Cache::forget("shop_products_page_{$page}");
-            Cache::forget("shop_products_filtered_page_{$page}");
         }
-    }
-    
-    private function generateShopCacheKey($page, $filters)
-    {
-        if (empty($filters)) {
-            return "shop_products_page_{$page}";
-        }
-        
-        $filterString = http_build_query($filters);
-        return "shop_products_filtered_" . md5($filterString) . "_page_{$page}";
     }
 }

@@ -95,3 +95,6 @@ Route::get('/download-receipt-image/{orderId}', [OrderReceiptController::class, 
 Route::post('/log-activity', [ActivityLogController::class, 'logActivity'])->name('log.activity');
 Route::get('/activity-stats', [ActivityLogController::class, 'getActivityStats'])->name('activity.stats');
 Route::get('/user-activity', [ActivityLogController::class, 'getUserActivity'])->name('user.activity');
+// routes/web.php
+Route::get('/admin/export-database', [\App\Http\Controllers\Admin\DatabaseExportController::class, 'export'])
+    ->name('admin.export.database');
