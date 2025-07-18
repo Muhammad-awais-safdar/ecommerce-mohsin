@@ -15,6 +15,7 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\OrderReceiptController;
 use App\Http\Controllers\RefundRequestController;
+use App\Http\Controllers\ActivityLogController;
 
 
 if (app()->environment('local', 'staging')) {
@@ -89,3 +90,8 @@ Route::post('/make-offer', [OfferController::class, 'store'])->name('make.offer'
 // order reciept
 Route::get('/order/{order}/receipt', [OrderReceiptController::class, 'downloadPdfReceipt'])->name('order.receipt.download');
 Route::get('/download-receipt-image/{orderId}', [OrderReceiptController::class, 'downloadReceiptImage'])->name('order.receipt.download.img');
+
+// Activity logging routes
+Route::post('/log-activity', [ActivityLogController::class, 'logActivity'])->name('log.activity');
+Route::get('/activity-stats', [ActivityLogController::class, 'getActivityStats'])->name('activity.stats');
+Route::get('/user-activity', [ActivityLogController::class, 'getUserActivity'])->name('user.activity');

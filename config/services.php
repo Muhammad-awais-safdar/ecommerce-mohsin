@@ -43,6 +43,7 @@ return [
         'app_secret' => env('FB_APP_SECRET'),
         'access_token' => env('FB_ACCESS_TOKEN'),
         'ad_account_id' => env('FB_AD_ACCOUNT_ID'),
+        'pixel_id' => env('FACEBOOK_PIXEL_ID'),
     ],
     'recaptcha' => [
         'client_key' => env('RECAPTCHA_CLIENT_KEY'),

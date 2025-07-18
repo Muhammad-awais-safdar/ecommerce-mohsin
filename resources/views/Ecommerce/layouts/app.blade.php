@@ -375,6 +375,10 @@
     @foreach ($bodyScripts as $script)
     {!! $script->script !!}
     @endforeach
+    
+    <!-- Activity Tracker -->
+    <script src="{{ asset('js/activity-tracker.js') }}"></script>
+    
     @stack('scripts')
 </body>
 

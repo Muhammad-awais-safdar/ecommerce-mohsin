@@ -3,37 +3,47 @@
 namespace App\Http\Controllers;
 
 use App\Models\EbayVerified;
-use App\Models\Product;
 use App\Models\Review;
 use App\Services\SeoService;
+use App\Services\ProductCacheService;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Cache;
 
 class FrontendController extends Controller
 {
-    public function index()
+    public function index(ProductCacheService $cacheService)
     {
-        $ebayVerified = EbayVerified::all();
-        $products = Product::get();
-        $allproducts = Product::withCount('reviews')
-            ->withAvg('reviews', 'rating')
-            ->take(8)
-            ->get();
+        $ebayVerified = Cache::remember('ebay_verified', 3600, function () {
+            return EbayVerified::all();
+        });
+        
+        $products = $cacheService->getHomepageProducts();
+        $allproducts = $cacheService->getFeaturedProducts();
+        
         return view('Ecommerce.Mainindex', compact('products', 'allproducts','ebayVerified'));
     }
-    public function shop()
+    public function shop(Request $request, ProductCacheService $cacheService)
     {
-        $products = Product::paginate(12);
+        $page = $request->get('page', 1);
+        $filters = $request->only(['search', 'min_price', 'max_price', 'sort', 'per_page', 'view']);
+        
+        $products = $cacheService->getShopProducts($page, $filters);
+        
+        if ($request->ajax()) {
+            return response()->json([
+                'products' => view('Ecommerce.partials.product-grid', compact('products'))->render(),
+                'pagination' => $products->appends($filters)->links('vendor.pagination.default')->render()
+            ]);
+        }
+        
         return view('Ecommerce.pages.shop', compact('products'));
     }
 
-    public function show($slug, SeoService $seoService)
+    public function show($slug, SeoService $seoService, ProductCacheService $cacheService)
     {
-        $product = Product::with(['reviews'])->where('slug', $slug)->firstOrFail(); // returns a single model
-
-        $allproducts = Product::withCount('reviews')
-            ->where('id', '!=', $product->id)
-            ->get();
+        $product = $cacheService->getProductBySlug($slug);
+        $allproducts = $cacheService->getRelatedProducts($product->id);
 
         return view('Ecommerce.pages.productdetails', compact('product', 'allproducts'));
     }
