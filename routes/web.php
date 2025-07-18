@@ -12,7 +12,6 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\FrontendController;
-use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\OrderReceiptController;
 use App\Http\Controllers\RefundRequestController;
 use App\Http\Controllers\ActivityLogController;
@@ -24,9 +23,6 @@ if (app()->environment('local', 'staging')) {
 
 
 
-// Order tracking
-// Route::get('/track-order', [TrackingController::class, 'trackOrderForm'])->name('order.track.form');
-// Route::post('/track-order', [TrackingController::class, 'trackOrder'])->name('order.track');
 
 Route::get('/', [FrontendController::class, 'index'])->name('home');
 Route::get('/shop', [FrontendController::class, 'shop'])->name('shop');
@@ -35,7 +31,6 @@ Route::get('/about', [FrontendController::class, 'about'])->name('about');
 Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
 Route::post('/reviews', [FrontendController::class, 'reviews'])->name('reviews.store');
 
-// Route::get('/', [CartController::class, 'index']);
 Route::post('/add-to-cart/{id}', [CartController::class, 'addToCart'])->name('addtocart');
 Route::get('/cart', [CartController::class, 'showCart'])->name('showCart');
 Route::post('/cart/remove/{id}', [CartController::class, 'removeFromCart'])->name('cart.remove');
@@ -44,7 +39,6 @@ Route::post('/cart/update/{id}', [CartController::class, 'updateItem'])->name('c
 
 Route::get('/checkout', [CheckoutController::class, 'form'])->name('checkout');
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
-// Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
 Route::get('/checkout/payment', [CheckoutController::class, 'payment'])->name('checkout.payment');
 Route::post('/buy-now', [CheckoutController::class, 'checkout'])->name('buy.now');
 
@@ -95,6 +89,3 @@ Route::get('/download-receipt-image/{orderId}', [OrderReceiptController::class, 
 Route::post('/log-activity', [ActivityLogController::class, 'logActivity'])->name('log.activity');
 Route::get('/activity-stats', [ActivityLogController::class, 'getActivityStats'])->name('activity.stats');
 Route::get('/user-activity', [ActivityLogController::class, 'getUserActivity'])->name('user.activity');
-// routes/web.php
-Route::get('/admin/export-database', [\App\Http\Controllers\Admin\DatabaseExportController::class, 'export'])
-    ->name('admin.export.database');
