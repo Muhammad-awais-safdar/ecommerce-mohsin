@@ -26,7 +26,7 @@ Wizard::make([
 ])
 ```
 
-<AutoScreenshot name="forms/layout/wizard/simple" alt="Wizard" version="3.x" />
+<AutoScreenshot name="forms/layout/wizard/simple"loading="lazy" alt="Wizard" version="3.x" />
 
 > We have different setup instructions if you're looking to add a wizard to the creation process inside a [panel resource](../../panels/resources/creating-records#using-a-wizard) or an [action modal](../../actions/modals#using-a-wizard-as-a-modal-form). Following that documentation will ensure that the ability to submit the form is only available on the last step of the wizard.
 
@@ -82,7 +82,7 @@ Wizard\Step::make('Order')
     ]),
 ```
 
-<AutoScreenshot name="forms/layout/wizard/icons" alt="Wizard with step icons" version="3.x" />
+<AutoScreenshot name="forms/layout/wizard/icons"loading="lazy" alt="Wizard with step icons" version="3.x" />
 
 ## Customizing the icon for completed steps
 
@@ -98,7 +98,7 @@ Wizard\Step::make('Order')
     ]),
 ```
 
-<AutoScreenshot name="forms/layout/wizard/completed-icons" alt="Wizard with completed step icons" version="3.x" />
+<AutoScreenshot name="forms/layout/wizard/completed-icons"loading="lazy" alt="Wizard with completed step icons" version="3.x" />
 
 ## Adding descriptions to steps
 
@@ -114,7 +114,7 @@ Wizard\Step::make('Order')
     ]),
 ```
 
-<AutoScreenshot name="forms/layout/wizard/descriptions" alt="Wizard with step descriptions" version="3.x" />
+<AutoScreenshot name="forms/layout/wizard/descriptions"loading="lazy" alt="Wizard with step descriptions" version="3.x" />
 
 ## Setting the default active step
 

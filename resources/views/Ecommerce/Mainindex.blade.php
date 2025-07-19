@@ -175,7 +175,7 @@
                         <div class="product-thumb">
                             <div class="thumb-inner">
                                 <a href="{{ route('product.show', $item->slug) }}">
-                                    <img src="{{ asset('storage/' . $item->images[0]) }}" alt="img">
+                                    <img src="{{ asset('storage/' . $item->images[0]) }}"loading="lazy" alt="img">
                                 </a>
                                 <div class="thumb-group">
                                     <div class="loop-form-add-to-cart">
@@ -356,19 +356,19 @@
                             @if (!empty($ebay->imagePath))
                             <div class="swiper-slide">
                                 <img src="{{ asset('storage/' . $ebay->imagePath) }}"
-                                    alt="{{ $ebay->imageName ?? 'Ebay Image' }}" class="img-fluid" />
+                                   loading="lazy" alt="{{ $ebay->imageName ?? 'Ebay Image' }}" class="img-fluid" />
                             </div>
                             @else
                             <div class="swiper-slide">
                                 <img src="{{ asset('images/default-placeholder.png') }}" class="img-fluid"
-                                    alt="Default Image" />
+                                   loading="lazy" alt="Default Image" />
                             </div>
                             @endif
                             @endforeach
                             @else
                             <div class="swiper-slide">
                                 <img src="{{ asset('images/no-items-found.png') }}" class="img-fluid"
-                                    alt="No Ebay Items" />
+                                   loading="lazy" alt="No Ebay Items" />
                             </div>
                             @endif
                         </div>
@@ -409,7 +409,7 @@
                                 <div class="product-thumb">
                                     <div class="thumb-inner">
                                         <a href="{{ route('product.show', $product->slug) }}">
-                                            <img src="{{ asset('storage/' . $product->images[0]) }}" alt="img">
+                                            <img src="{{ asset('storage/' . $product->images[0]) }}"loading="lazy" alt="img">
                                         </a>
                                         <div class="thumb-group">
 

@@ -68,7 +68,7 @@
                                 <div class="product-thumb">
                                     <div class="thumb-inner">
                                         <a href="{{ route('product.show', $product->slug) }}">
-                                            <img src="{{ asset('storage/' . $product->images[0]) }}" alt="img">
+                                            <img src="{{ asset('storage/' . $product->images[0]) }}"loading="lazy" alt="img">
                                         </a>
                                         <div class="thumb-group">
 

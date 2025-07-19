@@ -11,7 +11,7 @@
         style="max-width: 600px; margin: auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); overflow: hidden;">
         <tr>
             <td style="text-align: center; background-color: #1a73e8; padding: 30px;">
-                <img src="{{ asset('assets/images/logo.png') }}" alt="Top Trends UK"
+                <img src="{{ asset('assets/images/logo.png') }}"loading="lazy" alt="Top Trends UK"
                     style="height: 80px; margin-bottom: 15px;">
                 <h1 style="color: #ffffff; margin: 0; font-size: 24px;">🎉 Thank You, {{ $contact->name }}!</h1>
             </td>

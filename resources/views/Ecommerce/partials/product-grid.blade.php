@@ -20,7 +20,7 @@ $isListView = request('view') === 'list';
         <div class="product-thumb {{ $isListView ? 'list-thumb' : '' }}">
             <div class="thumb-inner">
                 <a href="{{ route('product.show', $product->slug) }}">
-                    <img src="{{ asset('storage/' . $product->images[0]) }}" alt="{{ $product->name }}">
+                    <img src="{{ asset('storage/' . $product->images[0]) }}"loading="lazy" alt="{{ $product->name }}">
                 </a>
                 @if (!$isListView)
                 <div class="thumb-group">

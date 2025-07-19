@@ -1,14 +1,14 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/nunomaduro/collision/v7.x/docs/logo.png" alt="Collision logo" width="480">
+    <img src="https://raw.githubusercontent.com/nunomaduro/collision/v7.x/docs/logo.png"loading="lazy" alt="Collision logo" width="480">
     <br>
-    <img src="https://raw.githubusercontent.com/nunomaduro/collision/v7.x/docs/example.png" alt="Collision code example" height="300">
+    <img src="https://raw.githubusercontent.com/nunomaduro/collision/v7.x/docs/example.png"loading="lazy" alt="Collision code example" height="300">
 </p>
 
 <p align="center">
-  <a href="https://github.com/nunomaduro/collision/actions"><img src="https://img.shields.io/github/actions/workflow/status/nunomaduro/collision/tests.yml?branch=v7.x&label=tests&style=round-square" alt="Build Status"></img></a>
-  <a href="https://scrutinizer-ci.com/g/nunomaduro/collision"><img src="https://img.shields.io/scrutinizer/g/nunomaduro/collision.svg" alt="Quality Score"></img></a>
-  <a href="https://packagist.org/packages/nunomaduro/collision"><img src="https://poser.pugx.org/nunomaduro/collision/d/total.svg" alt="Total Downloads"></a>
-  <a href="https://packagist.org/packages/nunomaduro/collision"><img src="https://poser.pugx.org/nunomaduro/collision/license.svg" alt="License"></a>
+  <a href="https://github.com/nunomaduro/collision/actions"><img src="https://img.shields.io/github/actions/workflow/status/nunomaduro/collision/tests.yml?branch=v7.x&label=tests&style=round-square"loading="lazy" alt="Build Status"></img></a>
+  <a href="https://scrutinizer-ci.com/g/nunomaduro/collision"><img src="https://img.shields.io/scrutinizer/g/nunomaduro/collision.svg"loading="lazy" alt="Quality Score"></img></a>
+  <a href="https://packagist.org/packages/nunomaduro/collision"><img src="https://poser.pugx.org/nunomaduro/collision/d/total.svg"loading="lazy" alt="Total Downloads"></a>
+  <a href="https://packagist.org/packages/nunomaduro/collision"><img src="https://poser.pugx.org/nunomaduro/collision/license.svg"loading="lazy" alt="License"></a>
 </p>
 
 ---

@@ -29,7 +29,7 @@
 ## 17.0.0 - 2025-04-01
 * [#1837](https://github.com/stripe/stripe-php/pull/1837) Better type hints in your editor!!
   * Added type hints for method parameters
-      * <img width="417" alt="PHPStorm IDE with array type hints" src="https://github.com/user-attachments/assets/e914dcda-354f-4df2-b82e-217ad931e71d">
+      * <img width="417"loading="lazy" alt="PHPStorm IDE with array type hints" src="https://github.com/user-attachments/assets/e914dcda-354f-4df2-b82e-217ad931e71d">
   * Improved type hints for resource properties that are not primitive types. Take for example, the invoice settings in Customer resource. Previously, you could not reference inner fields like `custom_fields` on `customer->invoice_settings` without PHPStan complaining. This is now fixed.
 
 * [#1818](https://github.com/stripe/stripe-php/pull/1818) Support for APIs in the new API version 2025-03-31.basil

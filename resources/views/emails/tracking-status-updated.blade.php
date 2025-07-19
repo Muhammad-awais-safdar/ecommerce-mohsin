@@ -133,7 +133,7 @@
     <div class="container">
 
         <div class="header">
-            <img src="{{ asset('assets/images/logo.png') }}" alt="Top Trends UK Logo">
+            <img src="{{ asset('assets/images/logo.png') }}"loading="lazy" alt="Top Trends UK Logo">
             <div class="title">🚚 Order Status Update</div>
             <div class="subheading">Stay informed, always. Here's the latest on your order.</div>
         </div>

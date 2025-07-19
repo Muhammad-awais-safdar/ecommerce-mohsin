@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://user-images.githubusercontent.com/41773797/107574578-c4014600-6be6-11eb-8309-acca0acdd6f5.png" alt="Package banner" style="width: 100%; max-width: 800px;" />
+    <img src="https://user-images.githubusercontent.com/41773797/107574578-c4014600-6be6-11eb-8309-acca0acdd6f5.png"loading="lazy" alt="Package banner" style="width: 100%; max-width: 800px;" />
 </p>
 
 This package allows you to convert token-based date formats between standards.

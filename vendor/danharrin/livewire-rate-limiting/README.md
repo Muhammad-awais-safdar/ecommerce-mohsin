@@ -1,11 +1,11 @@
 <p align="center">
-    <img src="https://user-images.githubusercontent.com/41773797/104827274-ddb3a580-5853-11eb-9d53-eaf3e7776734.png" alt="Package banner" style="width: 100%; max-width: 800px;" />
+    <img src="https://user-images.githubusercontent.com/41773797/104827274-ddb3a580-5853-11eb-9d53-eaf3e7776734.png"loading="lazy" alt="Package banner" style="width: 100%; max-width: 800px;" />
 </p>
 
 <p align="center">
-    <a href="https://github.com/danharrin/livewire-rate-limiting/actions"><img alt="Tests passing" src="https://img.shields.io/badge/Tests-passing-green?style=for-the-badge&logo=github"></a>
-    <a href="https://laravel.com"><img alt="Laravel v8.x, v9.x, v10.x, v11.x" src="https://img.shields.io/badge/Laravel-v8.x, v9.x, v10.x, v11.x-FF2D20?style=for-the-badge&logo=laravel"></a>
-    <a href="https://laravel.com"><img alt="PHP 8.0+" src="https://img.shields.io/badge/PHP-8.0+-777BB4?style=for-the-badge&logo=php"></a>
+    <a href="https://github.com/danharrin/livewire-rate-limiting/actions"><imgloading="lazy" alt="Tests passing" src="https://img.shields.io/badge/Tests-passing-green?style=for-the-badge&logo=github"></a>
+    <a href="https://laravel.com"><imgloading="lazy" alt="Laravel v8.x, v9.x, v10.x, v11.x" src="https://img.shields.io/badge/Laravel-v8.x, v9.x, v10.x, v11.x-FF2D20?style=for-the-badge&logo=laravel"></a>
+    <a href="https://laravel.com"><imgloading="lazy" alt="PHP 8.0+" src="https://img.shields.io/badge/PHP-8.0+-777BB4?style=for-the-badge&logo=php"></a>
 </p>
 
 This package allows you to apply rate limiters to Laravel Livewire actions. This is useful for throttling login attempts and other brute force attacks, reducing spam, and more.

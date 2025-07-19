@@ -28,7 +28,7 @@ CheckboxList::make('technologies')
     ])
 ```
 
-<AutoScreenshot name="forms/fields/checkbox-list/simple" alt="Checkbox list" version="3.x" />
+<AutoScreenshot name="forms/fields/checkbox-list/simple"loading="lazy" alt="Checkbox list" version="3.x" />
 
 These options are returned in JSON format. If you're saving them using Eloquent, you should be sure to add an `array` [cast](https://laravel.com/docs/eloquent-mutators#array-and-json-casting) to the model property:
 
@@ -88,7 +88,7 @@ CheckboxList::make('technologies')
     ])
 ```
 
-<AutoScreenshot name="forms/fields/checkbox-list/option-descriptions" alt="Checkbox list with option descriptions" version="3.x" />
+<AutoScreenshot name="forms/fields/checkbox-list/option-descriptions"loading="lazy" alt="Checkbox list with option descriptions" version="3.x" />
 
 Be sure to use the same `key` in the descriptions array as the `key` in the option array so the right description matches the right option.
 
@@ -106,7 +106,7 @@ CheckboxList::make('technologies')
     ->columns(2)
 ```
 
-<AutoScreenshot name="forms/fields/checkbox-list/columns" alt="Checkbox list with 2 columns" version="3.x" />
+<AutoScreenshot name="forms/fields/checkbox-list/columns"loading="lazy" alt="Checkbox list with 2 columns" version="3.x" />
 
 This method accepts the same options as the `columns()` method of the [grid](layout/grid). This allows you to responsively customize the number of columns at various breakpoints.
 
@@ -125,7 +125,7 @@ CheckboxList::make('technologies')
     ->gridDirection('row')
 ```
 
-<AutoScreenshot name="forms/fields/checkbox-list/rows" alt="Checkbox list with 2 rows" version="3.x" />
+<AutoScreenshot name="forms/fields/checkbox-list/rows"loading="lazy" alt="Checkbox list with 2 rows" version="3.x" />
 
 ## Disabling specific options
 
@@ -175,7 +175,7 @@ CheckboxList::make('technologies')
     ->searchable()
 ```
 
-<AutoScreenshot name="forms/fields/checkbox-list/searchable" alt="Searchable checkbox list" version="3.x" />
+<AutoScreenshot name="forms/fields/checkbox-list/searchable"loading="lazy" alt="Searchable checkbox list" version="3.x" />
 
 ## Bulk toggling checkboxes
 
@@ -191,7 +191,7 @@ CheckboxList::make('technologies')
     ->bulkToggleable()
 ```
 
-<AutoScreenshot name="forms/fields/checkbox-list/bulk-toggleable" alt="Bulk toggleable checkbox list" version="3.x" />
+<AutoScreenshot name="forms/fields/checkbox-list/bulk-toggleable"loading="lazy" alt="Bulk toggleable checkbox list" version="3.x" />
 
 ## Integrating with an Eloquent relationship
 

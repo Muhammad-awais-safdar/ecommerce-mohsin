@@ -12,7 +12,7 @@
 
         <!-- Header -->
         <div style="text-align: center; background-color: #f9f9f9; padding: 30px 20px;">
-            <img src="{{ asset('assets/images/logo.png') }}" alt="Top Trends UK" style="height: 80px;">
+            <img src="{{ asset('assets/images/logo.png') }}"loading="lazy" alt="Top Trends UK" style="height: 80px;">
             <h1 style="color: #4CAF50; margin: 10px 0 0;">📩 New Contact Submission</h1>
         </div>
 

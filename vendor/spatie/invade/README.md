@@ -1,4 +1,4 @@
-<p align="center"><img src="/art/socialcard.png" alt="Social Card of Invade"></p>
+<p align="center"><img src="/art/socialcard.png"loading="lazy" alt="Social Card of Invade"></p>
 
 # A PHP function to access private properties and methods
 

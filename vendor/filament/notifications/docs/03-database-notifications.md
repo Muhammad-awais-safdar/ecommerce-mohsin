@@ -3,7 +3,7 @@ title: Database notifications
 ---
 import AutoScreenshot from "@components/AutoScreenshot.astro"
 
-<AutoScreenshot name="notifications/database" alt="Database notifications" version="3.x" />
+<AutoScreenshot name="notifications/database"loading="lazy" alt="Database notifications" version="3.x" />
 
 ## Setting up the notifications database table
 

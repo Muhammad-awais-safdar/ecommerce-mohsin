@@ -1,10 +1,10 @@
-<p align="center"><img width="386" height="68" src="/art/logo.svg" alt="Laravel Prompts"></p>
+<p align="center"><img width="386" height="68" src="/art/logo.svg"loading="lazy" alt="Laravel Prompts"></p>
 
 <p align="center">
-<a href="https://github.com/laravel/prompts/actions"><img src="https://github.com/laravel/prompts/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/prompts"><img src="https://img.shields.io/packagist/dt/laravel/prompts" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/prompts"><img src="https://img.shields.io/packagist/v/laravel/prompts" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/prompts"><img src="https://img.shields.io/packagist/l/laravel/prompts" alt="License"></a>
+<a href="https://github.com/laravel/prompts/actions"><img src="https://github.com/laravel/prompts/workflows/tests/badge.svg"loading="lazy" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/prompts"><img src="https://img.shields.io/packagist/dt/laravel/prompts"loading="lazy" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/prompts"><img src="https://img.shields.io/packagist/v/laravel/prompts"loading="lazy" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/prompts"><img src="https://img.shields.io/packagist/l/laravel/prompts"loading="lazy" alt="License"></a>
 </p>
 
 ## Introduction

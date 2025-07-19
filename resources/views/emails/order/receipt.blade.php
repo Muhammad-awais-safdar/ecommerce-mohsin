@@ -12,7 +12,7 @@
         style="max-width:600px;margin:auto;background:white;padding:20px;border-radius:10px;box-shadow:0 0 10px rgba(0,0,0,0.1);">
         <tr>
             <td style="text-align: center;">
-                <img src="https://yourstore.com/logo.png" alt="{{ config('app.name') }}"
+                <img src="https://yourstore.com/logo.png"loading="lazy" alt="{{ config('app.name') }}"
                     style="width:150px;margin-bottom:20px;">
                 <h2 style="color: #4CAF50;">Thank you for your order!</h2>
                 <p>Hi <strong>{{ $order->customer_name }}</strong>,</p>

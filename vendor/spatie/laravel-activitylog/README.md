@@ -1,4 +1,4 @@
-<p align="center"><img src="/art/socialcard.png" alt="Social Card of Laravel Activity Log"></p>
+<p align="center"><img src="/art/socialcard.png"loading="lazy" alt="Social Card of Laravel Activity Log"></p>
 
 # Log activity inside your Laravel app
 

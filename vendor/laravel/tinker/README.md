@@ -1,10 +1,10 @@
-<p align="center"><img width="321" height="80" src="/art/logo.svg" alt="Logo Laravel Tinker"></p>
+<p align="center"><img width="321" height="80" src="/art/logo.svg"loading="lazy" alt="Logo Laravel Tinker"></p>
 
 <p align="center">
-<a href="https://github.com/laravel/tinker/actions"><img src="https://github.com/laravel/tinker/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/tinker"><img src="https://img.shields.io/packagist/dt/laravel/tinker" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/tinker"><img src="https://img.shields.io/packagist/v/laravel/tinker" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/tinker"><img src="https://img.shields.io/packagist/l/laravel/tinker" alt="License"></a>
+<a href="https://github.com/laravel/tinker/actions"><img src="https://github.com/laravel/tinker/workflows/tests/badge.svg"loading="lazy" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/tinker"><img src="https://img.shields.io/packagist/dt/laravel/tinker"loading="lazy" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/tinker"><img src="https://img.shields.io/packagist/v/laravel/tinker"loading="lazy" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/tinker"><img src="https://img.shields.io/packagist/l/laravel/tinker"loading="lazy" alt="License"></a>
 </p>
 
 ## Introduction

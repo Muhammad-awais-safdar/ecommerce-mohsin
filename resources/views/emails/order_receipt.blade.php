@@ -100,7 +100,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <img src="{{ asset('assets/images/logo.png') }}" alt="Top Trends UK">
+            <img src="{{ asset('assets/images/logo.png') }}"loading="lazy" alt="Top Trends UK">
         </div>
 
         <h1>🛒 Order Placed Successfully!</h1>

@@ -114,7 +114,7 @@
                                     <li class="product-item-order">
                                         <div class="product-thumb">
                                             <img src="{{ asset('storage/' . ($item['image'] ?? 'default.jpg')) }}"
-                                                alt="Product Image">
+                                               loading="lazy" alt="Product Image">
                                         </div>
                                         <div class="product-order-inner">
                                             <h5 class="product-name">{{ $item['name'] ?? 'Unknown Product' }}

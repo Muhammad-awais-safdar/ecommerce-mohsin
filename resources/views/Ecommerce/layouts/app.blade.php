@@ -135,7 +135,7 @@
                     <div class="col-lg-3 col-sm-4 col-md-3 col-xs-7 col-ts-12 header-element">
                         <div class="logo">
                             <a href="{{ route('home') }}">
-                                <img src="{{ asset('assets/images/logo.png') }}" alt="img" style="
+                                <img src="{{ asset('assets/images/logo.png') }}"loading="lazy" alt="img" style="
                                 width: 67%;                           ">
                             </a>
                         </div>
@@ -200,7 +200,7 @@
             <div class="item mobile-logo">
                 <div class="logo">
                     <a href="{{ route('home') }}">
-                        <img src="{{ asset('assets/images/logo.png') }}" alt="img">
+                        <img src="{{ asset('assets/images/logo.png') }}"loading="lazy" alt="img">
                     </a>
                 </div>
             </div>

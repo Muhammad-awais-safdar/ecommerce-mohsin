@@ -15,7 +15,7 @@ Placeholder::make('created')
     ->content(fn (Post $record): string => $record->created_at->toFormattedDateString())
 ```
 
-<AutoScreenshot name="forms/layout/placeholder/simple" alt="Placeholder" version="3.x" />
+<AutoScreenshot name="forms/layout/placeholder/simple"loading="lazy" alt="Placeholder" version="3.x" />
 
 > **Important:** All form fields require a unique name. That also applies to Placeholders!
 

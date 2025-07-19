@@ -39,7 +39,7 @@
                                             <td class="product-thumbnail">
                                                 <a href="#">
                                                     <img src="{{ asset('storage/' . ($item['image'] ?? 'default.jpg')) }}"
-                                                        alt="img"
+                                                       loading="lazy" alt="img"
                                                         class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image">
                                                 </a>
                                             </td>

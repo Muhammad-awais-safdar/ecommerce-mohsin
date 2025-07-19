@@ -25,7 +25,7 @@ Internally Monolog still uses its own level scheme since it predates PSR-3.
   <br>
   <a href="https://betterstack.com">
     <div>
-      <img src="https://github.com/Seldaek/monolog/assets/183678/7de58ce0-2fa2-45c0-b3e8-e60cebb3c4cf" width="200" alt="Better Stack">
+      <img src="https://github.com/Seldaek/monolog/assets/183678/7de58ce0-2fa2-45c0-b3e8-e60cebb3c4cf" width="200"loading="lazy" alt="Better Stack">
     </div>
     <div>
       Better Stack lets you centralize, search, and visualize your logs.

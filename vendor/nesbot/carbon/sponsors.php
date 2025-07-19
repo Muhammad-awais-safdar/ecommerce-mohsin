@@ -230,7 +230,7 @@ function getOpenCollectiveSponsors(): string
         }
 
         $output .= "\n".'<a title="'.$title.'" href="'.$href.'" target="_blank"'.$rel.'>'.
-            '<img alt="'.$alt.'" src="'.$src.'" width="'.$width.'" height="'.$height.'">'.
+            '<imgloading="lazy" alt="'.$alt.'" src="'.$src.'" width="'.$width.'" height="'.$height.'">'.
             '</a>';
     }
 

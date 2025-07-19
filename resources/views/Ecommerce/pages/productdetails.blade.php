@@ -184,7 +184,7 @@
                     <div class="details-product">
                         <div class="details-thumd">
                             <div class="image-preview-container image-thick-box image_preview_container">
-                                <img id="img_zoom" data-zoom-image="{{ asset('storage/' . $product->images[0]) }}" src="{{ asset('storage/' . $product->images[0]) }}" alt="img">
+                                <img id="img_zoom" data-zoom-image="{{ asset('storage/' . $product->images[0]) }}" src="{{ asset('storage/' . $product->images[0]) }}"loading="lazy" alt="img">
                                 <a href="{{ asset('storage/' . $product->images[0]) }}" class="btn-zoom open_qv">
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                 </a>
@@ -195,7 +195,7 @@
 
                                     @foreach($product->images as $key => $image)
                                     <a href="#" data-image="{{ asset('storage/' . $image) }}" data-zoom-image="{{ asset('storage/' . $image) }}" class="{{ $key === 0 ? 'active' : '' }}">
-                                        <img src="{{ asset('storage/' . $image) }}" data-large-image="{{ asset('storage/' . $image) }}" alt="img">
+                                        <img src="{{ asset('storage/' . $image) }}" data-large-image="{{ asset('storage/' . $image) }}"loading="lazy" alt="img">
                                     </a>
                                     @endforeach
 
@@ -333,7 +333,7 @@
                                                 <div class="conment-container">
                                                     {{-- <a href="#" class="avatar">
                                                         <img src="{{ asset('assets/images/avartar.png') }}"
-                                                    alt="Avatar">
+                                                   loading="lazy" alt="Avatar">
                                                     </a> --}}
                                                     <div class="comment-text">
                                                         <div class="comment-text">
@@ -453,7 +453,7 @@
                                     <div class="product-thumb">
                                         <div class="thumb-inner">
                                             <a href="#">
-                                                <img src="{{ asset('storage/' . $item->images[0]) }}" alt="img">
+                                                <img src="{{ asset('storage/' . $item->images[0]) }}"loading="lazy" alt="img">
                                             </a>
                                             <div class="thumb-group">
 
@@ -560,7 +560,7 @@
 <li class="conment">
   <div class="conment-container">
     <a href="#" class="avatar">
-      <img src="{{ asset('assets/images/avartar.png') }}" alt="Avatar">
+      <img src="{{ asset('assets/images/avartar.png') }}"loading="lazy" alt="Avatar">
     </a>
     <div class="comment-text">
       <div class="stars-rating">
