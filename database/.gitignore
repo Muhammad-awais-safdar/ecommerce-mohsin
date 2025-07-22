@@ -1,1 +1,8 @@
 database/database.sqlite
+# Ignore SQLite database file
+*.sqlite
+# Ignore SQLite database file in any subdirectory
+**/*.sqlite
+# ignore all seeder and factory if any in sub directory
+**/seeders/
+**/factories/

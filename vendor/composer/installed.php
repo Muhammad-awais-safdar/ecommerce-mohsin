@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '24b546f1aea883cca688992610a5c183e291005c',
+        'reference' => '6819e591575e88e6398884ade6f991ad2763e0c6',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -613,7 +613,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '24b546f1aea883cca688992610a5c183e291005c',
+            'reference' => '6819e591575e88e6398884ade6f991ad2763e0c6',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -912,6 +912,15 @@
             'install_path' => __DIR__ . '/../openspout/openspout',
             'aliases' => array(),
             'dev_requirement' => false,
+        ),
+        'orangehill/iseed' => array(
+            'pretty_version' => 'v3.1.1',
+            'version' => '3.1.1.0',
+            'reference' => 'bfe8f5882641f70b309cd01e30f02e8e9d09b492',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../orangehill/iseed',
+            'aliases' => array(),
+            'dev_requirement' => true,
         ),
         'phar-io/manifest' => array(
             'pretty_version' => '2.0.4',

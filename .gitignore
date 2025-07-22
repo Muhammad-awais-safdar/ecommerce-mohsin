@@ -45,3 +45,6 @@ Thumbs.db
 # OS-specific
 .idea
 *.swp
+# added seeder and all factories
+/database/seeders
+/database/factories

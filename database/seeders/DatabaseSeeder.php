@@ -19,17 +19,27 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            TrackingScriptSeeder::class,
-
-            UserSeeder::class,
-            OrderSeeder::class,
-            ProductSeeder::class,
-            SeoSeeder::class,
-            ThemeSettingSeeder::class,
+          
         ]);
-        Order::factory()->count(50)->create();
-
-        Product::factory(30)->create();
-        Review::factory()->count(200)->create();
+        
+        $this->call(ActivityLogTableSeeder::class);
+        $this->call(ContactsTableSeeder::class);
+        $this->call(EbayVerifiedsTableSeeder::class);
+        $this->call(JobsTableSeeder::class);
+        $this->call(LoginActivitiesTableSeeder::class);
+        $this->call(OffersTableSeeder::class);
+        $this->call(OrdersTableSeeder::class);
+        $this->call(OrderItemsTableSeeder::class);
+        $this->call(PagesTableSeeder::class);
+        $this->call(ProductsTableSeeder::class);
+        $this->call(ProductDetailsTableSeeder::class);
+        $this->call(ProductStocksTableSeeder::class);
+        $this->call(RefundRequestsTableSeeder::class);
+        $this->call(ReviewsTableSeeder::class);
+        $this->call(SeosTableSeeder::class);
+        $this->call(SiteSettingsTableSeeder::class);
+        $this->call(ThemeSettingsTableSeeder::class);
+        $this->call(TrackingScriptsTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
     }
 }
