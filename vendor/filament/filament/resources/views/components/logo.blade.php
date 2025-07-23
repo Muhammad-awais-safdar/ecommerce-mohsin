@@ -28,7 +28,7 @@
         </div>
     @elseif (filled($logo))
         <img
-           loading="lazy" alt="{{ __('filament-panels::layout.logo.alt', ['name' => $brandName]) }}"
+            alt="{{ __('filament-panels::layout.logo.alt', ['name' => $brandName]) }}"
             src="{{ $logo }}"
             {{
                 $attributes

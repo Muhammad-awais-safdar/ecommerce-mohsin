@@ -352,24 +352,24 @@
                     <div class="review-slider swiper">
                         <div class="swiper-wrapper">
                             @if (!empty($ebayVerified) && $ebayVerified->isNotEmpty())
-                            @foreach ($ebayVerified as $ebay)
-                            @if (!empty($ebay->imagePath))
-                            <div class="swiper-slide">
-                                <img src="{{ asset('storage/' . $ebay->imagePath) }}"
-                                   loading="lazy" alt="{{ $ebay->imageName ?? 'Ebay Image' }}" class="img-fluid" />
-                            </div>
+                                @foreach ($ebayVerified as $ebay)
+                                    @if (!empty($ebay->imagePath))
+                                        <div class="swiper-slide">
+                                            <img src="{{ asset('storage/' . $ebay->imagePath) }}"
+                                            loading="lazy" alt="{{ $ebay->imageName ?? 'Ebay Image' }}" class="img-fluid" />
+                                        </div>
+                                    @else
+                                        <div class="swiper-slide">
+                                            <img src="{{ asset('images/default-placeholder.png') }}" class="img-fluid"
+                                            loading="lazy" alt="Default Image" />
+                                        </div>
+                                    @endif
+                                @endforeach
                             @else
-                            <div class="swiper-slide">
-                                <img src="{{ asset('images/default-placeholder.png') }}" class="img-fluid"
-                                   loading="lazy" alt="Default Image" />
-                            </div>
-                            @endif
-                            @endforeach
-                            @else
-                            <div class="swiper-slide">
-                                <img src="{{ asset('images/no-items-found.png') }}" class="img-fluid"
-                                   loading="lazy" alt="No Ebay Items" />
-                            </div>
+                                <div class="swiper-slide">
+                                    <img src="{{ asset('images/no-items-found.png') }}" class="img-fluid"
+                                    loading="lazy" alt="No Ebay Items" />
+                                </div>
                             @endif
                         </div>
                         <!-- Pagination -->
@@ -389,10 +389,10 @@
                     <ul class="products-list row">
                         @foreach ($allproducts as $product)
                         @php
-                        // Compute average rating (rounded to nearest whole star)
-                        $avgRating = $product->reviews_count
-                        ? round($product->reviews_avg_rating ?? $product->reviews()->avg('rating'))
-                        : 0;
+                            // Compute average rating (rounded to nearest whole star)
+                            $avgRating = $product->reviews_count
+                            ? round($product->reviews_avg_rating ?? $product->reviews()->avg('rating'))
+                            : 0;
                         @endphp
 
                         <li class="product-item  col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1">
@@ -415,7 +415,7 @@
 
                                             <div class="loop-form-add-to-cart">
                                                 <button class="single_add_to_cart_button button add-to-cart-btn" data-id="{{ $product->id }}" data-name="{{ $product->name }}" data-price="{{ $finalPrice }}"
-                                                    onclick="addToCart({{ $product->id }})"">Add to cart
+                                                    onclick="addToCart({{ $product->id }})">Add to cart
                                                         </button>
                                                     </div>
                                                 </div>
@@ -433,17 +433,17 @@
                                                         @endphp
 
                                                         @if ($count > 0)
-                                                        <div class="stars-rating">
-                                                            <div class="star-rating">
+                                                            <div class="stars-rating">
+                                                                <div class="star-rating">
 
-                                                                <span class="star-{{ $avg }}"></span>
+                                                                    <span class="star-{{ $avg }}"></span>
+                                                                </div>
+                                                                <div class="count-star">
+                                                                    ({{ $count }})
+                                                                </div>
                                                             </div>
-                                                            <div class="count-star">
-                                                                ({{ $count }})
-                                                            </div>
-                                                        </div>
                                                         @else
-                                                        <p>No reviews yet</p>
+                                                            <p>No reviews yet</p>
                                                         @endif
 
 
@@ -458,10 +458,10 @@
                                                             @endphp
 
                                                             @if ($discount > 0)
-                                                            <del>£{{ number_format($originalPrice, 2) }}</del>
-                                                            <ins>£{{ number_format($finalPrice, 2) }}</ins>
+                                                                <del>£{{ number_format($originalPrice, 2) }}</del>
+                                                                <ins>£{{ number_format($finalPrice, 2) }}</ins>
                                                             @else
-                                                            <ins>£{{ number_format($originalPrice, 2) }}</ins>
+                                                                <ins>£{{ number_format($originalPrice, 2) }}</ins>
                                                             @endif
                                                         </div>
                                                     </div>

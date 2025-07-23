@@ -16,7 +16,7 @@ Fieldset::make('Label')
     ])
 ```
 
-<AutoScreenshot name="forms/layout/fieldset/simple"loading="lazy" alt="Fieldset" version="3.x" />
+<AutoScreenshot name="forms/layout/fieldset/simple" alt="Fieldset" version="3.x" />
 
 ## Using grid columns within a fieldset
 

@@ -20,7 +20,7 @@ SelectColumn::make('status')
     ])
 ```
 
-<AutoScreenshot name="tables/columns/select/simple"loading="lazy" alt="Select column" version="3.x" />
+<AutoScreenshot name="tables/columns/select/simple" alt="Select column" version="3.x" />
 
 ## Validation
 

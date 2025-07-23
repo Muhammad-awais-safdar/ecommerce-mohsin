@@ -1,4 +1,4 @@
-
+san serve
 /public/storage
 /storage/*.key
 .env

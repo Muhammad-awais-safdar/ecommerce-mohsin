@@ -1,14 +1,14 @@
-<p align="center"><img width="300" src="/art/logo.svg"loading="lazy" alt="Livewire Logo"></p>
+<p align="center"><img width="300" src="/art/logo.svg" alt="Livewire Logo"></p>
 
 <p align="center">
     <a href="https://packagist.org/packages/livewire/livewire">
-        <img src="https://poser.pugx.org/livewire/livewire/d/total.svg"loading="lazy" alt="Total Downloads">
+        <img src="https://poser.pugx.org/livewire/livewire/d/total.svg" alt="Total Downloads">
     </a>
     <a href="https://packagist.org/packages/livewire/livewire">
-        <img src="https://poser.pugx.org/livewire/livewire/v/stable.svg"loading="lazy" alt="Latest Stable Version">
+        <img src="https://poser.pugx.org/livewire/livewire/v/stable.svg" alt="Latest Stable Version">
     </a>
     <a href="https://packagist.org/packages/livewire/livewire">
-        <img src="https://poser.pugx.org/livewire/livewire/license.svg"loading="lazy" alt="License">
+        <img src="https://poser.pugx.org/livewire/livewire/license.svg" alt="License">
     </a>
 </p>
 

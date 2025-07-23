@@ -24,26 +24,26 @@
                         Products
                     </h3>
                     <div class="shop-top-control">
-                            <form class="select-item select-form">
-                                <span class="title">Sort</span>
-                                <select title="sort" data-placeholder="All " class="chosen-select">
-                                    <option value="2">Brands</option>
-                                    <option value="1">Brands</option>
-                                    
-                                </select>
-                            </form>
-                            <form class="filter-choice select-form">
-                                <span class="title">Sort by</span>
-                                <select title="sort-by" data-placeholder="Price: Low to High" class="chosen-select">
-                                    <option value="1">Price: Low to High</option>
-                                    <option value="2">Sort by popularity</option>
-                                    <option value="3">Sort by average rating</option>
-                                    <option value="4">Sort by newness</option>
-                                    <option value="5">Sort by price: low to high</option>
-                                </select>
-                            </form>
-                            
-                        </div>
+                        <form class="select-item select-form">
+                            <span class="title">Sort</span>
+                            <select title="sort" data-placeholder="All " class="chosen-select">
+                                <option value="2">Brands</option>
+                                <option value="1">Brands</option>
+
+                            </select>
+                        </form>
+                        <form class="filter-choice select-form">
+                            <span class="title">Sort by</span>
+                            <select title="sort-by" data-placeholder="Price: Low to High" class="chosen-select">
+                                <option value="1">Price: Low to High</option>
+                                <option value="2">Sort by popularity</option>
+                                <option value="3">Sort by average rating</option>
+                                <option value="4">Sort by newness</option>
+                                <option value="5">Sort by price: low to high</option>
+                            </select>
+                        </form>
+
+                    </div>
                     <ul class="row list-products auto-clear equal-container product-grid" id="product-grid">
                         @foreach ($products as $product)
                         @php
@@ -68,7 +68,8 @@
                                 <div class="product-thumb">
                                     <div class="thumb-inner">
                                         <a href="{{ route('product.show', $product->slug) }}">
-                                            <img src="{{ asset('storage/' . $product->images[0]) }}"loading="lazy" alt="img">
+                                            <img src="{{ asset('storage/' . $product->images[0]) }}" loading="lazy"
+                                                alt="img">
                                         </a>
                                         <div class="thumb-group">
 
@@ -76,12 +77,11 @@
                                                 <button class="single_add_to_cart_button button add-to-cart-btn"
                                                     data-id="{{ $product->id }}" data-name="{{ $product->name }}"
                                                     data-price="{{ $finalPrice }}"
-                                                    onclick="addToCart({{ $product->id }})"">Add to cart
-                                                        </button>
-                                                    </div>
-                                                </div>
+                                                    onclick="addToCart({{ $product->id }})">Add to cart
+                                                </button>
                                             </div>
                                         </div>
+                                    </div>
                                         <div class=" product-info">
                                                     <h5 class="product-name product_title">
                                                         <a href="{{ route('product.show', $product->slug) }}">{{

@@ -69,44 +69,34 @@
 
     @if ($seo)
 
-    <title>{{ $seo?->meta_title ?? 'Default Title' }}</title>
-    <meta name="description" content="{{ $seo?->meta_description }}">
-    <meta name="keywords" content="{{ $seo?->meta_keywords }}">
+        <title>{{ $seo?->meta_title ?? 'Default Title' }}</title>
+        <meta name="description" content="{{ $seo?->meta_description }}">
+        <meta name="keywords" content="{{ $seo?->meta_keywords }}">
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="{{ $seo?->og_title }}">
-    <!-- OG Image -->
-    @if ($seo?->og_image)
-    <meta property="og:image" content="{{ asset('storage/' . $seo->og_image) }}">
+        <!-- Open Graph -->
+        <meta property="og:title" content="{{ $seo?->og_title }}">
+        <!-- OG Image -->
+        @if ($seo?->og_image)
+            <meta property="og:image" content="{{ asset('storage/' . $seo->og_image) }}">
+        @endif
+
+
+        <!-- Canonical & Robots -->
+        <link rel="canonical" href="{{ $seo?->canonical_url ?? url()->current() }}">
+        <meta name="robots" content="{{ $seo?->robots ?? 'index, follow' }}">
+
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="{{ $seo?->twitter_title ?? $seo?->meta_title }}">
+
+        <!-- Twitter Image -->
+        @if ($seo?->twitter_image)
+            <meta name="twitter:image" content="{{ asset('storage/' . $seo->twitter_image) }}">
+        @endif
+       
     @endif
 
 
-    <!-- Canonical & Robots -->
-    <link rel="canonical" href="{{ $seo?->canonical_url ?? url()->current() }}">
-    <meta name="robots" content="{{ $seo?->robots ?? 'index, follow' }}">
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{ $seo?->twitter_title ?? $seo?->meta_title }}">
-
-    <!-- Twitter Image -->
-    @if ($seo?->twitter_image)
-    <meta name="twitter:image" content="{{ asset('storage/' . $seo->twitter_image) }}">
-    @endif
-    @endif
-
-
-    <!-- Schema.org JSON-LD -->
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org"
-            , "@type": "WebPage"
-            , "name": "{{ $seo?->meta_title }}"
-            , "description": "{{ $seo?->meta_description }}"
-            , "url": "{{ url()->current() }}"
-        }
-
-    </script>
 
     @stack('styles')
 </head>
@@ -378,7 +368,6 @@
     
     <!-- Activity Tracker -->
     <script src="{{ asset('js/activity-tracker.js') }}"></script>
-    
     @stack('scripts')
 </body>
 

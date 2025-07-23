@@ -54,7 +54,7 @@ Builder::make('content')
     ])
 ```
 
-<AutoScreenshot name="forms/fields/builder/simple"loading="lazy" alt="Builder" version="3.x" />
+<AutoScreenshot name="forms/fields/builder/simple" alt="Builder" version="3.x" />
 
 We recommend that you store builder data with a `JSON` column in your database. Additionally, if you're using Eloquent, make sure that column has an `array` cast.
 
@@ -112,7 +112,7 @@ Builder\Block::make('heading')
 
 Any fields that you use from `$state` should be `live()` if you wish to see the item label update live as you use the form.
 
-<AutoScreenshot name="forms/fields/builder/labelled"loading="lazy" alt="Builder with labelled blocks based on the content" version="3.x" />
+<AutoScreenshot name="forms/fields/builder/labelled" alt="Builder with labelled blocks based on the content" version="3.x" />
 
 ### Numbering builder items
 
@@ -139,7 +139,7 @@ Builder\Block::make('paragraph')
     ->icon('heroicon-m-bars-3-bottom-left')
 ```
 
-<AutoScreenshot name="forms/fields/builder/icons"loading="lazy" alt="Builder with block icons in the dropdown" version="3.x" />
+<AutoScreenshot name="forms/fields/builder/icons" alt="Builder with block icons in the dropdown" version="3.x" />
 
 ### Adding icons to the header of blocks
 
@@ -252,7 +252,7 @@ Builder::make('content')
     ->reorderableWithButtons()
 ```
 
-<AutoScreenshot name="forms/fields/builder/reorderable-with-buttons"loading="lazy" alt="Builder that is reorderable with buttons" version="3.x" />
+<AutoScreenshot name="forms/fields/builder/reorderable-with-buttons" alt="Builder that is reorderable with buttons" version="3.x" />
 
 ### Preventing reordering with drag and drop
 
@@ -294,7 +294,7 @@ Builder::make('content')
     ->collapsed()
 ```
 
-<AutoScreenshot name="forms/fields/builder/collapsed"loading="lazy" alt="Collapsed builder" version="3.x" />
+<AutoScreenshot name="forms/fields/builder/collapsed" alt="Collapsed builder" version="3.x" />
 
 ## Cloning items
 
@@ -310,7 +310,7 @@ Builder::make('content')
     ->cloneable()
 ```
 
-<AutoScreenshot name="forms/fields/builder/cloneable"loading="lazy" alt="Builder repeater" version="3.x" />
+<AutoScreenshot name="forms/fields/builder/cloneable" alt="Builder repeater" version="3.x" />
 
 ## Customizing the block picker
 

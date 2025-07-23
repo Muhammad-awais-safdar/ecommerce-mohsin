@@ -17,7 +17,7 @@ DatePicker::make('date_of_birth')
 TimePicker::make('alarm_at')
 ```
 
-<AutoScreenshot name="forms/fields/date-time-picker/simple"loading="lazy" alt="Date time pickers" version="3.x" />
+<AutoScreenshot name="forms/fields/date-time-picker/simple" alt="Date time pickers" version="3.x" />
 
 ## Customizing the storage format
 
@@ -41,7 +41,7 @@ DateTimePicker::make('published_at')
     ->seconds(false)
 ```
 
-<AutoScreenshot name="forms/fields/date-time-picker/without-seconds"loading="lazy" alt="Date time picker without seconds" version="3.x" />
+<AutoScreenshot name="forms/fields/date-time-picker/without-seconds" alt="Date time picker without seconds" version="3.x" />
 
 ## Timezones
 
@@ -67,7 +67,7 @@ DatePicker::make('date_of_birth')
     ->native(false)
 ```
 
-<AutoScreenshot name="forms/fields/date-time-picker/javascript"loading="lazy" alt="JavaScript-based date time picker" version="3.x" />
+<AutoScreenshot name="forms/fields/date-time-picker/javascript" alt="JavaScript-based date time picker" version="3.x" />
 
 Please be aware that while being accessible, the JavaScript date picker does not support full keyboard input in the same way that the native date picker does. If you require full keyboard input, you should use the native date picker.
 
@@ -83,7 +83,7 @@ DatePicker::make('date_of_birth')
     ->displayFormat('d/m/Y')
 ```
 
-<AutoScreenshot name="forms/fields/date-time-picker/display-format"loading="lazy" alt="Date time picker with custom display format" version="3.x" />
+<AutoScreenshot name="forms/fields/date-time-picker/display-format" alt="Date time picker with custom display format" version="3.x" />
 
 You may also configure the locale that is used when rendering the display, if you want to use different locale from your app config. For this, you can use the `locale()` method:
 
@@ -122,7 +122,7 @@ DateTimePicker::make('published_at')
     ->firstDayOfWeek(7)
 ```
 
-<AutoScreenshot name="forms/fields/date-time-picker/week-starts-on-sunday"loading="lazy" alt="Date time picker where the week starts on Sunday" version="3.x" />
+<AutoScreenshot name="forms/fields/date-time-picker/week-starts-on-sunday" alt="Date time picker where the week starts on Sunday" version="3.x" />
 
 There are additionally convenient helper methods to set the first day of the week more semantically:
 
@@ -150,7 +150,7 @@ DateTimePicker::make('date')
     ->disabledDates(['2000-01-03', '2000-01-15', '2000-01-20'])
 ```
 
-<AutoScreenshot name="forms/fields/date-time-picker/disabled-dates"loading="lazy" alt="Date time picker where dates are disabled" version="3.x" />
+<AutoScreenshot name="forms/fields/date-time-picker/disabled-dates" alt="Date time picker where dates are disabled" version="3.x" />
 
 ### Closing the picker when a date is selected
 
@@ -197,7 +197,7 @@ DatePicker::make('date')
     ->suffix('at midnight')
 ```
 
-<AutoScreenshot name="forms/fields/date-time-picker/affix"loading="lazy" alt="Date time picker with affixes" version="3.x" />
+<AutoScreenshot name="forms/fields/date-time-picker/affix" alt="Date time picker with affixes" version="3.x" />
 
 ### Using icons as affixes
 
@@ -210,7 +210,7 @@ TimePicker::make('at')
     ->prefixIcon('heroicon-m-play')
 ```
 
-<AutoScreenshot name="forms/fields/date-time-picker/prefix-icon"loading="lazy" alt="Date time picker with prefix icon" version="3.x" />
+<AutoScreenshot name="forms/fields/date-time-picker/prefix-icon" alt="Date time picker with prefix icon" version="3.x" />
 
 #### Setting the affix icon's color
 

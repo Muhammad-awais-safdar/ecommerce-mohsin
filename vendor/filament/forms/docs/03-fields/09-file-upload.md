@@ -21,7 +21,7 @@ use Filament\Forms\Components\FileUpload;
 FileUpload::make('attachment')
 ```
 
-<AutoScreenshot name="forms/fields/file-upload/simple"loading="lazy" alt="File upload" version="3.x" />
+<AutoScreenshot name="forms/fields/file-upload/simple" alt="File upload" version="3.x" />
 
 > Filament also supports [`spatie/laravel-medialibrary`](https://github.com/spatie/laravel-medialibrary). See our [plugin documentation](/plugins/filament-spatie-media-library) for more information.
 
@@ -410,6 +410,17 @@ use Filament\Forms\Components\FileUpload;
 
 FileUpload::make('attachment')
     ->deletable(false)
+```
+
+## Preventing pasting files
+
+You can disable the ability to paste files via the clipboard using the `pasteable(false)` method:
+
+```php
+use Filament\Forms\Components\FileUpload;
+
+FileUpload::make('attachment')
+    ->pasteable(false)
 ```
 
 ## Prevent file information fetching
