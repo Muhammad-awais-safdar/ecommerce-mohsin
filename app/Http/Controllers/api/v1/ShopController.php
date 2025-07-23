@@ -19,26 +19,26 @@ class ShopController extends Controller
                     Product::with(['details', 'stock', 'reviews'])
                         ->where('is_deal', true)
                         ->latest()
-                        ->take(10)
+                        ->take(8)
                         ->get()
                 ),
                 'top_rated' => ProductResource::collection(
                     Product::with(['details', 'stock', 'reviews'])
                         ->withCount('reviews') // Adds `reviews_count` to each product
                         ->orderByDesc('reviews_count')
-                        ->take(10)
+                        ->take(8)
                         ->get()
                 ),
                 'new_arrivals' => ProductResource::collection(
                     Product::with(['details', 'stock', 'reviews'])
                         ->latest()
-                        ->take(10)
+                        ->take(8)
                         ->get()
                 ),
                 'best_sellers' => ProductResource::collection(
                     Product::with(['details', 'stock', 'reviews'])
                         ->orderByDesc('sales_count')
-                        ->take(10)
+                        ->take(8)
                         ->get()
                 ),
             ]);
