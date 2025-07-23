@@ -11,3 +11,5 @@ Route::get('/products', [ShopController::class, 'index']);
 Route::get('/products/{slug}', [ShopController::class, 'show']);
 
 Route::post('/contact', [ContactController::class, 'submit']);
+
+Route::get('/seo/{pageName}', [ContactController::class, 'getMetaByPage']);

@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\api\v1;
 
+use App\Models\Seo;
 use App\Models\Contact;
 use App\Rules\ReCaptcha;
 use Illuminate\Http\Request;
 use App\Helpers\TranslatorHelper;
 use App\Mail\CustomerThankYouMail;
+use App\Http\Resources\SeoResource;
 use App\Mail\AdminNotificationMail;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 
@@ -49,5 +52,28 @@ class ContactController extends Controller
             'message' => 'Thank you for contacting us!',
             'status' => 'success'
         ]);
+    }
+
+
+    public function getMetaByPage($pageName)
+    {
+        try {
+            $meta = Seo::where('page', $pageName)->first();
+
+            if (!$meta) {
+                return response()->json([
+                    'message' => 'SEO metadata not found for this page.',
+                ], 404);
+            }
+
+            return new SeoResource($meta);
+        } catch (\Exception $e) {
+            Log::error("Meta fetch failed: " . $e->getMessage());
+
+            return response()->json([
+                'message' => 'Failed to retrieve SEO data.',
+                'error'   => $e->getMessage(),
+            ], 500);
+        }
     }
 }
