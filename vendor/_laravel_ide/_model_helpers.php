@@ -5,6 +5,8 @@ namespace App\Models {
     /**
      * App\Models\Product
      *
+     * @property \Illuminate\Support\Carbon|null $last_sale_at
+     * @property int $total_sales
      * @property int $sales_count
      * @property bool $is_deal
      * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -41,6 +43,8 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereDeletedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereIsDeal($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereSalesCount($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereTotalSales($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereLastSaleAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product filterByBrand()
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product newModelQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product newQuery()

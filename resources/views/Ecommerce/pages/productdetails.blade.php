@@ -158,6 +158,12 @@
         --rating: 100%;
     }
 
+    @keyframes flicker {
+        0% { opacity: 0.8; transform: scale(1); }
+        50% { opacity: 1; transform: scale(1.05); }
+        100% { opacity: 0.9; transform: scale(1); }
+    }
+
 </style>
 @endpush
 @section('content')
@@ -224,19 +230,41 @@
                                 </div>
                             </div>
 
-                            <div class="availability">
-                                availability:
-                                @if($product->available_stock > 0)
-                                    <a href="#" class="text-success">{{ $product->available_stock }} in Stock</a>
-                                @else
-                                    <a href="#" class="text-danger">Out of Stock</a>
+                            <div class="product-meta" style="margin-bottom: 20px;">
+                                <div class="meta-item" style="margin-bottom: 8px;">
+                                    <strong>SKU:</strong> <span style="color: #666;">{{ $product->sku }}</span>
+                                </div>
+                                <div class="meta-item" style="margin-bottom: 8px;">
+                                    <strong>Availability:</strong>
+                                    @if($product->available_stock > 0)
+                                        <span class="text-success">{{ $product->available_stock }} in Stock</span>
+                                    @else
+                                        <span class="text-danger">Out of Stock</span>
+                                    @endif
+                                </div>
+                                @if($product->details)
+                                    @if($product->details->gender)
+                                    <div class="meta-item" style="margin-bottom: 8px;">
+                                        <strong>For:</strong> <span style="color: #666;">{{ ucfirst($product->details->gender) }}</span>
+                                    </div>
+                                    @endif
+                                    @if($product->details->concentration)
+                                    <div class="meta-item" style="margin-bottom: 8px;">
+                                        <strong>Type:</strong> <span style="color: #666;">{{ $product->details->concentration }}</span>
+                                    </div>
+                                    @endif
+                                    @if($product->details->volume_ml)
+                                    <div class="meta-item" style="margin-bottom: 8px;">
+                                        <strong>Size:</strong> <span style="color: #666;">{{ $product->details->volume_ml }}ml</span>
+                                    </div>
+                                    @endif
                                 @endif
                             </div>
                             
                             @if($product->available_stock > 0)
-                            <div class="sales-tracking" style="margin: 10px 0; padding: 8px 12px; background: #f8f9fa; border-left: 3px solid #28a745; font-size: 14px; color: #155724;">
-                                <i class="fa fa-fire" style="color: #ff6b35; margin-right: 5px;"></i>
-                                {{ $product->random_sales_message }}
+                            <div class="sales-tracking" style="margin: 15px 0; padding: 10px 15px; background: linear-gradient(135deg, #fff3cd 0%, #fff8dc 100%); border-radius: 8px; border-left: 4px solid #ffc107; font-size: 14px; color: #856404; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                                <i class="fa fa-fire" style="color: #ff6b35; margin-right: 8px; animation: flicker 1.5s infinite alternate;"></i>
+                                <strong>{{ $product->random_sales_message }}</strong>
                             </div>
                             @endif
                             <div class="price">
@@ -336,7 +364,124 @@
                         </ul>
                         <div class="tab-container">
                             <div id="product-descriptions" class="tab-panel active">
-                                {!! $product->description !!}
+                                @if($product->details && $product->details->short_description)
+                                    <div class="short-description" style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                                        <h4 style="margin-bottom: 10px; color: #333;">Product Overview</h4>
+                                        <p style="line-height: 1.6; color: #666;">{{ $product->details->short_description }}</p>
+                                    </div>
+                                @endif
+
+                                @if($product->description)
+                                    <div class="main-description" style="margin-bottom: 25px;">
+                                        <h4 style="margin-bottom: 15px; color: #333;">Description</h4>
+                                        <div style="line-height: 1.7; color: #555;">
+                                            {!! $product->description !!}
+                                        </div>
+                                    </div>
+                                @endif
+
+                                @if($product->details && $product->details->long_description)
+                                    <div class="detailed-description" style="margin-bottom: 25px;">
+                                        <h4 style="margin-bottom: 15px; color: #333;">Detailed Information</h4>
+                                        <div style="line-height: 1.7; color: #555;">
+                                            {!! nl2br(e($product->details->long_description)) !!}
+                                        </div>
+                                    </div>
+                                @endif
+
+                                @if($product->details)
+                                    <div class="product-specifications" style="margin-top: 30px;">
+                                        <h4 style="margin-bottom: 20px; color: #333; border-bottom: 2px solid #ddd; padding-bottom: 10px;">Product Specifications</h4>
+                                        
+                                        <div class="spec-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                                            <div class="spec-column">
+                                                @if($product->details->gender)
+                                                <div class="spec-item" style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee;">
+                                                    <strong style="color: #333;">Target Gender:</strong>
+                                                    <span style="color: #666;">{{ ucfirst($product->details->gender) }}</span>
+                                                </div>
+                                                @endif
+                                                
+                                                @if($product->details->fragrance_type)
+                                                <div class="spec-item" style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee;">
+                                                    <strong style="color: #333;">Fragrance Type:</strong>
+                                                    <span style="color: #666;">{{ ucwords($product->details->fragrance_type) }}</span>
+                                                </div>
+                                                @endif
+                                                
+                                                @if($product->details->concentration)
+                                                <div class="spec-item" style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee;">
+                                                    <strong style="color: #333;">Concentration:</strong>
+                                                    <span style="color: #666;">{{ $product->details->concentration }}</span>
+                                                </div>
+                                                @endif
+                                                
+                                                @if($product->details->volume_ml)
+                                                <div class="spec-item" style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee;">
+                                                    <strong style="color: #333;">Volume:</strong>
+                                                    <span style="color: #666;">{{ $product->details->volume_ml }} ml</span>
+                                                </div>
+                                                @endif
+                                            </div>
+                                            
+                                            <div class="spec-column">
+                                                @if($product->details->longevity_hours)
+                                                <div class="spec-item" style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee;">
+                                                    <strong style="color: #333;">Longevity:</strong>
+                                                    <span style="color: #666;">{{ $product->details->longevity_hours }} hours</span>
+                                                </div>
+                                                @endif
+                                                
+                                                @if($product->details->country_of_origin)
+                                                <div class="spec-item" style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee;">
+                                                    <strong style="color: #333;">Country of Origin:</strong>
+                                                    <span style="color: #666;">{{ $product->details->country_of_origin }}</span>
+                                                </div>
+                                                @endif
+                                                
+                                                <div class="spec-item" style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee;">
+                                                    <strong style="color: #333;">SKU:</strong>
+                                                    <span style="color: #666;">{{ $product->sku }}</span>
+                                                </div>
+                                                
+                                                @if($product->total_sales > 0)
+                                                <div class="spec-item" style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee;">
+                                                    <strong style="color: #333;">Total Sold:</strong>
+                                                    <span style="color: #28a745; font-weight: 600;">{{ number_format($product->total_sales) }} units</span>
+                                                </div>
+                                                @endif
+                                            </div>
+                                        </div>
+
+                                        @if($product->details->top_notes || $product->details->middle_notes || $product->details->base_notes)
+                                        <div class="fragrance-notes" style="margin-top: 25px;">
+                                            <h5 style="margin-bottom: 15px; color: #333;">Fragrance Notes</h5>
+                                            <div class="notes-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                                                @if($product->details->top_notes)
+                                                <div class="note-card" style="padding: 15px; background: #f0f8ff; border-radius: 8px; border-left: 4px solid #007bff;">
+                                                    <h6 style="margin-bottom: 8px; color: #007bff; font-size: 14px; font-weight: 600;">Top Notes</h6>
+                                                    <p style="margin: 0; color: #555; font-size: 13px; line-height: 1.4;">{{ $product->details->top_notes }}</p>
+                                                </div>
+                                                @endif
+                                                
+                                                @if($product->details->middle_notes)
+                                                <div class="note-card" style="padding: 15px; background: #fff0f5; border-radius: 8px; border-left: 4px solid #e91e63;">
+                                                    <h6 style="margin-bottom: 8px; color: #e91e63; font-size: 14px; font-weight: 600;">Heart Notes</h6>
+                                                    <p style="margin: 0; color: #555; font-size: 13px; line-height: 1.4;">{{ $product->details->middle_notes }}</p>
+                                                </div>
+                                                @endif
+                                                
+                                                @if($product->details->base_notes)
+                                                <div class="note-card" style="padding: 15px; background: #f0f8f0; border-radius: 8px; border-left: 4px solid #4caf50;">
+                                                    <h6 style="margin-bottom: 8px; color: #4caf50; font-size: 14px; font-weight: 600;">Base Notes</h6>
+                                                    <p style="margin: 0; color: #555; font-size: 13px; line-height: 1.4;">{{ $product->details->base_notes }}</p>
+                                                </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        @endif
+                                    </div>
+                                @endif
                             </div>
 
                             <div id="reviews" class="tab-panel">
