@@ -10,7 +10,27 @@ class CartController extends Controller
 
     public function addToCart($id)
     {
-        $product = Product::findOrFail($id);
+        $product = Product::with('stock')->findOrFail($id);
+        
+        // Check if product is in stock
+        if ($product->available_stock <= 0) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'This product is currently out of stock.',
+            ], 400);
+        }
+        
+        $cart = session()->get('cart', []);
+        $currentCartQuantity = isset($cart[$id]) ? $cart[$id]['quantity'] : 0;
+        
+        // Check if there's enough stock
+        if ($currentCartQuantity >= $product->available_stock) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Not enough stock available. Only ' . $product->available_stock . ' items left.',
+            ], 400);
+        }
+        
         $discount = $product->discount_percentage ?? 0;
 
         // Apply discount if any
@@ -19,7 +39,6 @@ class CartController extends Controller
             $finalPrice = $product->price - ($product->price * ($discount / 100));
         }
 
-        $cart = session()->get('cart', []);
         $firstImage = $product->images[0] ?? 'default.jpg';
         if (isset($cart[$id])) {
             $cart[$id]['quantity']++;
@@ -34,7 +53,6 @@ class CartController extends Controller
             ];
         }
 
-        // dd($cart);
         session()->put('cart', $cart);
 
         $count = array_sum(array_map(fn($item) => $item['quantity'] ?? 0, $cart));
@@ -88,6 +106,15 @@ class CartController extends Controller
     public function updateItem(Request $request, $id)
     {
         $quantity = (int) $request->quantity;
+        
+        // Check stock availability
+        $product = Product::with('stock')->findOrFail($id);
+        if ($quantity > $product->available_stock) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Not enough stock available. Only ' . $product->available_stock . ' items left.'
+            ]);
+        }
 
         if (session()->has('cart')) {
             $cart = session()->get('cart');

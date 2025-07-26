@@ -226,8 +226,19 @@
 
                             <div class="availability">
                                 availability:
-                                <a href="#">in Stock</a>
+                                @if($product->available_stock > 0)
+                                    <a href="#" class="text-success">{{ $product->available_stock }} in Stock</a>
+                                @else
+                                    <a href="#" class="text-danger">Out of Stock</a>
+                                @endif
                             </div>
+                            
+                            @if($product->available_stock > 0)
+                            <div class="sales-tracking" style="margin: 10px 0; padding: 8px 12px; background: #f8f9fa; border-left: 3px solid #28a745; font-size: 14px; color: #155724;">
+                                <i class="fa fa-fire" style="color: #ff6b35; margin-right: 5px;"></i>
+                                {{ $product->random_sales_message }}
+                            </div>
+                            @endif
                             <div class="price">
                                 @php
                                 $originalPrice = $product->price;
@@ -249,23 +260,31 @@
 
                             <div class="group-button">
                                 <div class="d-flex flex-wrap gap-5">
-
-                                    <button class="btn-stelina-outline add-to-cart-btn" data-id="{{ $product->id }}" data-name="{{ $product->name }}" data-price="{{ $finalPrice }}" onclick="addToCart({{ $product->id }})">
-                                        <span>Add to cart</span>
-                                    </button>
-
-                                    <form method="POST" action="{{ route('buy.now') }}">
-                                        @csrf
-                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                        <button type="submit" class="btn-stelina-primary button">
-                                            Buy Now
+                                    @if($product->available_stock > 0)
+                                        <button class="btn-stelina-outline add-to-cart-btn" data-id="{{ $product->id }}" data-name="{{ $product->name }}" data-price="{{ $finalPrice }}" onclick="addToCart({{ $product->id }})">
+                                            <span>Add to cart</span>
                                         </button>
-                                    </form>
 
-                                    <button onclick="openModal()" class="btn-stelina-primary button">
-                                        Make an Offer
-                                    </button>
+                                        <form method="POST" action="{{ route('buy.now') }}">
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                            <button type="submit" class="btn-stelina-primary button">
+                                                Buy Now
+                                            </button>
+                                        </form>
 
+                                        <button onclick="openModal()" class="btn-stelina-primary button">
+                                            Make an Offer
+                                        </button>
+                                    @else
+                                        <button class="btn-stelina-outline" disabled style="background: #ccc; cursor: not-allowed;">
+                                            <span>Out of Stock</span>
+                                        </button>
+                                        
+                                        <button onclick="openModal()" class="btn-stelina-primary button">
+                                            Make an Offer
+                                        </button>
+                                    @endif
                                 </div>
                             </div>
                         </div>

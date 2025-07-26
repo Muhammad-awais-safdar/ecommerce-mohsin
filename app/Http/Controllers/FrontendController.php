@@ -51,8 +51,7 @@ class FrontendController extends Controller
     public function show($slug, SeoService $seoService, ProductCacheService $cacheService)
     {
         $product = $cacheService->getProductBySlug($slug);
-        $allproducts = $cacheService->getRelatedProducts($product->id);
-        $product = $cacheService->getProductBySlug($slug);
+        $product->load('stock'); // Load stock relationship
         $allproducts = $cacheService->getRelatedProducts($product->id);
 
         return view('Ecommerce.pages.productdetails', compact('product', 'allproducts'));

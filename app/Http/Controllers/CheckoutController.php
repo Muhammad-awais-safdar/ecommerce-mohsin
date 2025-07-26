@@ -42,8 +42,15 @@ class CheckoutController extends Controller
         $cart = session()->get('cart', []);
 
         if (empty($cart)) {
-            // dd($cart);
             return back()->with('error', 'Your cart is empty.');
+        }
+        
+        // Check stock availability for all items
+        foreach ($cart as $productId => $item) {
+            $product = \App\Models\Product::with('stock')->find($productId);
+            if (!$product || $product->available_stock < $item['quantity']) {
+                return back()->with('error', "Insufficient stock for {$item['name']}. Only {$product->available_stock} items available.");
+            }
         }
 
         // Calculate total
@@ -99,7 +106,13 @@ class CheckoutController extends Controller
 
     public function checkout(Request $request)
     {
-        $product = \App\Models\Product::findOrFail($request->product_id);
+        $product = \App\Models\Product::with('stock')->findOrFail($request->product_id);
+        
+        // Check if product is in stock
+        if ($product->available_stock <= 0) {
+            return back()->with('error', 'This product is currently out of stock.');
+        }
+        
         $discount = $product->discount_percentage ?? 0;
 
         // Apply discount if any

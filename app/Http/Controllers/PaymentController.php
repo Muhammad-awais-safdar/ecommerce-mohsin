@@ -22,6 +22,14 @@ class PaymentController extends Controller
         $order->status = 'paid';
         $order->save();
 
+        // Decrease stock for each product in the order
+        foreach ($order->orderItems as $orderItem) {
+            $product = $orderItem->product;
+            if ($product) {
+                $product->decreaseStock($orderItem->quantity);
+            }
+        }
+
         // Send Email to Customer
         Mail::to($order->customer_email)->send(new OrderReceiptMail($order));
 

@@ -13,7 +13,7 @@ class Product extends Model
 {
     use SoftDeletes, LogsActivityGlobally;
     use HasFactory;
-    protected $fillable = ['name', 'slug', 'description', 'price', 'images','status', 'discount_percentage','sku','is_deal','sales_count'];
+    protected $fillable = ['name', 'slug', 'description', 'price', 'images','status', 'discount_percentage','sku','is_deal','sales_count','total_sales','last_sale_at'];
 
     public function reviews()
     {
@@ -29,6 +29,7 @@ class Product extends Model
     }
     protected $casts = [
         'images' => 'array',
+        'last_sale_at' => 'datetime',
     ];
 
     protected static function boot()
@@ -69,6 +70,49 @@ class Product extends Model
     public function stock()
     {
         return $this->hasOne(ProductStock::class);
+    }
+
+    public function decreaseStock($quantity)
+    {
+        if ($this->stock && $this->stock->quantity >= $quantity) {
+            $this->stock->decrement('quantity', $quantity);
+            $this->increment('total_sales', $quantity);
+            $this->update(['last_sale_at' => now()]);
+            return true;
+        }
+        return false;
+    }
+
+    public function getAvailableStockAttribute()
+    {
+        return $this->stock ? $this->stock->quantity : 0;
+    }
+
+    public function getSalesLastHoursAttribute($hours = 3)
+    {
+        $minSales = 15;
+        $maxSales = 50;
+        $baseSales = mt_rand($minSales, $maxSales);
+        
+        $timeFactor = sin(date('H') * pi() / 12) + 1;
+        $dayFactor = date('N') <= 5 ? 1.2 : 0.8;
+        
+        return max(1, round($baseSales * $timeFactor * $dayFactor));
+    }
+
+    public function getRandomSalesMessageAttribute()
+    {
+        $hours = mt_rand(2, 4);
+        $sales = $this->getSalesLastHoursAttribute($hours);
+        
+        $templates = [
+            "Previous {$hours} hours: {$sales} sales done",
+            "Last {$hours}h: {$sales} customers purchased this item",
+            "{$sales} people bought this in the last {$hours} hours",
+            "Hot item! {$sales} sold in past {$hours} hours"
+        ];
+        
+        return $templates[array_rand($templates)];
     }
 
 }
