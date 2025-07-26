@@ -12,18 +12,10 @@ class ProductStock extends Model
     protected $fillable = [
         'product_id',
         'quantity',
-        'reserved_quantity',
-        'minimum_stock_level',
-        'reorder_point',
-        'location',
-        'status'
     ];
 
     protected $casts = [
         'quantity' => 'integer',
-        'reserved_quantity' => 'integer',
-        'minimum_stock_level' => 'integer',
-        'reorder_point' => 'integer'
     ];
 
     public function product()
@@ -33,16 +25,16 @@ class ProductStock extends Model
 
     public function getAvailableQuantityAttribute()
     {
-        return $this->quantity - $this->reserved_quantity;
+        return $this->quantity;
     }
 
-    public function isLowStock()
+    public function isLowStock($threshold = 10)
     {
-        return $this->available_quantity <= $this->minimum_stock_level;
+        return $this->quantity <= $threshold;
     }
 
-    public function needsReorder()
+    public function needsReorder($threshold = 5)
     {
-        return $this->available_quantity <= $this->reorder_point;
+        return $this->quantity <= $threshold;
     }
 }

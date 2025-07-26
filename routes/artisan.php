@@ -51,4 +51,15 @@ Route::middleware(['web'])->group(function () {
         return '✅ Database seeding complete: ' . Artisan::output();
     });
 
+
+
+    Route::get('/artisan/migrate-fresh-seed', function () {
+        // Run migrate:fresh first
+        Artisan::call('migrate:fresh', ['--force' => true]);
+
+        // Then seed the database
+        Artisan::call('db:seed', ['--force' => true]);
+
+        return '✅ Database migrated fresh and seeding complete: <br>' . nl2br(Artisan::output());
+    });
 });

@@ -10,7 +10,6 @@ use Filament\Resources\Resource;
 use Filament\Forms\Components\Grid;
 use Illuminate\Support\Facades\Auth;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
@@ -27,9 +26,6 @@ use Filament\Tables\Actions\RestoreBulkAction;
 use App\Filament\Resources\ProductResource\Pages;
 use Filament\Tables\Actions\ForceDeleteBulkAction;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\ProductResource\Pages\EditProduct;
-use App\Filament\Resources\ProductResource\Pages\ListProducts;
-use App\Filament\Resources\ProductResource\Pages\CreateProduct;
 use Filament\Forms\Components\RichEditor;
 
 class ProductResource extends Resource
@@ -72,29 +68,115 @@ class ProductResource extends Resource
                         'female' => 'Female',
                         'unisex' => 'Unisex',
                     ])
-                    ->label('Gender'),
+                    ->label('Gender')
+                    ->placeholder('Select target gender')
+                    ->helperText('Target audience for this perfume'),
 
-                TextInput::make('details.fragrance_type')->label('Fragrance Type'),
-                TextInput::make('details.concentration')->label('Concentration (EDP, EDT, etc)'),
+                Select::make('details.fragrance_type')
+                    ->label('Fragrance Type')
+                    ->options([
+                        'floral' => 'Floral',
+                        'woody' => 'Woody',
+                        'citrus' => 'Citrus',
+                        'oriental' => 'Oriental',
+                        'fresh' => 'Fresh',
+                        'spicy' => 'Spicy',
+                        'fruity' => 'Fruity',
+                        'aquatic' => 'Aquatic',
+                    ])
+                    ->searchable()
+                    ->placeholder('Select fragrance family'),
+                    
+                Select::make('details.concentration')
+                    ->label('Concentration')
+                    ->options([
+                        'parfum' => 'Parfum (20-40%)',
+                        'edp' => 'Eau de Parfum (15-20%)',
+                        'edt' => 'Eau de Toilette (5-15%)',
+                        'edc' => 'Eau de Cologne (2-4%)',
+                        'edl' => 'Eau de Luxe (5-10%)',
+                    ])
+                    ->placeholder('Select concentration level')
+                    ->helperText('Oil concentration in the fragrance'),
             ]),
 
             Grid::make(3)->schema([
-                TextInput::make('details.top_notes')->label('Top Notes'),
-                TextInput::make('details.middle_notes')->label('Middle Notes'),
-                TextInput::make('details.base_notes')->label('Base Notes'),
+                TextInput::make('details.top_notes')
+                    ->label('Top Notes')
+                    ->placeholder('e.g., Bergamot, Lemon, Apple')
+                    ->helperText('Initial scents (0-15 minutes)')
+                    ->maxLength(255),
+                    
+                TextInput::make('details.middle_notes')
+                    ->label('Middle/Heart Notes')
+                    ->placeholder('e.g., Rose, Jasmine, Lavender')
+                    ->helperText('Core scents (15 minutes - 3 hours)')
+                    ->maxLength(255),
+                    
+                TextInput::make('details.base_notes')
+                    ->label('Base Notes')
+                    ->placeholder('e.g., Vanilla, Musk, Sandalwood')
+                    ->helperText('Lasting scents (3+ hours)')
+                    ->maxLength(255),
             ]),
 
             Grid::make(3)->schema([
-                TextInput::make('details.volume_ml')->numeric()->label('Volume (ml)'),
-                TextInput::make('details.longevity_hours')->numeric()->label('Longevity (hrs)'),
-                TextInput::make('details.country_of_origin')->label('Country of Origin'),
+                TextInput::make('details.volume_ml')
+                    ->numeric()
+                    ->label('Volume (ml)')
+                    ->minValue(1)
+                    ->maxValue(1000)
+                    ->suffix('ml')
+                    ->helperText('Bottle size in milliliters'),
+                    
+                TextInput::make('details.longevity_hours')
+                    ->numeric()
+                    ->label('Longevity (hours)')
+                    ->minValue(1)
+                    ->maxValue(24)
+                    ->suffix('hrs')
+                    ->helperText('Expected duration on skin'),
+                    
+                TextInput::make('details.country_of_origin')
+                    ->label('Country of Origin')
+                    ->placeholder('e.g., France, Italy, UAE')
+                    ->helperText('Where the perfume is manufactured'),
             ]),
-            Grid::make(2)->schema([
-                RichEditor::make('details.short_description')->label('Short Description'),
-                RichEditor::make('details.long_description')->label('Short Description'),
+            Grid::make(1)->schema([
+                RichEditor::make('details.short_description')
+                    ->label('Short Description')
+                    ->placeholder('Brief product summary for listings...')
+                    ->toolbarButtons([
+                        'bold',
+                        'italic',
+                        'link',
+                        'bulletList',
+                    ])
+                    ->helperText('Brief description for product cards (recommended: 100-150 characters)'),
+            ]),
+            
+            Grid::make(1)->schema([
+                RichEditor::make('details.long_description')
+                    ->label('Detailed Description')
+                    ->placeholder('Comprehensive product description with features, benefits, and usage instructions...')
+                    ->toolbarButtons([
+                        'bold',
+                        'italic',
+                        'link',
+                        'bulletList',
+                        'orderedList',
+                        'h2',
+                        'h3',
+                    ])
+                    ->helperText('Detailed description for product detail page'),
             ]),
 
-            TextInput::make('stock.quantity')->label('Stock Quantity')->numeric()->required(),
+            TextInput::make('stock.quantity')
+                ->label('Stock Quantity')
+                ->numeric()
+                ->minValue(0)
+                ->required()
+                ->helperText('Total quantity available in stock'),
         ]);
     }
 
