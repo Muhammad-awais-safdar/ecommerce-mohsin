@@ -63,7 +63,7 @@ class ProductResource extends Resource
                     ->disabled(), 
             ]),
 
-            Textarea::make('description')->label('Short Description'),
+            // Textarea::make('description')->label('Short Description'),
 
             Grid::make(3)->schema([
                 Select::make('details.gender')
