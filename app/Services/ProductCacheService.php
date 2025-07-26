@@ -28,7 +28,16 @@ class ProductCacheService
             return Product::get();
         });
     }
-    
+    public function dealOfTheDayProducts()
+    {
+        return Cache::remember('homepage_products', self::CACHE_TTL, function () {
+            return Product::where('is_deal', true)
+                ->orderByDesc('discount_percentage')
+                ->limit(10)
+                ->get();
+        });
+    }
+
     public function getFeaturedProducts()
     {
         return Cache::remember('homepage_featured_products', self::CACHE_TTL, function () {

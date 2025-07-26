@@ -19,6 +19,7 @@ class FrontendController extends Controller
         });
         
         $products = $cacheService->getHomepageProducts();
+        $DealOfTheproducts = $cacheService->dealOfTheDayProducts();
         $allproducts = $cacheService->getFeaturedProducts();
         
         $ebayVerified = Cache::remember('ebay_verified', 3600, function () {
@@ -28,7 +29,7 @@ class FrontendController extends Controller
         $products = $cacheService->getHomepageProducts();
         $allproducts = $cacheService->getFeaturedProducts();
         
-        return view('Ecommerce.Mainindex', compact('products', 'allproducts','ebayVerified'));
+        return view('Ecommerce.Mainindex', compact('products', 'DealOfTheproducts', 'allproducts','ebayVerified'));
     }
     public function shop(Request $request, ProductCacheService $cacheService)
     {

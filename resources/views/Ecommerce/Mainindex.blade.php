@@ -152,7 +152,7 @@
             <div class="owl-products owl-slick equal-container nav-center"
                 data-slick='{"autoplay":true, "autoplaySpeed":3000, "arrows":false, "dots":false, "infinite":true, "speed":3000, "rows":1}'
                 data-responsive='[{"breakpoint":"2000","settings":{"slidesToShow":4}},{"breakpoint":"1200","settings":{"slidesToShow":3}},{"breakpoint":"992","settings":{"slidesToShow":2}},{"breakpoint":"480","settings":{"slidesToShow":1}}]'>
-                @foreach ($products as $item)
+                @foreach ($DealOfTheproducts as $item)
                 @php
                 $originalPrice = $item->price;
                 $discount = $item->discount_percentage ?? 0;
@@ -167,7 +167,7 @@
                             <div class="flash">
                                 <span class="onnew">
                                     <span class="text">
-                                        new
+                                        -{{ $item->discount_percentage }}%
                                     </span>
                                 </span>
                             </div>
