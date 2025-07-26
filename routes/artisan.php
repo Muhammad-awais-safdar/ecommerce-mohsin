@@ -53,13 +53,13 @@ Route::middleware(['web'])->group(function () {
 
 
 
-    Route::get('/artisan/migrate-fresh-seed', function () {
-        // Run migrate:fresh first
-        Artisan::call('migrate:fresh', ['--force' => true]);
+    // Route::get('/artisan/migrate-fresh-seed', function () {
+    //     // Run migrate:fresh first
+    //     Artisan::call('migrate:fresh', ['--force' => true]);
 
-        // Then seed the database
-        Artisan::call('db:seed', ['--force' => true]);
+    //     // Then seed the database
+    //     Artisan::call('db:seed', ['--force' => true]);
 
-        return '✅ Database migrated fresh and seeding complete: <br>' . nl2br(Artisan::output());
-    });
+    //     return '✅ Database migrated fresh and seeding complete: <br>' . nl2br(Artisan::output());
+    // });
 });
