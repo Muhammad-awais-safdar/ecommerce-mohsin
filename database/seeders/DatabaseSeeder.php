@@ -18,11 +18,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call([
-          
-        ]);
+      
         
-        $this->call(ActivityLogTableSeeder::class);
         $this->call(ContactsTableSeeder::class);
         $this->call(EbayVerifiedsTableSeeder::class);
         $this->call(PagesTableSeeder::class);
@@ -39,6 +36,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ThemeSettingsTableSeeder::class);
         $this->call(TrackingScriptsTableSeeder::class);
         $this->call(UsersTableSeeder::class);
-        $this->call(LoginActivitiesTableSeeder::class);
+        $this->call(ActivityLogTableSeeder::class);
+        // $this->call(LoginActivitiesTableSeeder::class);
     }
 }

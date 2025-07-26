@@ -13,7 +13,7 @@ class Product extends Model
 {
     use SoftDeletes, LogsActivityGlobally;
     use HasFactory;
-    protected $fillable = ['name', 'slug', 'description', 'price', 'images', 'discount_percentage'];
+    protected $fillable = ['name', 'slug', 'description', 'price', 'images','status', 'discount_percentage','sku','is_deal','sales_count'];
 
     public function reviews()
     {
@@ -30,18 +30,28 @@ class Product extends Model
     protected $casts = [
         'images' => 'array',
     ];
+
     protected static function boot()
     {
         parent::boot();
 
         static::creating(function ($product) {
+            // Create slug from name
             $product->slug = Str::slug($product->name);
+
+            // Generate unique SKU
+            do {
+                $sku = 'PROD-' . strtoupper(Str::random(6));
+            } while (self::where('sku', $sku)->exists());
+
+            $product->sku = $sku;
         });
 
         static::updating(function ($product) {
             $product->slug = Str::slug($product->name);
         });
     }
+
 
     // App\Models\Product
     public function scopeFilterByBrand($query, $brand)
