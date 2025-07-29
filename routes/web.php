@@ -95,6 +95,20 @@ Route::get('/download-receipt-image/{orderId}', [OrderReceiptController::class, 
 Route::post('/log-activity', [ActivityLogController::class, 'logActivity'])->name('log.activity');
 Route::get('/activity-stats', [ActivityLogController::class, 'getActivityStats'])->name('activity.stats');
 Route::get('/user-activity', [ActivityLogController::class, 'getUserActivity'])->name('user.activity');
+<<<<<<< Updated upstream
 // routes/web.php
 Route::get('/admin/export-database', [\App\Http\Controllers\Admin\DatabaseExportController::class, 'export'])
     ->name('admin.export.database');
+=======
+
+// Ad tracking routes
+Route::post('/ads/{ad}/track-view', [App\Http\Controllers\AdController::class, 'trackView'])->name('ads.track-view');
+Route::post('/ads/{ad}/track-click', [App\Http\Controllers\AdController::class, 'trackClick'])->name('ads.track-click');
+Route::get('/ads/random', [App\Http\Controllers\AdController::class, 'getRandomAd'])->name('ads.random');
+Route::get('/ads/{ad}/analytics', [App\Http\Controllers\AdController::class, 'getAnalytics'])->name('ads.analytics');
+
+// Test route for ads modal
+Route::get('/test-ads', function() {
+    return view('Ecommerce.pages.about');
+})->name('test.ads');
+>>>>>>> Stashed changes

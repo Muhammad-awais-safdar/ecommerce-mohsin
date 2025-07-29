@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+<<<<<<< Updated upstream
         $this->call([
             TrackingScriptSeeder::class,
 
@@ -31,5 +32,28 @@ class DatabaseSeeder extends Seeder
 
         Product::factory(30)->create();
         Review::factory()->count(200)->create();
+=======
+      
+        
+        $this->call(ContactsTableSeeder::class);
+        $this->call(EbayVerifiedsTableSeeder::class);
+        $this->call(PagesTableSeeder::class);
+        $this->call(ProductsTableSeeder::class);
+        $this->call(ProductDetailsTableSeeder::class);
+        // $this->call(ProductStocksTableSeeder::class);
+        $this->call(RefundRequestsTableSeeder::class);
+        $this->call(OffersTableSeeder::class);
+        $this->call(OrdersTableSeeder::class);
+        $this->call(OrderItemsTableSeeder::class);
+        $this->call(ReviewsTableSeeder::class);
+        $this->call(SeosTableSeeder::class);
+        $this->call(SiteSettingsTableSeeder::class);
+        $this->call(ThemeSettingsTableSeeder::class);
+        $this->call(TrackingScriptsTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
+        $this->call(ActivityLogTableSeeder::class);
+        $this->call(AdSeeder::class);
+        // $this->call(LoginActivitiesTableSeeder::class);
+>>>>>>> Stashed changes
     }
 }

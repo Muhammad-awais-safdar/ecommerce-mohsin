@@ -217,6 +217,7 @@
         </div>
     </div>
 
+
     @yield('content')
     <footer class="footer style7">
         <div class="container">
@@ -380,6 +381,13 @@
     <script src="{{ asset('js/activity-tracker.js') }}"></script>
     
     @stack('scripts')
+    
+    <!-- Ad Modal - Switch between simple and bootstrap versions -->
+    @if(config('ads.use_simple_modal', true))
+        <x-ad-modal-simple :delay="1000" :showOnMobile="true" />
+    @else
+        <x-ad-modal :delay="5000" :showOnMobile="true" />
+    @endif
 </body>
 
 </html>
