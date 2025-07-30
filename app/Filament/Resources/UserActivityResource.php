@@ -20,10 +20,10 @@ class UserActivityResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
     protected static ?string $navigationLabel = 'User Activity';
-    protected static ?string $navigationGroup = 'Awais access';
     protected static ?string $pluralModelLabel = 'User Activities';
     protected static ?string $modelLabel = 'User Activity';
-
+    
+    protected static ?string $navigationGroup = 'Awais access';
     public static function shouldRegisterNavigation(): bool
     {
         $user = Auth::user();

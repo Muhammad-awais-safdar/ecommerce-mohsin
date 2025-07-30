@@ -172,11 +172,18 @@
                                 </span>
                             </div>
                         </div>
+                        @php
+                        $images = is_array($item->images) ? $item->images : json_decode($item->images, true);
+                        @endphp
+                        
+                     
                         <div class="product-thumb">
                             <div class="thumb-inner">
+                              @if(!empty($images[0]))
                                 <a href="{{ route('product.show', $item->slug) }}">
-                                    <img src="{{ asset('storage/' . $item->images[0]) }}"loading="lazy" alt="img">
+                                    <img src="{{ asset('storage/' . $images[0]) }}" loading="lazy" alt="img">
                                 </a>
+                                @endif
                                 <div class="thumb-group">
                                     <div class="loop-form-add-to-cart">
                                         <button class="single_add_to_cart_button button add-to-cart-btn" data-id="{{ $item->id }}" data-name="{{ $item->name }}" data-price="{{ $finalPrice }}"
