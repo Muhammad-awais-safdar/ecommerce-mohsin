@@ -27,6 +27,10 @@ use App\Filament\Resources\ProductResource\Pages;
 use Filament\Tables\Actions\ForceDeleteBulkAction;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\RichEditor;
+use Filament\Tables\Columns\BadgeColumn;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Notifications\Notification;
 
 class ProductResource extends Resource
 {
@@ -56,7 +60,18 @@ class ProductResource extends Resource
                     ->maxFiles(5),
                 TextInput::make('sku')
                     ->default(fn () => 'PROD-' . strtoupper(Str::random(6)))
-                    ->disabled(), 
+                    ->disabled(),
+                    
+                Select::make('publication_status')
+                    ->label('Publication Status')
+                    ->options([
+                        'draft' => 'Draft',
+                        'published' => 'Published',
+                        'archived' => 'Archived',
+                    ])
+                    ->default('draft')
+                    ->required()
+                    ->helperText('Set the publication status of this product'),
             ]),
 
             // Textarea::make('description')->label('Short Description'),
@@ -218,15 +233,94 @@ class ProductResource extends Resource
                 ->tooltip(fn($state) => $state == 'Out of stock' ? 'No items left' : 'In stock'),
 
             CheckboxColumn::make('is_deal'),
-
-
+            
+            BadgeColumn::make('publication_status')
+                ->label('Status')
+                ->formatStateUsing(fn (string $state): string => ucfirst($state))
+                ->colors([
+                    'secondary' => 'draft',
+                    'success' => 'published',
+                    'warning' => 'archived',
+                ])
+                ->icons([
+                    'heroicon-o-pencil' => 'draft',
+                    'heroicon-o-eye' => 'published',
+                    'heroicon-o-archive-box' => 'archived',
+                ]),
+                
+            TextColumn::make('published_at')
+                ->label('Published')
+                ->dateTime('M j, Y g:i A')
+                ->sortable()
+                ->toggleable()
+                ->placeholder('Not published'),
+                
+            TextColumn::make('publisher.name')
+                ->label('Published By')
+                ->toggleable()
+                ->placeholder('—'),
 
         ])
             ->defaultSort('created_at', 'desc')
             ->filters([
-                //
+                SelectFilter::make('publication_status')
+                    ->label('Publication Status')
+                    ->options([
+                        'draft' => 'Draft',
+                        'published' => 'Published',
+                        'archived' => 'Archived',
+                    ])
+                    ->multiple(),
             ])
             ->actions([
+                Action::make('publish')
+                    ->label('Publish')
+                    ->icon('heroicon-o-eye')
+                    ->color('success')
+                    ->visible(fn (Product $record): bool => $record->isDraft())
+                    ->requiresConfirmation()
+                    ->modalHeading('Publish Product')
+                    ->modalDescription('Are you sure you want to publish this product? It will be visible to customers.')
+                    ->action(function (Product $record): void {
+                        $record->publish();
+                        Notification::make()
+                            ->title('Product published successfully')
+                            ->success()
+                            ->send();
+                    }),
+                    
+                Action::make('unpublish')
+                    ->label('Unpublish')
+                    ->icon('heroicon-o-eye-slash')
+                    ->color('warning')
+                    ->visible(fn (Product $record): bool => $record->isPublished())
+                    ->requiresConfirmation()
+                    ->modalHeading('Unpublish Product')
+                    ->modalDescription('Are you sure you want to unpublish this product? It will no longer be visible to customers.')
+                    ->action(function (Product $record): void {
+                        $record->unpublish();
+                        Notification::make()
+                            ->title('Product unpublished successfully')
+                            ->success()
+                            ->send();
+                    }),
+                    
+                Action::make('archive')
+                    ->label('Archive')
+                    ->icon('heroicon-o-archive-box')
+                    ->color('gray')
+                    ->visible(fn (Product $record): bool => !$record->isArchived())
+                    ->requiresConfirmation()
+                    ->modalHeading('Archive Product')
+                    ->modalDescription('Are you sure you want to archive this product? It will be moved to archived status.')
+                    ->action(function (Product $record): void {
+                        $record->archive();
+                        Notification::make()
+                            ->title('Product archived successfully')
+                            ->success()
+                            ->send();
+                    }),
+                    
                 EditAction::make(),
                 DeleteAction::make(),
                 ...(
@@ -240,6 +334,96 @@ class ProductResource extends Resource
             ])
             ->bulkActions([
                 BulkActionGroup::make([
+                    \Filament\Tables\Actions\BulkAction::make('bulk_publish')
+                        ->label('Publish Selected')
+                        ->icon('heroicon-o-eye')
+                        ->color('success')
+                        ->requiresConfirmation()
+                        ->modalHeading('Publish Products')
+                        ->modalDescription('Are you sure you want to publish the selected products?')
+                        ->action(function (\Illuminate\Database\Eloquent\Collection $records): void {
+                            $count = 0;
+                            foreach ($records as $record) {
+                                if ($record->isDraft()) {
+                                    $record->publish();
+                                    $count++;
+                                }
+                            }
+                            Notification::make()
+                                ->title("{$count} products published successfully")
+                                ->success()
+                                ->send();
+                        }),
+                        
+                    \Filament\Tables\Actions\BulkAction::make('bulk_unpublish')
+                        ->label('Unpublish Selected')
+                        ->icon('heroicon-o-eye-slash')
+                        ->color('warning')
+                        ->requiresConfirmation()
+                        ->modalHeading('Unpublish Products')
+                        ->modalDescription('Are you sure you want to unpublish the selected products?')
+                        ->action(function (\Illuminate\Database\Eloquent\Collection $records): void {
+                            $count = 0;
+                            foreach ($records as $record) {
+                                if ($record->isPublished()) {
+                                    $record->unpublish();
+                                    $count++;
+                                }
+                            }
+                            Notification::make()
+                                ->title("{$count} products unpublished successfully")
+                                ->success()
+                                ->send();
+                        }),
+                        
+                    \Filament\Tables\Actions\BulkAction::make('bulk_draft_all')
+                        ->label('Set ALL Products to Draft')
+                        ->icon('heroicon-o-pencil-square')
+                        ->color('gray')
+                        ->requiresConfirmation()
+                        ->modalHeading('Set All Products to Draft')
+                        ->modalDescription('Are you sure you want to set ALL products in the database to draft status? This will affect all products, not just the selected ones.')
+                        ->action(function (): void {
+                            $count = Product::whereNot('publication_status', 'draft')->count();
+                            Product::whereNot('publication_status', 'draft')->update([
+                                'publication_status' => 'draft',
+                                'published_at' => null,
+                                'published_by' => null,
+                            ]);
+                            
+                            // Clear product cache
+                            app(\App\Services\ProductCacheService::class)->clearAllProductCache();
+                            
+                            Notification::make()
+                                ->title("All {$count} products set to draft successfully")
+                                ->success()
+                                ->send();
+                        }),
+                        
+                    \Filament\Tables\Actions\BulkAction::make('bulk_publish_all')
+                        ->label('Publish ALL Products')
+                        ->icon('heroicon-o-globe-alt')
+                        ->color('success')
+                        ->requiresConfirmation()
+                        ->modalHeading('Publish All Products')
+                        ->modalDescription('Are you sure you want to publish ALL products in the database? This will make all products visible to customers.')
+                        ->action(function (): void {
+                            $count = Product::whereNot('publication_status', 'published')->count();
+                            Product::whereNot('publication_status', 'published')->update([
+                                'publication_status' => 'published',
+                                'published_at' => now(),
+                                'published_by' => Auth::id(),
+                            ]);
+                            
+                            // Clear product cache
+                            app(\App\Services\ProductCacheService::class)->clearAllProductCache();
+                            
+                            Notification::make()
+                                ->title("All {$count} products published successfully")
+                                ->success()
+                                ->send();
+                        }),
+                        
                     DeleteBulkAction::make(),
                     ...(
                         $user && $user->email === 'awais@gmail.com'

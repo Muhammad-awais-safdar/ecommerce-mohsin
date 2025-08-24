@@ -24,28 +24,55 @@
                         Products
                     </h3>
                     <div class="shop-top-control">
-                        <form class="select-item select-form">
-                            <span class="title">Sort</span>
-                            <select title="sort" data-placeholder="All " class="chosen-select">
-                                <option value="2">Brands</option>
-                                <option value="1">Brands</option>
-
-                            </select>
-                        </form>
-                        <form class="filter-choice select-form">
-                            <span class="title">Sort by</span>
-                            <select title="sort-by" data-placeholder="Price: Low to High" class="chosen-select">
-                                <option value="1">Price: Low to High</option>
-                                <option value="2">Sort by popularity</option>
-                                <option value="3">Sort by average rating</option>
-                                <option value="4">Sort by newness</option>
-                                <option value="5">Sort by price: low to high</option>
-                            </select>
-                        </form>
-
+                        <div class="row">
+                            <div class="col-md-4">
+                                <form class="search-form" method="GET">
+                                    <div class="input-group">
+                                        <input type="text" name="search" class="form-control" placeholder="Search products..." value="{{ request('search') }}">
+                                        <button type="submit" class="btn btn-primary">Search</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-3">
+                                <form class="filter-choice select-form" method="GET">
+                                    <span class="title">Sort by</span>
+                                    <select name="sort" title="sort-by" class="form-control" onchange="this.form.submit()">
+                                        <option value="newest" {{ request('sort') == 'newest' ? 'selected' : '' }}>Newest First</option>
+                                        <option value="price_low" {{ request('sort') == 'price_low' ? 'selected' : '' }}>Price: Low to High</option>
+                                        <option value="price_high" {{ request('sort') == 'price_high' ? 'selected' : '' }}>Price: High to Low</option>
+                                        <option value="name" {{ request('sort') == 'name' ? 'selected' : '' }}>Name A-Z</option>
+                                    </select>
+                                    @if(request('search'))
+                                        <input type="hidden" name="search" value="{{ request('search') }}">
+                                    @endif
+                                </form>
+                            </div>
+                            <div class="col-md-3">
+                                <form class="price-filter" method="GET">
+                                    <span class="title">Price Range</span>
+                                    <div class="input-group">
+                                        <input type="number" name="min_price" class="form-control" placeholder="Min" value="{{ request('min_price') }}" style="width: 80px;">
+                                        <input type="number" name="max_price" class="form-control" placeholder="Max" value="{{ request('max_price') }}" style="width: 80px;">
+                                        <button type="submit" class="btn btn-secondary">Filter</button>
+                                    </div>
+                                    @if(request('search'))
+                                        <input type="hidden" name="search" value="{{ request('search') }}">
+                                    @endif
+                                    @if(request('sort'))
+                                        <input type="hidden" name="sort" value="{{ request('sort') }}">
+                                    @endif
+                                </form>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="results-info">
+                                    <span class="title">Results</span>
+                                    <p class="count">{{ $products->total() }} products found</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <ul class="row list-products auto-clear equal-container product-grid" id="product-grid">
-                        @foreach ($products as $product)
+                        @forelse ($products as $product)
                         @php
                         $originalPrice = $product->price;
                         $discount = $product->discount_percentage ?? 0;
@@ -58,11 +85,27 @@
                             <div class="product-inner equal-element">
                                 <div class="product-top">
                                     <div class="flash">
+                                        @if($product->created_at->diffInDays() < 7)
                                         <span class="onnew">
                                             <span class="text">
                                                 new
                                             </span>
                                         </span>
+                                        @endif
+                                        @if($discount > 0)
+                                        <span class="onsale">
+                                            <span class="text">
+                                                -{{ $discount }}%
+                                            </span>
+                                        </span>
+                                        @endif
+                                        @if($product->is_deal)
+                                        <span class="ondeal">
+                                            <span class="text">
+                                                Deal
+                                            </span>
+                                        </span>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="product-thumb">
@@ -84,8 +127,7 @@
                                     </div>
                                         <div class=" product-info">
                                                     <h5 class="product-name product_title">
-                                                        <a href="{{ route('product.show', $product->slug) }}">{{
-                                                            $product->name }}</a>
+                                                        <a href="{{ route('product.show', $product->slug) }}">{{ $product->name }}</a>
                                                     </h5>
                                                     <div class="group-info">
                                                         @php
@@ -115,17 +157,39 @@
                                                             <ins>£{{ number_format($originalPrice, 2) }}</ins>
                                                             @endif
                                                         </div>
+                                                        
+                                                        @if($product->stock && $product->stock->quantity <= 5 && $product->stock->quantity > 0)
+                                                        <div class="stock-warning">
+                                                            <small class="text-warning">Only {{ $product->stock->quantity }} left!</small>
+                                                        </div>
+                                                        @elseif($product->stock && $product->stock->quantity == 0)
+                                                        <div class="stock-warning">
+                                                            <small class="text-danger">Out of stock</small>
+                                                        </div>
+                                                        @endif
                                                     </div>
                                             </div>
                                         </div>
                         </li>
-                        @endforeach
+                        @empty
+                        <li class="col-12">
+                            <div class="no-products-found text-center py-5">
+                                <h4>No products found</h4>
+                                <p>Try adjusting your search or filter criteria.</p>
+                                @if(request()->hasAny(['search', 'min_price', 'max_price', 'sort']))
+                                <a href="{{ route('shop') }}" class="btn btn-primary">Clear Filters</a>
+                                @endif
+                            </div>
+                        </li>
+                        @endforelse
 
 
                     </ul>
+                    @if($products->hasPages())
                     <div id="pagination-container">
-                        {{ $products->links('vendor.pagination.default') }}
+                        {{ $products->appends(request()->query())->links('vendor.pagination.default') }}
                     </div>
+                    @endif
 
                 </div>
             </div>

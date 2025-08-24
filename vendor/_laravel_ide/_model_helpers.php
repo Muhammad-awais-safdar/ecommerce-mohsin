@@ -26,6 +26,7 @@ namespace App\Models {
      * @property-read mixed $random_sales_message
      * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Review> $reviews
      * @property-read int|null $reviews_count
+     * @property-read \App\Models\User $publisher
      * @property-read \App\Models\ProductDetail $details
      * @property-read \App\Models\ProductStock $stock
      * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
@@ -45,6 +46,9 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereSalesCount($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereTotalSales($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereLastSaleAt($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product published()
+     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product draft()
+     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product archived()
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product filterByBrand()
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product newModelQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product newQuery()

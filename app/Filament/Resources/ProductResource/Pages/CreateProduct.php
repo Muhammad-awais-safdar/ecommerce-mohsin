@@ -32,5 +32,28 @@ class CreateProduct extends CreateRecord
         $this->record->stock()->updateOrCreate([], [
             'quantity' => (int)($data['stock']['quantity'] ?? 0),
         ]);
+
+        // Clear product cache after creating new product
+        app(\App\Services\ProductCacheService::class)->clearAllProductCache();
+        
+        // Send notification based on publication status
+        $status = $this->record->publication_status;
+        $message = match($status) {
+            'published' => 'Product created and published successfully! It is now visible to customers.',
+            'draft' => 'Product created as draft. You can publish it when ready.',
+            'archived' => 'Product created and archived.',
+            default => 'Product created successfully.'
+        };
+        
+        \Filament\Notifications\Notification::make()
+            ->title($message)
+            ->success()
+            ->send();
+    }
+
+    protected function getRedirectUrl(): string
+    {
+        // Redirect to edit page after creation for immediate review
+        return $this->getResource()::getUrl('edit', ['record' => $this->record]);
     }
 }

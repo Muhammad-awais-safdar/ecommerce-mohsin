@@ -13,7 +13,7 @@ class Product extends Model
 {
     use SoftDeletes, LogsActivityGlobally;
     use HasFactory;
-    protected $fillable = ['name', 'slug', 'description', 'price', 'images','status', 'discount_percentage','sku','is_deal','sales_count','total_sales','last_sale_at'];
+    protected $fillable = ['name', 'slug', 'description', 'price', 'images','status', 'discount_percentage','sku','is_deal','sales_count','total_sales','last_sale_at','publication_status','published_at','published_by'];
 
     public function reviews()
     {
@@ -30,6 +30,8 @@ class Product extends Model
     protected $casts = [
         'images' => 'array',
         'last_sale_at' => 'datetime',
+        'published_at' => 'datetime',
+        'publication_status' => 'string',
     ];
 
     protected static function boot()
@@ -51,6 +53,69 @@ class Product extends Model
         static::updating(function ($product) {
             $product->slug = Str::slug($product->name);
         });
+    }
+
+    // Publication status relationships and methods
+    public function publisher()
+    {
+        return $this->belongsTo(User::class, 'published_by');
+    }
+
+    // Scopes for publication status
+    public function scopePublished($query)
+    {
+        return $query->where('publication_status', 'published');
+    }
+
+    public function scopeDraft($query)
+    {
+        return $query->where('publication_status', 'draft');
+    }
+
+    public function scopeArchived($query)
+    {
+        return $query->where('publication_status', 'archived');
+    }
+
+    // Helper methods for publication status
+    public function isDraft(): bool
+    {
+        return $this->publication_status === 'draft';
+    }
+
+    public function isPublished(): bool
+    {
+        return $this->publication_status === 'published';
+    }
+
+    public function isArchived(): bool
+    {
+        return $this->publication_status === 'archived';
+    }
+
+    public function publish($userId = null): bool
+    {
+        return $this->update([
+            'publication_status' => 'published',
+            'published_at' => now(),
+            'published_by' => $userId ?? auth()->id(),
+        ]);
+    }
+
+    public function unpublish(): bool
+    {
+        return $this->update([
+            'publication_status' => 'draft',
+            'published_at' => null,
+            'published_by' => null,
+        ]);
+    }
+
+    public function archive(): bool
+    {
+        return $this->update([
+            'publication_status' => 'archived',
+        ]);
     }
 
 

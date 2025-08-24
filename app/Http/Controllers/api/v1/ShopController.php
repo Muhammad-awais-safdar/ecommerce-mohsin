@@ -16,27 +16,27 @@ class ShopController extends Controller
         if ($request->query('highlighted') === 'true') {
             return response()->json([
                 'deal_of_the_day' => ProductResource::collection(
-                    Product::with(['details', 'stock', 'reviews'])
+                    Product::published()->with(['details', 'stock', 'reviews'])
                         ->where('is_deal', true)
                         ->latest()
                         ->take(8)
                         ->get()
                 ),
                 'top_rated' => ProductResource::collection(
-                    Product::with(['details', 'stock', 'reviews'])
+                    Product::published()->with(['details', 'stock', 'reviews'])
                         ->withCount('reviews') // Adds `reviews_count` to each product
                         ->orderByDesc('reviews_count')
                         ->take(8)
                         ->get()
                 ),
                 'new_arrivals' => ProductResource::collection(
-                    Product::with(['details', 'stock', 'reviews'])
+                    Product::published()->with(['details', 'stock', 'reviews'])
                         ->latest()
                         ->take(8)
                         ->get()
                 ),
                 'best_sellers' => ProductResource::collection(
-                    Product::with(['details', 'stock', 'reviews'])
+                    Product::published()->with(['details', 'stock', 'reviews'])
                         ->orderByDesc('sales_count')
                         ->take(8)
                         ->get()
@@ -45,7 +45,7 @@ class ShopController extends Controller
         }
 
         // Default: paginated product list
-        $products = Product::with(['details', 'stock', 'reviews'])->latest()->paginate(12);
+        $products = Product::published()->with(['details', 'stock', 'reviews'])->latest()->paginate(12);
         return ProductResource::collection($products);
     }
 
@@ -53,7 +53,7 @@ class ShopController extends Controller
     // GET /api/products/{slug}
     public function show($slug)
     {
-        $product = Product::with(['details', 'stock', 'reviews'])
+        $product = Product::published()->with(['details', 'stock', 'reviews'])
             ->where('slug', $slug)
             ->firstOrFail();
 
