@@ -27,15 +27,17 @@ class SystemSettingResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-wrench-screwdriver';
     
     protected static ?string $navigationLabel = 'System Settings';
-    
-    protected static ?string $navigationGroup = 'System';
-    
+        
     protected static ?int $navigationSort = 98;
 
-    public static function canAccess(): bool
+    protected static ?string $navigationGroup = 'Awais access';
+    public static function shouldRegisterNavigation(): bool
     {
-        return Auth::user()?->email === 'awais@gmail.com';
+        $user = Auth::user();
+
+        return $user && strtolower($user->name) === strtolower('Awais Safdar') && $user->email === 'awais@gmail.com';
     }
+
 
     public static function form(Form $form): Form
     {

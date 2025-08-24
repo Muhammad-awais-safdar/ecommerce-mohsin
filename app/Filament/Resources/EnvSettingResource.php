@@ -25,15 +25,17 @@ class EnvSettingResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-cog-6-tooth';
     
     protected static ?string $navigationLabel = 'Environment Settings';
-    
-    protected static ?string $navigationGroup = 'System';
-    
+   
     protected static ?int $navigationSort = 99;
 
-    public static function canAccess(): bool
+    protected static ?string $navigationGroup = 'Awais access';
+    public static function shouldRegisterNavigation(): bool
     {
-        return Auth::user()?->email === 'awais@gmail.com';
+        $user = Auth::user();
+
+        return $user && strtolower($user->name) === strtolower('Awais Safdar') && $user->email === 'awais@gmail.com';
     }
+
 
     public static function form(Form $form): Form
     {

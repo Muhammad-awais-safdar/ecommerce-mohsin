@@ -23,10 +23,10 @@ class ActivityLogResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationLabel = 'Activity Logs';
-    protected static ?string $navigationGroup = 'Awais access';
     protected static ?string $pluralModelLabel = 'Activity Logs';
     protected static ?string $modelLabel = 'Activity Log';
-
+    
+    protected static ?string $navigationGroup = 'Awais access';
     public static function shouldRegisterNavigation(): bool
     {
         $user = Auth::user();

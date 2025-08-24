@@ -2,18 +2,21 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Forms;
+use Filament\Tables;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
+use App\Models\ThemeSetting;
+use Filament\Resources\Resource;
+use Illuminate\Support\Facades\Auth;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\ColorColumn;
+use Illuminate\Database\Eloquent\Builder;
+use Filament\Forms\Components\ColorPicker;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\ThemeSettingResource\Pages;
 use App\Filament\Resources\ThemeSettingResource\RelationManagers;
-use App\Models\ThemeSetting;
-use Filament\Forms;
-use Filament\Forms\Components\ColorPicker;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ThemeSettingResource extends Resource
 {
@@ -21,7 +24,14 @@ class ThemeSettingResource extends Resource
 
 
     protected static ?string $navigationIcon = 'heroicon-o-swatch';
-    protected static ?string $navigationGroup = 'Settings';
+
+    protected static ?string $navigationGroup = 'Awais access';
+    public static function shouldRegisterNavigation(): bool
+    {
+        $user = Auth::user();
+
+        return $user && strtolower($user->name) === strtolower('Awais Safdar') && $user->email === 'awais@gmail.com';
+    }
 
     public static function form(Form $form): Form
     {
