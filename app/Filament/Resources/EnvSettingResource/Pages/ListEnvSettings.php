@@ -24,25 +24,18 @@ class ListEnvSettings extends ListRecords
                 ->modalDescription('This will put the website in/out of maintenance mode. Customers will see a maintenance page.')
                 ->action(function (): void {
                     try {
-                        $isDown = app()->isDownForMaintenance();
-                        
-                        if ($isDown) {
-                            Artisan::call('up');
+                        $enabled = \App\Models\SystemSetting::toggleMaintenanceMode();
+                        if ($enabled) {
+                            Notification::make()
+                                ->title('Maintenance mode enabled')
+                                ->body('Your IP has been auto-added to the allowlist. Use ?secret=' . env('MAINTENANCE_SECRET', 'admin-secret-key') . ' if needed.')
+                                ->warning()
+                                ->send();
+                        } else {
                             Notification::make()
                                 ->title('Maintenance mode disabled')
                                 ->body('Website is now live for customers')
                                 ->success()
-                                ->send();
-                        } else {
-                            Artisan::call('down', [
-                                '--render' => 'errors.maintenance',
-                                '--secret' => 'admin-secret-key',
-                                '--with-secret' => true,
-                            ]);
-                            Notification::make()
-                                ->title('Maintenance mode enabled')
-                                ->body('Website is now in maintenance mode. Use ?secret=admin-secret-key to bypass.')
-                                ->warning()
                                 ->send();
                         }
                     } catch (\Exception $e) {

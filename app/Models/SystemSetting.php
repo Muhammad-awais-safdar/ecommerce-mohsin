@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
+use App\Models\EnvSetting;
 
 class SystemSetting extends Model
 {
@@ -48,11 +49,32 @@ class SystemSetting extends Model
             self::set('maintenance_mode', false, 'boolean', 'Website maintenance mode status');
             return false;
         } else {
-            Artisan::call('down', [
+            // Parse whitelist IPs from env, comma-separated
+            $allowIps = array_values(array_filter(array_map('trim', explode(',', (string) env('MAINTENANCE_ALLOW_IPS', '')))));
+
+            // Auto-include current admin IP so they remain whitelisted
+            $currentIp = request()->ip() ?? null;
+            if ($currentIp && !in_array($currentIp, $allowIps, true)) {
+                $allowIps[] = $currentIp;
+                // Persist back to .env so it's kept for future toggles
+                try {
+                    EnvSetting::updateEnvVariable('MAINTENANCE_ALLOW_IPS', implode(', ', $allowIps));
+                } catch (\Throwable $e) {
+                    // Failing to write .env should not block maintenance action
+                }
+            }
+
+            $options = [
                 '--render' => 'errors.maintenance',
-                '--secret' => 'admin-secret-key',
+                '--secret' => env('MAINTENANCE_SECRET', 'admin-secret-key'),
                 '--with-secret' => true,
-            ]);
+            ];
+
+            if (!empty($allowIps)) {
+                $options['--allow'] = $allowIps; // allowlist IPs
+            }
+
+            Artisan::call('down', $options);
             self::set('maintenance_mode', true, 'boolean', 'Website maintenance mode status');
             return true;
         }
