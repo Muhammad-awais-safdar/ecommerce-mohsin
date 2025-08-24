@@ -92,9 +92,9 @@ Route::middleware(['web'])->group(function () {
         $output[] = Artisan::output();
 
         // 6. Optimize
-        Artisan::call('optimize');
-        $output[] = "⚡ Optimized.";
-        $output[] = Artisan::output();
+        // Artisan::call('optimize');
+        // $output[] = "⚡ Optimized.";
+        // $output[] = Artisan::output();
 
         // Return styled HTML
         return response()->make("
